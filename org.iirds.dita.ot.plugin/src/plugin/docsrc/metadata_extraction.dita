@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="metadata_extraction">
+    <title>Metadata extraction</title>
+    <conbody>
+        <p>The iiRDS plugin comes with a number of predefined metadata handlers to extract metadata
+            from DITA and map them to iiRDS metadata. The iiRDS plugin can process DITA maps or
+            individual topics.</p>
+        <p>In the RDF file with the iiRDS metadata, the plugin creates the following RDF
+            resources:</p>
+        <ul>
+            <li>
+                <p>An <codeph>iirds:Package</codeph> and an <codeph>iirds:Document</codeph> for the
+                    root DITA map, if available. The <codeph>iirds:DocumentType</codeph> is set to
+                        <codeph>iirds:OperatingInstruction</codeph>.</p>
+            </li>
+            <li>
+                <p>An <codeph>iirds:Topic</codeph> for each topic in a DITA map or for a single DITA
+                    topic. For each topic, an additional <codeph>iirds:InformationObject</codeph> is
+                    generated.</p>
+            </li>
+        </ul>
+        <p>In addition to the information units, the plugin creates a directory of the structure of
+            the DITA map, where each entry in the <filepath>index.html</filepath> of the resulting
+            HTML output is represented by an <codeph>iirds:DirectoryNode</codeph>. </p>
+        <p>By default, iiRDS metadata is extracted from the attributes of specific elements or from
+            the text of specific elements. See <xref keyref="metadata_mapping"/> for a detailed
+            description of the mapping from DITA content to iiRDS and <xref
+                keyref="metadata_handler_behavior"/> to understand how the metadata is mapped.</p>
+    </conbody>
+</concept>

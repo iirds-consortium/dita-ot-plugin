@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="installation_registry">
+    <title>Install the iiRDS plugin from the DITA-OT registry</title>
+    <shortdesc>The iiRDS plugin can be installed offline from a ZIP archive or online from the
+        DITA-OT registry. This topic describes the online installation.</shortdesc>
+    <taskbody>
+        <prereq>Your computer is connected to the internet. </prereq>
+        <steps>
+            <step>
+                <cmd>In the <filepath>bin</filepath> directory of your DITA-OT installation, open a
+                    command-line client.</cmd>
+            </step>
+            <step>
+                <cmd>In the command-line client, run <codeph>dita install
+                        org.iirds.dita.package</codeph>.</cmd>
+            </step>
+        </steps>
+        <result id="result_vdl_l3v_c1c">
+            <p>The org.iirds.dita.package plugin is installed in your DITA-OT. </p>
+        </result>
+        <postreq id="postreq_zg5_4jv_c1c">You can build iiRDS packages from your DITA
+            content.</postreq>
+    </taskbody>
+    <related-links>
+        <link href="https://www.dita-ot.org/3.7/topics/plugins-installing" format="html"
+            scope="external"/>
+    </related-links>
+</task>

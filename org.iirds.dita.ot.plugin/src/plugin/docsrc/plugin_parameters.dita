@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
+<reference id="plugin-parameters">
+    <title>Plugin parameters</title>
+    <refbody>
+        <section>
+            <p>The following  command-line parameters are provided by the iiRDS plugin:</p>
+            <parml>
+                <plentry>
+                    <pt>--iirds.contentpath</pt>
+                    <pd>
+                        <p>Defines the name of the folder in the iiRDS package containing all
+                            content files. When not set, <codeph>content</codeph> is used. </p>
+                        <p>Example: <codeph>--iirds.contentpath=files</codeph></p>
+                    </pd>
+                </plentry>
+                <plentry>
+                    <pt>--iirds.metadatahandler</pt>
+                    <pd><p>Defines iiRDS metadata handlers for metadata extraction from DITA. When not set, all known iiRDS
+                            metadata handlers are applied. The parameter value is a + separated list
+                            of iiRDS metadata handler names. When a list is provided, then only the
+                            listed metadata handlers are used. Priority of the handlers is defined
+                            by the order of the list from left to right.</p><p>The following example extracts metadata only for <codeph>shortdes</codeph> and
+                                <codeph>prodname</codeph> DITA elements:
+                                <codeph>--iirds.metadatahandler=shortdesc+prodname</codeph>.</p>
+                        <p>The following metadata handlers are valid default list values. The
+                            default list values can be combined with custom metadata handlers.:</p>
+                        <dl id="dl_vgd_mg2_l1c">
+                            <dlentry>
+                                <dt><codeph>shortdesc</codeph></dt>
+                                <dd>Sets <codeph>iirds:has-abstract</codeph> to the value of the
+                                    DITA <codeph>shortdesc</codeph> element.</dd>
+                            </dlentry>
+                            <dlentry>
+                                <dt><codeph>prodname</codeph></dt>
+                                <dd>Sets <codeph>iirds:relates-to-product-variant</codeph>  to the
+                                    value of the DITA <codeph>prodname</codeph> element.</dd>
+                            </dlentry>
+                            <dlentry>
+                                <dt><codeph>component</codeph></dt>
+                                <dd>Sets <codeph>iirds:relates-to-component</codeph>  to the value
+                                    of the DITA <codeph>component</codeph> element.</dd>
+                            </dlentry>
+                            <dlentry>
+                                <dt><codeph>product-p</codeph></dt>
+                                <dd>Sets <codeph>iirds:relates-to-product-variant</codeph>  to the
+                                    value of the DITA <codeph>product</codeph> attribute on the root
+                                    element.</dd>
+                            </dlentry>
+                            <dlentry>
+                                <dt><codeph>critdates</codeph></dt>
+                                <dd>Sets <codeph>iirds:dateOfLastModification</codeph>,
+                                        <codeph>iirds:dateOfCreation</codeph>,
+                                        <codeph>iirds:dateOfEffect</codeph>, and
+                                        <codeph>iirds:dateOfExpiry</codeph>   to the value of the
+                                    DITA child elements of   the <codeph>critdates</codeph>
+                                    element.</dd>
+                            </dlentry>
+                            <dlentry>
+                                <dt><codeph>copyright</codeph></dt>
+                                <dd>Sets <codeph>iirds:rights</codeph>  to the value of the DITA
+                                        <codeph>copyright</codeph> element.</dd>
+                            </dlentry>
+                            <dlentry>
+                                <dt><codeph>audience</codeph></dt>
+                                <dd>Sets <codeph>iirds:iirds:relates-to-qualification</codeph>  to
+                                    the value of the DITA <codeph>audience</codeph> element.</dd>
+                            </dlentry>
+                            <dlentry>
+                                <dt><codeph>audience-p</codeph></dt>
+                                <dd>Sets <codeph>iirds:iirds:relates-to-qualification</codeph>  to
+                                    the value of the DITA <codeph>audience</codeph> attribute on the
+                                    root element.</dd>
+                            </dlentry>
+                            <dlentry>
+                                <dt><codeph>default</codeph></dt>
+                                <dd>Applies all metadata handlers. Allows to combine custom metadata
+                                    handlers with the default handlers.</dd>
+                            </dlentry>
+                        </dl>
+                    </pd>
+
+                </plentry>
+                <plentry>
+                    <pt>--iirds.irihandler</pt>
+                    <pd>
+                        <p>Defines which IRI handlers to be used for assigning IRIs to metadata,
+                            information units and information objects. The parameter value is a +
+                            separated list of IRI handler names. Priority of the handlers is defined
+                            by the order of the list from left to right.</p>
+                        <p>The following example combines a custom IRI handler with the default IRI
+                            handler:
+                            <codeph>--iirds.irihandler=customirihandler+default</codeph>.</p>
+                    </pd>
+                </plentry>
+            </parml>
+        </section>
+    </refbody>
+    <related-links>
+        <link keyref="customization_metadata_extraction"/>
+        <link keyref="customization_IRI_handler"/>
+    </related-links>
+</reference>

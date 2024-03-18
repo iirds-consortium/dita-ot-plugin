@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="metadata_handler_behavior">
+    <title>Behavior of the default metadata handler</title>
+    <conbody>
+
+        <p>If an iiRDS package generated from DITA content does not contain the expected metadata,
+            note the following about the behavior of the metadata handler in the iiRDS plugin:</p>
+        <ul>
+            <li>The metadata handler extracts the metadata that is present in the preprocessed XML.
+                The DITA standard defines which metadata is propagated from maps to topics or gets
+                inherited from parent topics. The DITA standard also defines whether multiple values
+                for the same metadata element or attribute are merged into a single value or whether
+                multiple values can be aggregated in a topic. To change this behavior, implement a
+                custom metadata handler.</li>
+            <li>The metadata handler processes attribute values as they come. If you use a
+                subjectscheme map to control attribute values and this subjectscheme map contains
+                navigation titles with verbose labels for the attribute values, then the resulting
+                RDF will only contain the attribute value. Example: A subject scheme defines the
+                value "product-a" for the @product attribute. "product-a" corresponds to the product
+                Name "Awesome Product". The RDF will contain an instance of <codeph>iiRDS:Product =
+                    "product-a"</codeph>. To change this behavior, implement a custom metadata
+                handler.</li>
+            <li>Metadata values are often language-dependent. Which product name are usually the
+                same in any language, metadata such as component names or user roles differ from
+                language to language. The plugin has no way of knowing the component "engine" (EN)
+                is the same as the component "Motor" (DE). Therefore, the metadata entries for this
+                component differ in the English and the German iiRDS package even if they mean the
+                same object in the real world. If you need to have the same iiRDS metadata values
+                across languages, you either need to use controlled metadata values in the same
+                language or implement a custom metadata handler that performs an additional
+                processing step during which the values are mapped and harmonized.</li>
+        </ul>
+        <section>To find out how a custom metadata handler can be used with the iiRDS plugin, see
+                <xref keyref="customization_metadata_extraction"/>.</section>
+    </conbody>
+</concept>

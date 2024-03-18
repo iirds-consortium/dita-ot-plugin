@@ -1,0 +1,1 @@
+C:\Users\kreu09\git\tekom\iirds.org-dita\dita-ot\bin\dita --input test.ditamap -o out -t temp --clean.temp=no --format=iirds

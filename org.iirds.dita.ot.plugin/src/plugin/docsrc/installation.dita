@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="installation">
+    <title>Install the iiRDS plugin offline</title>
+    <shortdesc>The iiRDS plugin can be installed offline from a ZIP archive or online from the
+        DITA-OT registry or the <xref href="https://iirgs.org" format="html" scope="external"
+            >https://iirds.org</xref> website. This topic describes the offline
+        installation.</shortdesc>
+    <taskbody>
+        <prereq>
+            <p>The <filepath>org.iirds.dita.package-1.0.0.zip</filepath> archive is available on
+                your local computer. The path to the sources is available at <xref
+                    href="https://www.iirds.org" format="html" scope="external"/>.</p>
+        </prereq>
+        <steps>
+            <step>
+                <cmd>In the <filepath>plugins</filepath> directory for your DITA-OT installation,
+                    create a new directory <filepath>org.iirds.dita.package</filepath></cmd>
+            </step>
+            <step>
+                <cmd>switch to the created directory and unpack the
+                        <filepath>org.iirds.dita.package-1.0.0.zip</filepath> archive.</cmd>
+            </step>
+            <step>
+                <cmd>In the <filepath>bin</filepath> directory of your DITA-OT installation, open a
+                    command-line client.</cmd>
+            </step>
+            <step>
+                <cmd>In the command-line client, run <codeph>dita install -v</codeph>.</cmd>
+            </step>
+        </steps>
+        <result>
+            <p>The org.iirds.dita.package plugin is installed in your DITA-OT. </p>
+        </result>
+        <postreq>You can build iiRDS packages from your DITA
+            content.</postreq>
+    </taskbody>
+    <related-links>
+        <link href="https://www.dita-ot.org/3.7/topics/plugins-installing" format="html"
+            scope="external"/>
+    </related-links>
+</task>

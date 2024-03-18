@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2023 Empolis Information Management GmbH 
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+     http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<project xmlns:dita="http://dita-ot.sourceforge.net" xmlns:if="ant:if" xmlns:unless="ant:unless" name="dita2iirds">
+
+	<target name="dita2iirds" depends="dita2iirds.init, build-init, dita2html5, iirds.package" />
+
+	<target name="dita2iirds.init" description="initialize DITA to iiRDS transformation">
+
+		<!-- set output directory for HTML transformations -->
+		<property name="temp.output.dir.name" value="html" />
+
+		<!-- set this property to enable iiRDS preprocessing" -->
+		<property name="iirds.processing" value="true" />
+
+		<!-- set the default content path in the iiRDS package -->
+		<condition property="iirds.contentpath" value="content">
+			<not>
+				<isset property="iirds.contentpath"/>
+			</not>
+		</condition>
+	</target>
+
+
+	<target name="iirds.package" 
+		dita:depends="dita2iirds.init, build-init, {iirds.package.pre}" 
+		dita:extension="depends org.dita.dost.platform.InsertDependsAction"
+		description="Zips all files in the output directory to create an iiRDS package">
+
+		<!-- do not compress, so mimetype file keeps uncompressed -->
+		<zip destfile="${output.dir}/${dita.map.filename.root}.iirds" compress="false" update="false">
+
+			<!-- add mimetype file -->
+			<zipfileset dir="${dita.plugin.org.iirds.dita.package.dir}/resources">
+				<include name="mimetype" />
+			</zipfileset>
+
+			<!-- add content -->
+			<zipfileset dir="${dita.output.dir}" prefix="${iirds.contentpath}">
+				<exclude name="${dita.map.filename.root}.iirds" />
+				<exclude name="META-INF/**/*" />
+				<exclude name="META-INF" />
+			</zipfileset>
+
+			<!-- add metadata -->
+			<zipfileset dir="${dita.output.dir}">
+				<include name="META-INF" />
+				<include name="META-INF/**/*" />
+			</zipfileset>
+		</zip>
+	</target>
+
+
+	<target name="iirds.extractMetadata" 
+		description="Extract metadata from map and topics"
+		dita:depends="{iirds.extractMetadata.pre}, iirds.doExtractMetadata, {iirds.extractMetadata.post}"
+	    dita:extension="depends org.dita.dost.platform.InsertDependsAction"
+		if="iirds.processing">
+	</target>
+
+	<target name="iirds.doExtractMetadata" description="Extract metadata from map and topics" if="iirds.processing">
+		<pipeline message="Extract iiRDS metadata" taskname="iirds.extractMetadata" inputmap="${user.input.file}">
+			<module class="org.iirds.dita.ot.plugin.module.IirdsGenerationModuleImpl" parallel="false">
+				<param name="transtype" value="${transtype}" />
+				<param name="METADATAHANDLERS" value="${iirds.metadatahandler}" if:set="iirds.metadatahandler" />
+				<param name="IRIHANDLERS" value="${iirds.irihandler}" if:set="iirds.irihandler" />
+				<param name="CONTENTPATH" value="${iirds.contentpath}" if:set="iirds.contentpath" />
+				<param name="OUTEXT" value="${args.outext}" if:set="args.outext"/>
+			</module>
+		</pipeline>
+	</target>
+
+</project>

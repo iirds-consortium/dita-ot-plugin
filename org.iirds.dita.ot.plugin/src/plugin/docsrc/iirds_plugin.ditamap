@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map xml:lang="en">
+    <title>iiRDS Plugin for the DITA Open Toolkit</title>
+    <topicmeta>
+        <author>tekom Deutschland e.V.</author>
+        <critdates>
+            <created date="2024-02-15"/>
+        </critdates>
+    </topicmeta>
+    <topicref href="introduction.dita" keys="plugin_introduction"/>
+    <topicref href="requirements.dita" keys="requirements"/>
+    <topicref href="installation.dita" keys="installation"/>
+    <topicref href="installation_registry.dita" keys="installation_reg"/>
+    <topicref href="generate_iirds_package.dita" keys="generate_iirds_package"/>
+    <topicref href="plugin_architecture_introduction.dita" keys="plugin_architecture">
+        <topicref href="metadata_extraction.dita" keys="metadata_extraction"/>
+        <topicref href="metadata_mapping.dita" keys="metadata_mapping"/>
+        <topicref href="metadata_handler_behavior.dita" keys="metadata_handler_behavior"/>
+        <topicref href="plugin_parameters.dita" keys="plugin_parameters"/>
+        <topicref href="unique_identifiers.dita" keys="unique_identifiers"/>
+    </topicref>
+    <topicref href="customization.dita" keys="customization">
+        <topicref href="customization_handlers.dita" keys="customization_handlers"></topicref>
+        <topicref href="customization_metadata_extraction.dita" keys="customization_metadata_extraction"></topicref>
+        <topicref href="customization_iri_handler.dita" keys="customization_IRI_handler"></topicref>
+        <topicref href="customization_html5_properties.dita" keys="customization_html5_properties"/>
+    </topicref>
+    <topicref href="license.dita" keys="license"></topicref>
+    
+</map>

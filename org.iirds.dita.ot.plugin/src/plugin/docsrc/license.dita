@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="license">
+    <title>License and contact information</title>
+    <conbody>
+        <p>The plugin is licensed under the open-source license „Apache License, Version 2.0“,
+            including the accompanying documentation and its source code. For details, see <xref
+                href="https://www.apache.org/licenses/LICENSE-2.0" format="html" scope="external"
+            />.</p>
+        <p>The plugin was developed for the iiRDS consortium by <xref href="https://empolis.com"
+                scope="external" format="html">Empolis Information Management GmbH</xref>, testing
+            and documentation was done by<xref href="https://parson-europe.com" scope="external"
+                format="html"> parson AG</xref>.</p>
+        <p>In case of questions, contact the iiRDS consortium, see <xref
+                href="https://www.iirds.org/contact" format="html" scope="external"/>. </p>
+    </conbody>
+</concept>

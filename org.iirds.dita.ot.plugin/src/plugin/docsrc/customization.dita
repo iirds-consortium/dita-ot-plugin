@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="customization">
+    <title>Customization</title>
+    <conbody>
+        <p>The iiRDS plugin can be customized to your specific requirements. The plugin provides the
+            following ways of customization:</p>
+        <ul id="ul_jqm_sqt_21c">
+            <li>
+                <p>DITA-OT Ant extension points</p>
+            </li>
+            <li>
+                <p>Java interface for metadata extraction and IRI generation</p>
+            </li>
+            <li>
+                <p>HTML5 DITA-OT build parameters</p>
+            </li>
+        </ul>
+        <section id="section_npt_vrt_21c">
+            <title>DITA-OT Ant extension points</title>
+            <p>The iiRDS plugin provides the following extension points that use Ant targets:</p>
+            <dl id="dl_agn_yrt_21c">
+                <dlentry>
+                    <dt><codeph>iirds.extractMetadata.pre</codeph></dt>
+                    <dd>Runs an Ant target after the DITA-OT preprocessing and before the iiRDS
+                        metadata extraction.</dd>
+                </dlentry>
+                <dlentry>
+                    <dt><codeph>iirds.extractMetadata.post</codeph></dt>
+                    <dd>Runs an Ant target after the iiRDS metadata extraction. Can be used to
+                        access the <filepath>metadata.rdf</filepath> file.</dd>
+                </dlentry>
+                <dlentry>
+                    <dt><codeph>iirds.package.pre</codeph></dt>
+                    <dd>Runs an Ant target after the HTML was built and before the iiRDS package is
+                        generated.</dd>
+                </dlentry>
+            </dl>
+            <p>For details on adding ANT targets to extension points, see <xref
+                    href="https://www.dita-ot.org/3.7/topics/plugin-antpreprocess" format="html"
+                    scope="external"/>.</p>
+        </section>
+        <section id="section_tjf_5b5_21c">
+            <title>Java interfaces</title>
+            <p>The iiRDS plugin provides the following Java interfaces:</p>
+            <dl id="dl_rm1_3d5_21c">
+                <dlentry>
+                    <dt><codeph>IirdsMetadataHandler</codeph></dt>
+                    <dd>Allows to implement project-specific metadata extraction for all RDF
+                        resources from DITA content.</dd>
+                </dlentry>
+                <dlentry>
+                    <dt><codeph>IRIHandler</codeph></dt>
+                    <dd>Allows to implement project-specific IRI generation for all RDF
+                        resources.</dd>
+                </dlentry>
+            </dl>
+            <p>For details, see <xref keyref="customization_metadata_extraction"/> and  <xref
+                    keyref="customization_IRI_handler"/>.</p>
+        </section>
+        <section id="section_s5l_dk5_21c">
+            <title>HTML5 build parameters</title>
+            <p>The iiRDS plugin extends the HTML5 transtype and supports the DITA-OT HTML5
+                parameters. For example, you can add project-specific CSS, inject XML into the HTML5
+                header element, or use custom XSLT. </p>
+            <p>For an example, see <xref keyref="customization_html5_properties"/>.</p>
+        </section>
+    </conbody>
+</concept>

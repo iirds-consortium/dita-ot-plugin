@@ -1,0 +1,43 @@
+<plugin id="org.iirds.dita.package">
+  <require plugin="org.dita.html5"/>
+  <feature extension="dita.conductor.lib.import" file="lib/collection.jar"/>
+  <feature extension="dita.conductor.lib.import" file="lib/commons-cli.jar"/>
+  <feature extension="dita.conductor.lib.import" file="lib/commons-codec.jar"/>
+  <feature extension="dita.conductor.lib.import" file="lib/commons-compress.jar"/>
+  <feature extension="dita.conductor.lib.import" file="lib/commons-csv.jar"/>
+  <feature extension="dita.conductor.lib.import" file="lib/commons-lang3.jar"/>
+  <feature extension="dita.conductor.lib.import" file="lib/jena-base.jar"/>
+  <feature extension="dita.conductor.lib.import" file="lib/jena-core.jar"/>
+  <feature extension="dita.conductor.lib.import" file="lib/jena-iri.jar"/>
+  <feature extension="dita.conductor.lib.import" file="lib/jena-shaded-guava.jar"/>
+  <feature extension="dita.conductor.lib.import" file="lib/org.iirds.dita.package.jar"/>
+  
+  <!--iiRDS extension points: -->
+  <extension-point id="iirds.extractMetadata.pre" name="Custom iiRDS metadata extraction pre-processing"/>
+  <extension-point id="iirds.extractMetadata.post" name="Custom iiRDS metadata extraction post-processing"/>
+  <extension-point id="iirds.package.pre" name="Custom step called just before the iiRDS archive gets packaged from the generated files"/>
+  <!-- END -->
+
+  <!-- define template file: -->  
+  <template file="build_dita2iirds_template.xml"/>
+  
+  <!-- define iiRDS transformation: -->  
+  <transtype name="iirds" extends="html5" desc="Creates an iiRDS publication package">
+  	<param name="iirds.metadatahandler" desc="Plus character separated list of metadata handlers to be used to generate iiRDS metadata from DITA" type="string">
+  		<val default="all"/>
+  	</param>
+  	<param name="iirds.irihandler" desc="Plus character separated list of IRI handlers to be used to generate IRIs for information units and metadata" type="string">
+  		<val default="all"/>
+  	</param>
+  	<param name="iirds.contentpath" desc="Relative path within the iiRDS package where the content files get stored" type="string">
+  		<val default="content"/>
+  	</param> 
+	<param name="args.outext" desc="Specifies the file extension for HTML5 output." type="string">
+		<val default="true">html</val>
+	</param>  	
+  </transtype>
+  
+  <!-- extension points implemented by this plugin: -->
+  <feature extension="ant.import" file="build_dita2iirds.xml"/>
+  <feature extension="depend.preprocess.post" value="iirds.extractMetadata" />
+</plugin>

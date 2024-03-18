@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="task_1" xml:lang="en">
+    <title>Task 1</title>
+    <shortdesc/>
+    <prolog>
+    	<critdates>
+    		<created date="2021-02-28" golive="2021-08-12"/>
+    		<revised modified="2021-09-12" expiry="2030-01-01"/>
+    	</critdates>
+        <metadata>
+            <prodinfo>
+                <prodname>Topic Product 1</prodname>
+                <component>Display</component>
+                <component>Engine</component>
+            </prodinfo>
+        </metadata>
+    </prolog>
+    <taskbody>
+        <context>
+            <p>Make it work</p>
+        </context>
+        <steps>
+            <step>
+                <cmd>Press the button</cmd>
+            </step>
+        </steps>
+    </taskbody>
+</task>

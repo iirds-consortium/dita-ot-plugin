@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="generate_iirds_package">
+    <title>Build and check an iiRDS package</title>
+    <taskbody>
+        <context>You can use the DITA-OT to build an iiRDS package for a DITA map or a single topic.
+            The output directory will contain the generated iiRDS file with the extension
+                <filepath>.iirds</filepath>.</context>
+        <steps>
+            <step>
+                <cmd>In the <filepath>bin</filepath> folder of your DITA-OT installation, open a
+                    command-line client.</cmd>
+            </step>
+            <step>
+                <cmd>In the command-line client, enter the <codeph>dita</codeph> command to
+                    transform your DITA map or topic using the <codeph>iirds</codeph> transtype. </cmd>
+                <info>
+                    <p>Example: <codeph>dita --input myContent.ditamap --o out -f iirds</codeph></p>
+                    <p>You can apply conditional filtering and use additional parameters as needed.
+                    </p>
+                </info>
+                <stepresult>An iiRDS package with the following file name is created in the output
+                    directory: <filepath>&lt;file_name_of_ditamap>.iirds</filepath>.</stepresult>
+            </step>
+            <step>
+                <cmd>Verify that the iiRDS package contains the desired result: </cmd>
+                <substeps>
+                    <substep>
+                        <cmd>Use your ZIP tool to extract the content from the iiRDS file. If
+                            necessary, change the file extension to <filepath>.zip</filepath> first. </cmd>
+                    </substep>
+                    <substep>
+                        <cmd>In the subfolder <filepath>META-INF</filepath>, open the file
+                                <filepath>metadata.rdf</filepath> and check if the iiRDS metadata
+                            contains the expected values from your DITA content.</cmd>
+                    </substep>
+                    <substep>
+                        <cmd>In the subfolder <filepath>content</filepath>, open the file
+                                <filepath>index.html</filepath> in a browser and check whether the
+                            HTML content is as expected.</cmd>
+                    </substep>
+                </substeps>
+                <info>If the iiRDS package does not contain the expected result, you can try one of
+                    the following:<ul>
+                        <li>If content is missing or you have unwanted content, check your
+                            conditional processing attributes.</li>
+                        <li>If the iiRDS metadata is not what you expected, check the metadata
+                            mapping topic to find out why. In case you need a different outcome, you
+                            need to customize the metadata extraction.</li>
+                        <li>If your HTML does not look the way you want, try to use the properties
+                            of the HTML5 transformation.</li>
+                    </ul></info>
+            </step>
+        </steps>
+        <result>
+            <note id="note_yv5_gkd_b1c" type="tip">Integrate the configured transformation into your
+                editor of choice. </note>
+            <note type="tip" id="note_mwv_jf2_b1c">Use the <xref href="https://www.iirds.org/tools/validation-tool" format="html" scope="external">iiRDS Validation Tool</xref> to check the integrity of the
+                generated iiRDS package. </note>
+        </result>
+    </taskbody>
+    <related-links>
+        <link keyref="metadata_extraction"/>
+        <link keyref="customization_metadata_extraction"/>
+        <link keyref="customization_html5_properties"/>
+    </related-links>
+</task>

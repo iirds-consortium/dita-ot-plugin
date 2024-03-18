@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="plugin-usage-introduction">
+    <title>Using the iiRDS plugin</title>
+    <conbody>
+        <p>Once the iiRDS plugin has been installed in the DITA-OT, you can use the plugin to
+            generate iiRDS packages from your DITA map. The processing steps are described in the
+            following figure:</p>
+        <fig id="fig_zwl_vsd_b1c">
+            <title>Processing steps of the iiRDS plugin</title>
+            <image href="iirds_plugin_processing.png" id="image_ftw_wsd_b1c" width="3cm"/>
+        </fig>
+        <p>In detail, this means the following:</p>
+        <p>
+            <ol>
+                <li>The default preprocessing by the DITA-OT is performed. During the preprocessing,
+                    references are resolved, the DITA mechanisms for inheriting metadata from parent
+                    nodes are applied and the DITA content is filtered, if required. For details,
+                    see <xref href="https://www.dita-ot.org/dev/reference/preprocessing"
+                        format="html" scope="external"/>.</li>
+                <li>iiRDS metadata is extracted from the preprocessed XML and the RDF file for the
+                    iiRDS package is generated. For details, see <xref keyref="metadata_extraction"
+                    />. </li>
+                <li>The default HTML5 transformation is applied to the preprocessed XML. The
+                    parameters of this transformation can be used to modify the generated HTML. For
+                    details, see <xref keyref="customization_html5_properties"/>. </li>
+                <li>The HTML content and the RDF file are packed in an iiRDS container file that can
+                    be imported in any application that supports iiRDS 1.2.</li>
+            </ol>
+        </p>
+    </conbody>
+</concept>

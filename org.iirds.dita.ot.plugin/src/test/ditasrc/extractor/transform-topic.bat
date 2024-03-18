@@ -1,0 +1,1 @@
+C:\Users\kreu09\git\tekom\iirds.org-dita\dita-ot\bin\dita --input topic_1.dita -o out -t temp --clean.temp=no -v --format=iirds

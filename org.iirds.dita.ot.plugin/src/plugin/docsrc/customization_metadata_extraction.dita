@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="customization-metadata-extraction">
+    <title>Customize metadata extraction</title>
+    <shortdesc>You can add a customized Java library for metadata extraction that implements the
+            <codeph>IirdsMetadataHandler</codeph> interface.</shortdesc>
+    <taskbody>
+        <prereq id="prereq_jyp_1w1_f1c">
+            <ul id="ul_chv_1w1_f1c">
+                <li>You have a Java library that implements the Service Provider Interface
+                        <codeph>org.iirds.dita.ot.plugin.spi.IirdsMetadataHandler</codeph> and
+                        <codeph>org.iirds.dita.ot.plugin.spi.IirdsMetadataHandlerProvider</codeph>.
+                    See <xref
+                        href="https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jar.html#Service_Provider"
+                        format="html" scope="external"/>.</li>
+                <li>Your Java library is integrated into the DITA Open Toolkit by extending the
+                        <codeph>dita.conductor.lib.import</codeph> extension point. See <xref
+                        href="https://www.dita-ot.org/3.7/topics/plugin-javalib" format="html"
+                        scope="external"/>.</li>
+                <li>Your content contains metadata for your metadata handler to process. </li>
+            </ul>
+        </prereq>
+        <context>
+            <p>A project wants to build an iiRDS package using a project-specific metadata
+                extraction to anticipate specialized DITA elements.</p>
+        </context>
+        <steps>
+            <step>
+                <cmd>In the <filepath>bin</filepath> folder of your DITA-OT installation, open a
+                    command-line client.</cmd>
+            </step>
+            <step>
+                <cmd>In the command-line client, enter the <codeph>dita</codeph> command to
+                    transform your DITA map or topic using the <codeph>iirds</codeph> transtype and
+                    the <codeph>iirds.metadatahandler</codeph> parameter to use your metadata
+                    handler. </cmd>
+                <info>Example: <codeph>dita --input myContent.ditamap --o out -f iirds
+                        --iirds.metadatahandler=YourMetadataHandler+default</codeph></info>
+            </step>
+        </steps>
+        <result id="result_zdp_4v5_21c">An iiRDS package with the following file name is created in
+            the output directory: <filepath>&lt;file_name_of_ditamap>.iirds</filepath>. The iiRDS
+            package contains metadata based on the project-specific requirements.</result>
+    </taskbody>
+</task>

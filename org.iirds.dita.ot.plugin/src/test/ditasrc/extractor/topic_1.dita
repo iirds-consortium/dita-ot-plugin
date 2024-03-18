@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="topic_1" xml:lang="en" audience="dummy experienced(technician salesman)" product="appliance(dishwasher) lamp">
+    <title>Topic 1</title>
+    <abstract>
+    	<shortdesc>Topic 1 has a <b>short</b> description</shortdesc>
+    	<shortdesc>Shortdesc 2</shortdesc>
+    </abstract>
+    <prolog>
+        <metadata>
+            <audience type="Admininstrator" experiencelevel="advaned"/>
+        </metadata>
+    </prolog> 
+    <conbody>
+        <p>Some</p>
+    </conbody>
+    <concept id="concept_jk2_hvz_nzb">
+        <title>Sub Topic</title>
+        <conbody>
+            <p/>
+        </conbody>
+    </concept>
+</concept>

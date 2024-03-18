@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map id="test" xml:lang="en">
+    <title>Document title</title>
+    <topicmeta>
+    	<copyright><copyryear year="2023"/><copyrholder>Empolis Information Manangement GmbH</copyrholder></copyright>
+   		<audience type="User" experiencelevel="basic"/>
+   		<prodinfo><prodname>Product 1</prodname><component>Component A</component></prodinfo>
+   		<prodinfo><prodname>Product 2</prodname></prodinfo>
+   		<prodinfo><prodname>Product 3</prodname></prodinfo>
+    </topicmeta>
+    <topicref>
+        <topicmeta>
+            <navtitle>Topic w/o content</navtitle>
+        </topicmeta>
+    </topicref>
+    <topichead navtitle="Some topics">
+	    <topicgroup>
+    	    <topicref href="topic_1.dita" type="concept"/>
+        	<topicref href="submap.ditamap" format="ditamap"/>
+    	</topicgroup>
+    </topichead>
+</map>

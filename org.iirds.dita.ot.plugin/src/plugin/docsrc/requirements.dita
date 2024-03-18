@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
+<reference id="requirements">
+    <title>Requirements</title>
+    <refbody>
+        <section>This plugin was developed and tested with DITA-OT 3.7.3. To guarantee that this
+            plugin works, the following versions are required:<ul>
+                <li>DITA-OT 3.7.x</li>
+                <li>Java 1.8.x or higher</li>
+            </ul>The plugin can be used with a default version of the DITA-OT or a customized
+            DITA-OT version with specialized document type definitions and modified transformation
+            scenarios. </section>
+    </refbody>
+</reference>

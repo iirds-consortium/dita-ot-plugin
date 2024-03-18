@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="unique-identifiers">
+    <title>Unique identifiers</title>
+    <conbody>
+        <p>To exchange metadata between different systems and map content from one source or
+            language to content from a different source or language, stable and unique identifiers
+            are required. In iiRDS, topics with different metadata or content must have different
+            unique identifiers. </p>
+        <p>iiRDS metadata is provided as RDF, which uses Internationalized Resource Identifiers
+            (IRIs), the internationalized form of <xref href="https://www.ietf.org/rfc/rfc2396.txt"
+                format="html" scope="external">Uniform Resource Identifiers (URIs)</xref>. DITA does
+            not use IRIs so that unique and stable IRIs have to be derived from the DITA content.
+            Because topic IDs are not unique in all contexts, they cannot be used as IRIs on their
+            own. For example, the same topic may have a different content after conditional
+            filtering has been applied. Therefore, iiRDS topics that are generated from the same
+            source but with different conditional filters, require different IRIs. </p>
+        <p>The following mechanisms apply:</p>
+        <ul>
+            <li>
+                <p>The IRI of each <codeph>iirds:Topic</codeph> is consists of the
+                        <codeph>@id</codeph> value of the topic and a hash of the content. The hash
+                    is generated after preprocessing and before rendering. The hash is stable so
+                    that the same value is generated with each call of the iiRDS transformation,
+                    provided that the topic content has not changed.</p>
+            </li>
+            <li>
+                <p>The IRI of the <codeph>iirds:Document</codeph> consists of the
+                        <codeph>@id</codeph> value of the DITA map and a hash of the content. The
+                    hash is generated after preprocessing and before rendering. The hash is stable
+                    so that the same value is generated any with each call of the iiRDS
+                    transformation, provided that the map content has not changed.</p>
+                <p>If a DITA map has no <codeph>@id</codeph> value, then a UUID is generated and
+                    used as the IRI of the <codeph>iirds:Document</codeph>. This UUID is not
+                    identical with each call of the iiRDS transformation.</p>
+            </li>
+            <li>
+                <p>For each <codeph>iirds:InformationUnit</codeph>, an
+                        <codeph>iirds:InformationObject</codeph> is created. This
+                        <codeph>iirds:InformationObject</codeph> has an IRI, which is derived from
+                    the topic ID. All information units with the same <codeph>@id</codeph> value in
+                    DITA have the same <codeph>iirds:is-version-of</codeph> property that refers to
+                    this information object.</p>
+            </li>
+            <li>
+                <p>The IRI of the <codeph>iirds:Package</codeph> is a generated UUID.</p>
+            </li>
+        </ul>
+        <p>In addition to this default behavior, the iiRDS plugin provides an extension point that
+            allows to implement other mechanisms for assigning IRIs, for example, to include an
+            additional lookup from other data sources or specialized attributes.</p>
+    </conbody>
+    <related-links>
+        <link keyref="customization_handlers"/>
+    </related-links>
+</concept>

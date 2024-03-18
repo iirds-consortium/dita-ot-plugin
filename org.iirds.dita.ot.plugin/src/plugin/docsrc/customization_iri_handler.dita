@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="customization-iri">
+    <title>Customize IRI generation</title>
+    <shortdesc>You can add a customized Java library for IRI generation that implements the
+            <codeph>IRIHandler</codeph> interface.</shortdesc>
+    <taskbody>
+        <prereq id="prereq_jyp_1w1_f1c">
+            <ul id="ul_chv_1w1_f1c">
+                <li>You have a Java library that implements the Service Provider Interface
+                        <codeph>org.iirds.dita.ot.plugin.spi.IRIHandler</codeph> and implements and
+                    registers  <codeph>org.iirds.dita.ot.plugin.spi.IRIHandlerProvider</codeph>. See
+                        <xref
+                        href="https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jar.html#Service_Provider"
+                        format="html" scope="external"/>.</li>
+                <li>Your Java library is integrated into the DITA Open Toolkit by extending the
+                    <codeph>dita.conductor.lib.import</codeph> extension point. See <xref
+                        href="https://www.dita-ot.org/3.7/topics/plugin-javalib" format="html"
+                        scope="external"/>.</li>
+                <li>Your provide IRI mappings if required by your IRI handler.</li>
+            </ul>
+        </prereq>
+        <context>
+            <p>A project wants to build an iiRDS package using a project-specific IRI mapping. The
+                IRI mapping is provides as a CSV file. The CSV file is stored next to the DITA
+                map.</p>
+        </context>
+        <steps>
+            <step>
+                <cmd>In the <filepath>bin</filepath> folder of your DITA-OT installation, open a
+                    command-line client.</cmd>
+            </step>
+            <step>
+                <cmd>In the command-line client, enter the <codeph>dita</codeph> command to
+                    transform your DITA map or topic using the <codeph>iirds</codeph> transtype and
+                    the <codeph>iirds.irihandler</codeph> parameter to use your IRI handler. </cmd>
+                <info>Example: <codeph>dita --input myContent.ditamap --o out -f iirds
+                        --iirds.irihandler=YourIriCsvHandler+default</codeph></info>
+            </step>
+        </steps>
+        <result id="result_zdp_4v5_21c">An iiRDS package with the following file name is created in
+            the output directory: <filepath>&lt;file_name_of_ditamap>.iirds</filepath>. The iiRDS
+            package contains IRIs based on the project-specific requirements.</result>
+    </taskbody>
+</task>

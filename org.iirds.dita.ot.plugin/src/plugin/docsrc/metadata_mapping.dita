@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
+<reference id="metadata_reference">
+    <title>Metadata mapping</title>
+    <refbody>
+        <section>
+            <p>The following table describes how DITA elements and attributes are mapped to iiRDS
+                resources in the RDF file of the iiRDS package. If nothing else is stated, available
+                metadata is mapped to <codeph>iiRDS:Document</codeph> and
+                    <codeph>iiRDS:Topic</codeph> in the RDF file.  The mapping also applies to any
+                specializations of the listed elements and attributes, unless a specific mapping is
+                provided for the specialized type.</p>
+            <table frame="all" rowsep="1" colsep="1" id="table_dfw_cxd_b1c">
+                <title>Mapping of DITA to iiRDS metadata</title>
+                <tgroup cols="3">
+                    <colspec colname="c1" colnum="1" colwidth="1*"/>
+                    <colspec colname="c2" colnum="2" colwidth="1.94*"/>
+                    <colspec colname="c4" colnum="3" colwidth="1.46*"/>
+                    <thead>
+                        <row>
+                            <entry>DITA</entry>
+                            <entry>iiRDS RDF</entry>
+                            <entry>Comment</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>
+                                <p><codeph>&lt;ditamap></codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>iirds:Document</codeph> with document type
+                                        <codeph>iirds:OperatingInstructions</codeph></p>
+                            </entry>
+                            <entry>
+                                <p>All DITA maps are treated as operating instructions because DITA
+                                    does not provide a document type by default.</p>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <p><codeph>&lt;topic></codeph>, <codeph>&lt;task></codeph>, <codeph>
+                                        &lt;concept></codeph>, <codeph>&lt;reference></codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>iirds:Topic</codeph> with topic type set to
+                                        <codeph>iirds:GenericConcept</codeph>,
+                                        <codeph>iirds:GenericTask</codeph>,
+                                        <codeph>iirds:GenericConcept</codeph>,
+                                        <codeph>iirds:GenericReference</codeph></p>
+                            </entry>
+                            <entry>
+                                <p>Topic types are derived from the <codeph>@class</codeph>
+                                    attribute of the corresponding topic. Specialized topics fall
+                                    back to the most basic class.</p>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <p><codeph>&lt;shortdesc></codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>iirds:Topic</codeph> >
+                                        <codeph>iirds:has-abstract</codeph></p>
+                            </entry>
+                            <entry>
+                                <p>Content of topic-level short description is used as abstract
+                                    property. If <codeph>&lt;shortdesc></codeph> is wrapped in
+                                        <codeph>&lt;abstract></codeph> and multiple
+                                        <codeph>&lt;shortdesc></codeph> elements are present, only
+                                    the first short description is evaluated.</p>
+                                <note id="note_grz_cfn_21c">
+                                    <p>Short descriptions on map level are not evaluated. The DITA
+                                        standard defines that short descriptions should be copied
+                                        from topic references to the corresponding topics during
+                                        preprocessing, but currently this is not the case with
+                                        DITA-OT 3.7.4. </p>
+                                </note>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <p><codeph>&lt;title></codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>iirds:title</codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>&lt;title></codeph> elements of root map and topic roots
+                                    are used. </p>
+                                <p>Other <codeph>&lt;title></codeph> elements are not evaluated, for
+                                    example, section or table titles. </p>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <p><codeph>@xml:lang</codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>iirds:language</codeph></p>
+                            </entry>
+                            <entry>
+                                <p>Language attribute of root map or topic root is used. </p>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <p><codeph>&lt;prodname></codeph>
+                                    <ph>or <codeph>@product</codeph></ph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>iirds:ProductVariant</codeph></p>
+                            </entry>
+                            <entry>
+                                <p>All applicable values of <codeph>&lt;prodname></codeph> elements
+                                    and <codeph>@product</codeph> attributes from the root map and
+                                    topics are used. </p>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <p><codeph>@audience</codeph> or (<codeph>&lt;audience></codeph>
+                                    with <codeph>@type</codeph> and/or
+                                        <codeph>@experiencelevel</codeph>)</p>
+                            </entry>
+                            <entry>
+                                <p><codeph>iirds:Role</codeph> and
+                                    <codeph>iirds:Skilllevel</codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>@audience</codeph> attribute of root map or topic root is
+                                    mapped to <codeph>iiRDS:Role</codeph>. For
+                                        <codeph>&lt;audience></codeph>, the content of
+                                        <codeph>@type</codeph> is mapped to
+                                        <codeph>iiRDS:Role</codeph> and
+                                        <codeph>@experiencelevel</codeph> is mapped to
+                                        <codeph>iiRDS:SkillLevel</codeph>. </p>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <p><codeph>&lt;component></codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>iirds:Component</codeph></p>
+                            </entry>
+                            <entry><codeph>&lt;component></codeph> elements of root map and topic
+                                root are used. </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <p><codeph>&lt;copyright></codeph> with <codeph>@year</codeph> and
+                                        <codeph>@holder</codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>iirds:rights</codeph></p>
+                            </entry>
+                            <entry><codeph>&lt;copyright></codeph> elements of root map and topic
+                                root are used. </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <p><codeph>&lt;created></codeph> with <codeph>@date</codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>iirds:dateOfCreation</codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>@date</codeph> attribute of <codeph>created</codeph>
+                                    element of root map or topic root is used.</p>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <p><codeph>&lt;revised></codeph> with <codeph>@modified</codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>iirds:dateOfLastModification</codeph> and
+                                        <codeph>iirds:dateOfStatus</codeph></p>
+                            </entry>
+                            <entry><codeph>@modified</codeph> attribute of <codeph>created</codeph>
+                                element of root map or topic root is used.</entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <p><codeph>&lt;created></codeph> or <codeph>revised</codeph> with
+                                        <codeph>@golive</codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>iirds:datefOfEffect</codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>@golive</codeph> attribute of <codeph>created</codeph> or
+                                        <codeph>revised</codeph> element of root map or topic root
+                                    is used.</p>
+                                <p>If both <codeph>&lt;created></codeph> and
+                                        <codeph>&lt;revised></codeph> with <codeph>@golive</codeph>
+                                    are present, then the latest <codeph>&lt;revised></codeph> value
+                                    is used. </p>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <p><codeph>&lt;created></codeph> or <codeph>&lt;revised></codeph>
+                                    with <codeph>@expiry</codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>iirds:datefOfExpiry</codeph></p>
+                            </entry>
+                            <entry>
+                                <p><codeph>@expiry</codeph> attribute of <codeph>created</codeph> or
+                                        <codeph>revised</codeph> element of root map or topic root
+                                    is used.</p>
+                                <p>If both <codeph>&lt;created></codeph> and
+                                        <codeph>&lt;revised></codeph> with <codeph>@expiry</codeph>
+                                    are present, then the latest <codeph>&lt;revised></codeph> value
+                                    is used. </p>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry><codeph>&lt;topichead></codeph></entry>
+                            <entry><codeph>iirds:DirectoryNode</codeph></entry>
+                            <entry><codeph>&lt;topichead></codeph> elements are title-only entries
+                                in a navigation map. Therefore, they do not have an
+                                    <codeph>iirds:Topic</codeph> equivalent, but they are included
+                                as a directory node. The <codeph>@navtitle</codeph> attribute or
+                                    <codeph>&lt;navtitle></codeph> element becomes the label of the
+                                directory node.</entry>
+                        </row>
+                        <row>
+                            <entry>
+                                <p><codeph>&lt;navtitle></codeph></p>
+                            </entry>
+                            <entry><codeph>iirds:DirectoryNode</codeph></entry>
+                            <entry><codeph>&lt;navtitle></codeph> elements from
+                                    <codeph>&lt;topicref></codeph> elements,
+                                    <codeph>&lt;topichead></codeph> elements, or from a topic are
+                                used as labels for the corresponding iiRDS directory nodes. </entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </section>
+    </refbody>
+    <related-links>
+        <link keyref="unique_identifiers"/>
+    </related-links>
+</reference>
