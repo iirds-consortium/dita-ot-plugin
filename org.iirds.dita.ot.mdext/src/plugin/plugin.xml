@@ -1,0 +1,20 @@
+<plugin id="org.iirds.dita.mdext">
+<!--
+  <require plugin="org.iirds.dita.package"/>
+ -->
+  
+  <!-- Provide code to extract additional iiRDS metadata and provide IRIs: --> 
+  <feature extension="dita.conductor.lib.import" file="lib/org.iirds.dita.mdext.jar"/>
+  <feature extension="dita.conductor.lib.import" file="lib/commons-csv.jar"/>
+  
+  <!-- Post process extracted metadata: -->
+  <feature extension="iirds.extractMetadata.post" value="iirds.mdext.postprocess"/>
+  
+  
+  <!-- Pre process packaging: -->
+  <feature extension="iirds.package.pre" value="iirds.mdext.prepackage"/>
+  
+  <!-- the ant file containing the relevant targets -->
+  <feature extension="ant.import" file="build.xml"/>
+  
+</plugin>

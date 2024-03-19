@@ -1,0 +1,14 @@
+<project xmlns:dita="http://dita-ot.sourceforge.net"
+	xmlns:if="ant:if" xmlns:unless="ant:unless" name="iirds.mdext">
+
+	<target name="iirds.mdext.postprocess" description="demonstrate implemention of extension point iirds.extractMetadata.post">
+		<echo
+			message="iiRDS metadata have been extracted to ${dita.output.dir}/META-INF/metadata.rdf)" />
+	</target>
+
+	<target name="iirds.mdext.prepackage" description="demonstrate implemention of extension point iirds.package.pre">
+		<echo
+			message="Going to to create iiRDS package ${output.dir}/${dita.map.filename.root}.iirds" />
+	</target>
+
+</project>
