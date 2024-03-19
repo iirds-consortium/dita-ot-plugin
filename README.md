@@ -6,6 +6,7 @@
 For more information, see
 * [README.md of iiRDS plugin](org.iirds.dita.ot.plugin/src/plugin/README.md)
 * [README.md of sample extension plugin](org.iirds.dita.ot.mdext/src/plugin/README.md)
+* [Plugin usage documentation](org.iirds.dita.ot.plugin/src/plugin/iirds_plugin.pdf)
 * https://www.iirds.org/tools/dita-plugin/
 
 To install the iiRDS plugin via DITA OT plugin registry, run 
