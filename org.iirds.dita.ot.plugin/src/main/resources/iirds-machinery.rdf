@@ -38,7 +38,7 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 		<rdfs:subClassOf rdf:resource="http://iirds.tekom.de/iirds#Supply"/>
 		<iirds:description xml:lang="en">Lubricants may be referenced in the description of working tasks in technical documentation.</iirds:description>
 		<rdfs:comment xml:lang="en">type of supply: Lubricant, meaning a substance used for lubricating an engine or component, such as oil or grease.</rdfs:comment>
-		<rdfs:comment xml:lang="de">Schmierstoff</rdfs:comment>
+		
 		<iirds:description xml:lang="en">IRI: required</iirds:description> 
 	</rdfs:Class>
 	<rdfs:Class rdf:about="http://iirds.tekom.de/iirds/domain/machinery#OperatingSupply">
@@ -61,7 +61,7 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 	</rdfs:Class>
 	<rdfs:Class rdf:about="http://iirds.tekom.de/iirds/domain/machinery#SetupTime">
 		<rdfs:label xml:lang="de">Rüstzeit</rdfs:label>
-		<rdfs:label xml:lang="en">setup time</rdfs:label>
+		<rdfs:label xml:lang="en">Setup time</rdfs:label>
 		<rdfs:subClassOf rdf:resource="http://iirds.tekom.de/iirds#PlanningTime"/>
 		<rdfs:subClassOf rdf:resource="http://iirds.tekom.de/iirds/domain/machinery#iirdsMachineryDomainEntity"/>
 		<iirds:description xml:lang="en"></iirds:description>
@@ -92,7 +92,7 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/machinery#iirdsMachineryDomainEntity"/>
 		<iirds:description xml:lang="en"></iirds:description>
 		<rdfs:comment xml:lang="en">typical representation of an electrical circuit in (electrical) technology.</rdfs:comment>
-		<rdfs:comment xml:lang="de">In der (Elektro)Technik gebräuchliche Art der Darstellung für eine elektrische Schaltung. Stromlaufplan wird wohl auch synonym verwendet.</rdfs:comment>
+		
 	</iirds:TechnicalOverview>
 
 	<iirds:Use rdf:about="http://iirds.tekom.de/iirds/domain/machinery#Cleaning">
@@ -117,7 +117,7 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/machinery#iirdsMachineryDomainEntity"/>
 		<iirds:description xml:lang="en"></iirds:description>
 		<rdfs:comment xml:lang="en">product lifecycle phase containing activities related to transferring a product into active use and instructing personnel on the use. Activities include final inspection tests and handover of documentation, among others (DIN EN 82079-1).</rdfs:comment>
-		<rdfs:comment xml:lang="de">Maßnahmen vor oder im Zusammenhang mit der Übergabe eines Produkts einschließlich Endabnahmeprüfungen, Übergabe der gesamten Dokumentation, welche relevant ist für die Produktnutzung und falls erforderlich für die Anweisung von Personal (DIN EN 82079-1).</rdfs:comment>
+		
 	</iirds:Use>
 
 	<iirds:DesignAndRealization rdf:about="http://iirds.tekom.de/iirds/domain/machinery#Construction">
@@ -142,7 +142,7 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/machinery#iirdsMachineryDomainEntity"/>
 		<iirds:description xml:lang="en"></iirds:description>
 		<rdfs:comment xml:lang="en">typical representation of a technical process.</rdfs:comment>
-		<rdfs:comment xml:lang="de">In der (Elektro)Technik gebräuchliche Art der Darstellung für eine elektrische Schaltung. Schaltplan wird wohl auch synonym verwendet.</rdfs:comment>
+		
 	</iirds:TechnicalOverview>
 
 	<iirdsMch:ConsumableSupply rdf:about="http://iirds.tekom.de/iirds/domain/machinery#GenericConsumableSupply">
@@ -169,7 +169,7 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 </iirds:description>
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/machinery#iirdsMachineryDomainEntity"/>
 		<rdfs:comment xml:lang="en">generic instance of the Lubricant class.</rdfs:comment>
-		<rdfs:comment xml:lang="de">Schmierstoff</rdfs:comment>
+		
 	</iirdsMch:Lubricant>
 
 	<iirdsMch:OperatingSupply rdf:about="http://iirds.tekom.de/iirds/domain/machinery#GenericOperatingSupply">
@@ -203,7 +203,7 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 		<iirds:description xml:lang="en">The SparePart class describes spare parts, meaning interchangeable parts that are kept in an inventory and are used for the repair or replacement of failed units of a technical system. Spare parts may be referenced in the description of working tasks in technical documentation.</iirds:description>
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/machinery#iirdsMachineryDomainEntity"/>
 		<rdfs:comment xml:lang="en">generic instance of the SparePart class.</rdfs:comment>
-		<rdfs:comment xml:lang="de">Ersatzteil</rdfs:comment>
+		
 	</iirdsMch:SparePart>
 
 	<iirds:TechnicalOverview rdf:about="http://iirds.tekom.de/iirds/domain/machinery#HydraulicDiagram">
@@ -212,7 +212,7 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/machinery#iirdsMachineryDomainEntity"/>
 		<iirds:description xml:lang="en"></iirds:description>
 		<rdfs:comment xml:lang="en">graphical representation of flows of liquids for control, regulating, driving and braking devices of vehicles, airplanes or devices, whose forces are generated or transmitted by the pressure of a liquid.</rdfs:comment>
-		<rdfs:comment xml:lang="de">Grafische Darstellung der Strömungen von Flüssigkeiten für Steuer-, Regel-, Antriebs- und Bremsvorrichtungen von Fahrzeugen, Flugzeugen oder Geräten, deren Kräfte mithilfe des Drucks einer Flüssigkeit erzeugt oder übertragen werden.</rdfs:comment>
+		
 	</iirds:TechnicalOverview>
 
 	<iirds:Safety rdf:about="http://iirds.tekom.de/iirds/domain/machinery#InstallationError">
@@ -256,7 +256,6 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 	</iirds:Collection>
 
 	<iirds:Collection rdf:about="http://iirds.tekom.de/iirds/domain/machinery#ListOfProtectiveEquipment">
-		<rdfs:label xml:lang="de">Liste mit Schutzausrüstung</rdfs:label>
 		<rdfs:label xml:lang="en">list of protective equipment</rdfs:label>
 		<iirds:description xml:lang="en"></iirds:description>
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/machinery#iirdsMachineryDomainEntity"/>
@@ -275,9 +274,7 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 		<rdfs:label xml:lang="de">Schmierplan</rdfs:label>
 		<rdfs:label xml:lang="en">lubrication plan</rdfs:label>
 		<iirds:description xml:lang="en">May be assembled from different information units.</iirds:description>
-        <iirds:description xml:lang="de">Kann aus verschiedenen Informationseinheiten zusammengestellt werden.</iirds:description>
-		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/machinery#iirdsMachineryDomainEntity"/>
-		<rdfs:comment xml:lang="de">Thema der Informationseinheit. Auf einem Schmierplan werden die einzelnen Schmierstellen einer Maschine/Komponente und die benötigten Schmiermittel angegeben.</rdfs:comment>
+      	<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/machinery#iirdsMachineryDomainEntity"/>
 		<rdfs:comment xml:lang="en">information subject. A lubrication plan shows the lubrication points of a machine/component and the required lubricants. </rdfs:comment>
 	</iirds:Collection>
 
@@ -314,16 +311,13 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 	</iirds:TechnicalOverview>
 
 	<iirds:AfterUse rdf:about="http://iirds.tekom.de/iirds/domain/machinery#Reuse">
-		<rdfs:label xml:lang="de">Recycling</rdfs:label>
 		<rdfs:label xml:lang="en">recycling</rdfs:label>
 		<iirds:description xml:lang="en">Refers to reuse of materials, not of information.</iirds:description>
-		<iirds:description xml:lang="de">Bezieht sich auf die Wiederverwendung von Materialien, nicht von Informationen.</iirds:description>
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/machinery#iirdsMachineryDomainEntity"/>
 		<rdfs:comment xml:lang="en">lifecycle phase after the active use of a product; contains activities for recycling and reusing machine components and materials.</rdfs:comment>
 	</iirds:AfterUse>
 
 	<iirds:Safety rdf:about="http://iirds.tekom.de/iirds/domain/machinery#SafetyEquipment">
-		<rdfs:label xml:lang="de">Schutzeinrichtung</rdfs:label>
 		<rdfs:label xml:lang="en">safety equipment</rdfs:label>
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/machinery#iirdsMachineryDomainEntity"/>
 		<iirds:description xml:lang="en"></iirds:description>
@@ -331,7 +325,6 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 	</iirds:Safety>
 
 	<iirds:Safety rdf:about="http://iirds.tekom.de/iirds/domain/machinery#SafetyMeasure">
-		<rdfs:label xml:lang="de">Schutzmaßnahme</rdfs:label>
 		<rdfs:label xml:lang="en">safety measure</rdfs:label>
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/machinery#iirdsMachineryDomainEntity"/>
 		<iirds:description xml:lang="en"></iirds:description>
@@ -339,7 +332,6 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 	</iirds:Safety>
 	
 	<iirds:Safety rdf:about="http://iirds.tekom.de/iirds/domain/machinery#EnvironmentalNote">
-		<rdfs:label xml:lang="de">Umweltschutzhinweis</rdfs:label>
 		<rdfs:label xml:lang="en">environmental note</rdfs:label>
 		<iirds:description xml:lang="en"></iirds:description>		
 		<rdfs:comment xml:lang="en">information subject. Notes in technical documentation regarding environmental protection.</rdfs:comment>

@@ -30,6 +30,7 @@ public final class IirdsConstants {
 	public static final String iiRDS_URI = "http://iirds.tekom.de/iirds#";
 	public static final String iiRDS_Mch_URI = "http://iirds.tekom.de/iirds/domain/machinery#";
 	public static final String iiRDS_Sft_URI = "http://iirds.tekom.de/iirds/domain/software#";
+	public static final String iiRDS_Hov_URI = "http://iirds.tekom.de/iirds/domain/handover#";
 
 	/** The namespace prefix to use for iiRDS */
 	public static final String iiRDS_PREFIX = "iirds";
@@ -173,8 +174,11 @@ public final class IirdsConstants {
 	public static final String FORMALITY_CLASS_URI = iiRDS_URI + "Formality";
 	public static final String PROCESS_CLASS_URI = iiRDS_URI + "Process";
 
+	// new since iiRDS 1.3:
+	public static final String HASDOCUMENTCATEGORY_PROPERTY_URI = iiRDS_Hov_URI+"has-document-category";	
+
 	/** The iiRDS version */
-	public static final String IIRDS_VERSION = "1.2";
+	public static final String IIRDS_VERSION = "1.3";
 
 	/**
 	 * Table of Contents DirectoryNode type URI

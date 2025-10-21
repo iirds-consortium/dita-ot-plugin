@@ -40,6 +40,7 @@ public final class RDFConstants {
 	private static final String RDFS_PATH_CORE = "/iirds-core.rdf";
 	private static final String RDFS_PATH_SOFTWARE = "/iirds-software.rdf";
 	private static final String RDFS_PATH_MACHINERY = "/iirds-machinery.rdf";
+	private static final String RDFS_PATH_HANDOVER = "/iirds-handover.rdf";
 
 	private static final Model iiRDS_MODEL = createDefaultModel();
 
@@ -106,6 +107,7 @@ public final class RDFConstants {
 		model.setNsPrefix("vcard", IirdsConstants.VCARD_URI);
 		model.setNsPrefix("iirdsSft", IirdsConstants.iiRDS_Sft_URI);
 		model.setNsPrefix("iirdsMch", IirdsConstants.iiRDS_Mch_URI);
+		model.setNsPrefix("iirdsHov", IirdsConstants.iiRDS_Hov_URI);
 		return model;
 	}
 
