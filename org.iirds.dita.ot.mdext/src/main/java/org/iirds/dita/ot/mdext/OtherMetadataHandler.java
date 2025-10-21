@@ -101,7 +101,7 @@ public class OtherMetadataHandler implements IirdsMetadataHandler {
 					Factory.setLabel(r, s.getValue(), node.getLanguage());
 					InformationUnits.addRelatedComponent(topic, r);
 				} else if ("InformationSubject".equals(s.getKey())) {
-					String iri = iriHandler.getMetadataIRI(node, IirdsConstants.INFORMATIONOBJECT_CLASS_URI,
+					String iri = iriHandler.getMetadataIRI(node, IirdsConstants.INFORMATIONSUBJECT_CLASS_URI,
 							s.getValue(), PROP_OTHERMETA);
 					Resource r = Factory.createInformationSubject(topic.getModel(), iri);
 					Factory.setLabel(r, s.getValue(), node.getLanguage());

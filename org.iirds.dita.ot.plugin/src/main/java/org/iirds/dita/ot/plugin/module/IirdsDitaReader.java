@@ -190,7 +190,7 @@ public class IirdsDitaReader extends AbstractDomFilter {
 					topicMetaReader.setJob(job);
 					topicMetaReader.setLogger(logger);
 					topicMetaReader.read(topicFile);
-					logger.info("...setting topicPath at ToC entry to {0}", topicPath);
+					logger.debug("...setting topicPath at ToC entry to {0}", topicPath);
 					toCNode.setURI(topicPath);
 					logger.debug("Processing {0} done.", topicFile);
 				} catch (DITAOTException e) {

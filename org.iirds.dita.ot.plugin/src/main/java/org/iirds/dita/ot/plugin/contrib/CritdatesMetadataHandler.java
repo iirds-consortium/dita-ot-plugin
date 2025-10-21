@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
@@ -66,7 +67,7 @@ public class CritdatesMetadataHandler implements IirdsMetadataHandler {
 
 	SimpleDateFormat defaultDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	SimpleDateFormat americanDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-	SimpleDateFormat germanMonthNameDateFormat = new SimpleDateFormat("dd. MMM. yyyy");
+	SimpleDateFormat germanMonthNameDateFormat = new SimpleDateFormat("dd. MMMM yyyy",Locale.GERMAN);
 	SimpleDateFormat[] formats = { defaultDateFormat, americanDateFormat, germanMonthNameDateFormat };
 
 	@Override
