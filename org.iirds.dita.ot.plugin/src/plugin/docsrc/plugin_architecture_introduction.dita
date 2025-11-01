@@ -25,7 +25,7 @@
                     parameters of this transformation can be used to customize the generated HTML.
                     For details, see <xref keyref="customization_html5_properties"/>. </li>
                 <li>The HTML content and the RDF file are packed in an iiRDS container file that can
-                    be imported in any application that supports iiRDS 1.2.</li>
+                    be imported in any application that supports iiRDS 1.3.</li>
             </ul>
         </p>
     </conbody>

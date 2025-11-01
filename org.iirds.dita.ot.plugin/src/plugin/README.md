@@ -1,17 +1,17 @@
 # iiRDS Plugin for DITA Open Toolkit
 
-* Generates an iiRDS package from a map or a single topic
+* Generates an iiRDS 1.3 package from a map or a single topic
 * The resulting file is ``<file name of map or topic>.iirds``
 * DITA-OT transtype: ``iirds``
 * Content is rendered as HTML5
 * Parameters of the ``html5`` transtype can be used to customize HTML output
-* Requires DITA-OT version >= 3.7.3, not tested with DITA-OT 4.x
+* Requires DITA-OT version >= 3.7.3
 
 For more information, see [https://www.iirds.org/tools/dita-plugin/](https://www.iirds.org/tools/dita-plugin/)
 
 ## Copyright
 
-Copyright 2024 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org
+Copyright 2024-2025 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org
 
 This plugin is licensed under the Apache 2.0 license, see LICENSE file in the plugin distribution.
 
@@ -19,9 +19,9 @@ This plugin is licensed under the Apache 2.0 license, see LICENSE file in the pl
 ## Installation
 
 There are several option how install the plugin:
-* To install from download page, run ``dita install https://www.iirds.org/fileadmin/downloads/DITA/org.iirds.dita.package-1.0.0.zip`` 
+* To install from download page, run ``dita install https://www.iirds.org/fileadmin/downloads/DITA/org.iirds.dita.package-1.1.0.zip`` 
 * To install from DITA-OT plugin registry, run ``dita install org.iirds.dita.package``
-* To install from downloaded plugin zip, run ``dita install org.iirds.dita.package-1.0.0.zip``. 
+* To install from downloaded plugin zip, run ``dita install org.iirds.dita.package-1.1.0.zip``. 
   if the zip file is not located in the current working directory, add the path to the zip file name, 
 
 

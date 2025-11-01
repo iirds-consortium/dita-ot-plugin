@@ -6,6 +6,7 @@
         <author>tekom Deutschland e.V.</author>
         <critdates>
             <created date="2024-02-15"/>
+            <revised date="2025-11-01"/>
         </critdates>
     </topicmeta>
     <topicref href="introduction.dita" keys="plugin_introduction"/>
