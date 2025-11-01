@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF xml:base="http://iirds.tekom.de/iirds/domain/handover#" xml:lang="en" xmlns:iirds="http://iirds.tekom.de/iirds#" xmlns:iirdsHov="http://iirds.tekom.de/iirds/domain/handover#"  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:schema="http://schema.org/">
 
+<!--
+© 2025 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V. All rights reserved.
+This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License (https://creativecommons.org/licenses/by-nd/4.0/).
+-->
+
 	<rdfs:Class rdf:about="http://iirds.tekom.de/iirds/domain/handover#DocumentCategory">
 		<rdfs:label xml:lang="de">Dokumentkategorie</rdfs:label>
 		<rdfs:label xml:lang="en">document category</rdfs:label>
@@ -31,65 +36,65 @@
 		<iirds:description xml:lang="en">Cardinality: http://iirds.tekom.de/iirds#Document [0..1]</iirds:description>
 	</rdf:Property>
 
-	<iirds:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#ContractDocuments">
+	<iirdsHov:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#ContractDocuments">
 		<rdfs:label xml:lang="de">Vertragsunterlagen</rdfs:label>
 		<rdfs:label xml:lang="en">Contract documents</rdfs:label>
 		<iirds:description xml:lang="en">documents, which concern the commercial handling of a contract but are themselves not the subject of the contract and only serve the purpose of fulfilling it</iirds:description>
-	</iirds:DocumentCategory>
-	<iirds:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#DrawingsPlans">
+	</iirdsHov:DocumentCategory>
+	<iirdsHov:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#DrawingsPlans">
 		<rdfs:label xml:lang="de">Zeichnungen, Pläne</rdfs:label>
 		<rdfs:label xml:lang="en">Drawings, Plans</rdfs:label>
 		<iirds:description xml:lang="en">documents with the character of a drawing, i.e. which use a graphical representation to transfer information</iirds:description>
-	</iirds:DocumentCategory>
-	<iirds:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#TechnicalSpecification">
+	</iirdsHov:DocumentCategory>
+	<iirdsHov:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#TechnicalSpecification">
 		<rdfs:label xml:lang="de">Technische Spezifikation</rdfs:label>
 		<rdfs:label xml:lang="en">Technical specification</rdfs:label>
 		<iirds:description xml:lang="en">documents, which describe the demands made on an object and its properties</iirds:description>
-	</iirds:DocumentCategory>
-	<iirds:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#Certificates">
+	</iirdsHov:DocumentCategory>
+	<iirdsHov:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#Certificates">
 		<rdfs:label xml:lang="de">Zeugnisse, Zertifikate, Bescheinigungen</rdfs:label>
 		<rdfs:label xml:lang="en">Certificates</rdfs:label>
 		<iirds:description xml:lang="en">documents with the character of a certificate</iirds:description>
-	</iirds:DocumentCategory>
-	<iirds:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#Components">
+	</iirdsHov:DocumentCategory>
+	<iirdsHov:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#Components">
 		<rdfs:label xml:lang="de">Bauteile</rdfs:label>
 		<rdfs:label xml:lang="en">Components</rdfs:label>
 		<iirds:description xml:lang="en">documents, which contain a structured list of the parts of an object</iirds:description>
-	</iirds:DocumentCategory>
-	<iirds:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#AssemblyDisassembly">
+	</iirdsHov:DocumentCategory>
+	<iirdsHov:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#AssemblyDisassembly">
 		<rdfs:label xml:lang="de">Montage, Demontage</rdfs:label>
 		<rdfs:label xml:lang="en">Assembly, Disassembly</rdfs:label>
 		<iirds:description xml:lang="en">documents describing activities and measures necessary for handling an object</iirds:description>
-	</iirds:DocumentCategory>
-	<iirds:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#GeneralSafety">
+	</iirdsHov:DocumentCategory>
+	<iirdsHov:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#GeneralSafety">
 		<rdfs:label xml:lang="de">Allgemeine Sicherheit</rdfs:label>
 		<rdfs:label xml:lang="en">General Safety</rdfs:label>
 		<iirds:description xml:lang="en">documents, which provide safety information on potential risks when an object is used</iirds:description>
-	</iirds:DocumentCategory>
-	<iirds:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#Operation">
+	</iirdsHov:DocumentCategory>
+	<iirdsHov:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#Operation">
 		<rdfs:label xml:lang="de">Bedienung</rdfs:label>
 		<rdfs:label xml:lang="en">Operation</rdfs:label>
 		<iirds:description xml:lang="en">documents for the intended use and safe operation of an object</iirds:description>
-	</iirds:DocumentCategory>
-	<iirds:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#Repair">
+	</iirdsHov:DocumentCategory>
+	<iirdsHov:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#Repair">
 		<rdfs:label xml:lang="de">Instandsetzung</rdfs:label>
 		<rdfs:label xml:lang="en">Repair</rdfs:label>
 		<iirds:description xml:lang="en">documents concerning measures for restoring the correct functioning of an object</iirds:description>
-	</iirds:DocumentCategory>
-	<iirds:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#InspectionMaintenanceControl">
+	</iirdsHov:DocumentCategory>
+	<iirdsHov:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#InspectionMaintenanceControl">
 		<rdfs:label xml:lang="de">Inspektion, Wartung, Prüfung</rdfs:label>
 		<rdfs:label xml:lang="en">Inspection, Maintenance, Control</rdfs:label>
 		<iirds:description xml:lang="en">documents describing recurring measures proposed by the manufacturer for determining or maintaining the correctly functioning state</iirds:description>
-	</iirds:DocumentCategory>
-	<iirds:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#SpareParts">
+	</iirdsHov:DocumentCategory>
+	<iirdsHov:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#SpareParts">
 		<rdfs:label xml:lang="de">Ersatzteile</rdfs:label>
 		<rdfs:label xml:lang="en">Spare parts</rdfs:label>
 		<iirds:description xml:lang="en">documents containing information on spare parts as well as auxiliary and operating materials</iirds:description>
-	</iirds:DocumentCategory>
-	<iirds:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#Identification">
+	</iirdsHov:DocumentCategory>
+	<iirdsHov:DocumentCategory rdf:about="http://iirds.tekom.de/iirds/domain/handover#Identification">
 		<rdfs:label xml:lang="de">Identifikation</rdfs:label>
 		<rdfs:label xml:lang="en">Identification</rdfs:label>
 		<iirds:description xml:lang="en">documents used to identify the object to which the manufacturer documentation belongs</iirds:description>
-	</iirds:DocumentCategory>
+	</iirdsHov:DocumentCategory>
 </rdf:RDF>
 
