@@ -44,6 +44,7 @@ public class DefaultMetadataHandlerProvider implements IirdsMetadataHandlerProvi
 		result.add(new CritdatesMetadataHandler());
 		result.add(new ProductPropertyHandler());
 		result.add(new AudiencePropertyHandler());
+		result.add(new SubjectSchemeDataMetadataHandler());
 		return result;
 	}
 
