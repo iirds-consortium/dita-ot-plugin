@@ -126,10 +126,11 @@ public final class RDFConstants {
 			URL url_core = IirdsConstants.class.getResource(RDFS_PATH_CORE);
 			URL url_sw = IirdsConstants.class.getResource(RDFS_PATH_SOFTWARE);
 			URL url_mc = IirdsConstants.class.getResource(RDFS_PATH_MACHINERY);
-			if (url_core == null || url_sw == null || url_mc == null) {
+			URL url_ho = IirdsConstants.class.getResource(RDFS_PATH_HANDOVER);
+			if (url_core == null || url_sw == null || url_mc == null || url_ho == null) {
 				throw new IllegalStateException("RDF schemes not found in class path");
 			}
-			Model model = readModels(url_core, url_sw, url_mc);
+			Model model = readModels(url_core, url_sw, url_mc, url_ho);
 			rdfsModel = model;
 		}
 		return rdfsModel;
