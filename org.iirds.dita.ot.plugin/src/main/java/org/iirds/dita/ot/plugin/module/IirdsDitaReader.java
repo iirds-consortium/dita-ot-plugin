@@ -21,10 +21,6 @@ import static org.dita.dost.util.URLUtils.stripFragment;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Iterator;
-import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.dita.dost.exception.DITAOTException;
@@ -36,10 +32,6 @@ import org.dita.dost.util.XMLUtils;
 import org.dita.dost.writer.AbstractDomFilter;
 import org.iirds.dita.ot.plugin.Configuration;
 import org.iirds.dita.ot.plugin.TitleExtractor;
-import org.iirds.dita.ot.plugin.model.Ontology;
-import org.iirds.dita.ot.plugin.model.OntologyClass;
-import org.iirds.dita.ot.plugin.model.OntologyCommon;
-import org.iirds.dita.ot.plugin.model.OntologyInstance;
 import org.iirds.dita.ot.plugin.model.ToCNode;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
@@ -58,8 +50,6 @@ public class IirdsDitaReader extends AbstractDomFilter {
 	private URI filePath = null;
 
 	private ToCNode toc = new ToCNode();
-	private Ontology ontologgy = Ontology.getDefault();
-	private Deque<OntologyCommon> ontostack = new ArrayDeque<>();
 
 	private TitleExtractor titleExtractor = new TitleExtractor();
 
@@ -125,8 +115,12 @@ public class IirdsDitaReader extends AbstractDomFilter {
 
 		Configuration.getDefault().getLanguageExtractor().extractLanguage(toc, map);
 
+		SubjectExtractor extractor = new SubjectExtractor();
+		extractor.processMap(doc);
+
 		// run metadata extraction
 		Configuration.getDefault().getIirdsMetadataHandler().extractMetadata(this.toc, doc);
+		extractor.processMap(doc);
 
 		for (Element elem : XMLUtils.getChildElements(map)) {
 			if (Constants.MAP_TOPICREF.matches(elem)) {
@@ -145,7 +139,7 @@ public class IirdsDitaReader extends AbstractDomFilter {
 		final Attr typeAttr = topicref.getAttributeNode(Constants.ATTRIBUTE_NAME_TYPE);
 
 		ToCNode toCNode = null;
-		// ignore resource only refs and topic groups (topic groups must nov
+		// ignore resource only refs and topic groups (topic groups must not
 		// have titles)
 		URI topicPath = null;
 		logger.info("Handling topicref " + DitaClass.getInstance(topicref));
@@ -177,75 +171,11 @@ public class IirdsDitaReader extends AbstractDomFilter {
 				handleTopic(toCNode, topicPath);
 			}
 		}
-		OntologyCommon ontoObject = handleSubjectSchemeElement(topicref);
-		if (ontoObject != null) {
-			ontostack.push(ontoObject);
-		}
-		try {
-			for (Element elem : XMLUtils.getChildElements(topicref)) {
-				if (Constants.MAP_TOPICREF.matches(elem)) {
-					handleTopicref(elem, parentToCNode);
-				}
-			}
-		} finally {
-			if (ontoObject != null) {
-				ontostack.pop();
+		for (Element elem : XMLUtils.getChildElements(topicref)) {
+			if (Constants.MAP_TOPICREF.matches(elem)) {
+				handleTopicref(elem, parentToCNode);
 			}
 		}
-	}
-
-	OntologyClass getClassFromOntoStack() {
-		for (Iterator<OntologyCommon> iter = ontostack.iterator(); iter.hasNext();) {
-			OntologyCommon o = iter.next();
-			if (o instanceof OntologyClass) {
-				return (OntologyClass) o;
-			}
-		}
-		return null;
-	}
-
-	protected OntologyCommon handleSubjectSchemeElement(final Element element) {
-		if (isSubjectSchemeRelated(element)) {
-			if (Constants.SUBJECTSCHEME_SUBJECTDEF.matches(element)) {
-				String title = Configuration.getDefault().getTitleExtractor().getNavTitle(element);
-				logger.info("...subject title is " + title);
-				Optional<Element> mdElement = XMLUtils.getChildElement(element, Constants.MAP_TOPICMETA);
-				if (mdElement.isPresent()) {
-					Optional<Element> resElement = XMLUtils.getChildElement(mdElement.get(),
-							Constants.TOPIC_RESOURCEID);
-					if (resElement.isPresent()) {
-						String appid = XMLUtils.getValue(resElement.get(), "appid");
-						String appname = XMLUtils.getValue(resElement.get(), "appname");
-						String keys = XMLUtils.getValue(element, "keys");
-						logger.info("   appid=" + appid + ", appname=" + appname + ", keys=" + keys);
-						if (StringUtils.equals(appname, "instance-iri")) {
-							OntologyInstance instance = new OntologyInstance();
-							instance.setIRI(appid);
-							instance.setLabel(title);
-							instance.setKeys(StringUtils.split(keys));
-							OntologyClass parent = getClassFromOntoStack();
-							if (parent != null) {
-								instance.setOntologyClass(parent);
-							}
-							this.ontologgy.register(instance);
-							return instance;
-						} else if (StringUtils.equals(appname, "class-iri")) {
-							OntologyClass instance = new OntologyClass();
-							instance.setIRI(appid);
-							instance.setLabel(title);
-							instance.setKeys(StringUtils.split(keys));
-							OntologyClass parent = getClassFromOntoStack();
-							if (parent != null) {
-								instance.setSuperClass(parent);
-							}
-							this.ontologgy.register(instance);
-							return instance;
-						}
-					}
-				}
-			}
-		}
-		return null;
 	}
 
 	protected void handleTopic(ToCNode toCNode, URI topicPath) {
@@ -277,14 +207,6 @@ public class IirdsDitaReader extends AbstractDomFilter {
 	protected boolean ignoreNavigation(final Element elem) {
 		return isBackMatter(elem) || isTopicGroup(elem) || isResourceOnly(elem) || isFrontMatter(elem)
 				|| isBookLists(elem);
-	}
-
-	protected boolean isSubjectSchemeRelated(final Element elem) {
-		return Constants.SUBJECTSCHEME_SUBJECTDEF.matches(elem) || Constants.SUBJECTSCHEME_HASKIND.matches(elem)
-				|| Constants.SUBJECTSCHEME_SUBJECTSCHEME.matches(elem)
-				|| Constants.SUBJECTSCHEME_SUBJECTHEAD.matches(elem)
-				|| Constants.SUBJECTSCHEME_HASNARROWER.matches(elem) || Constants.SUBJECTSCHEME_HASRELATED.matches(elem)
-				|| Constants.SUBJECTSCHEME_HASINSTANCE.matches(elem);
 	}
 
 	protected boolean isBackMatter(final Element elem) {

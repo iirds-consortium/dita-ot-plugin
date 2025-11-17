@@ -34,6 +34,8 @@ import org.iirds.rdf.IRIUtils;
 import org.iirds.rdf.IirdsConstants;
 import org.iirds.rdf.RDFUtils;
 
+import com.ibm.icu.impl.number.parse.RequireDecimalSeparatorValidator;
+
 /**
  *
  * Factory for iiRDS RDF model objects
@@ -51,6 +53,13 @@ public class Factory {
 			resource.addProperty(RDF.type, resource.getModel().getResource(classURI));
 		}
 	}
+	
+	public static void setSuperType(Resource resource, String classURI) {
+		if (resource.getPropertyResourceValue(RDFS.subClassOf) == null) {
+			resource.addProperty(RDFS.subClassOf, resource.getModel().getResource(classURI));
+		}
+	}
+	
 
 	public static Resource createTopic(Model model, String uri) {
 		Resource topic = model.getResource(uri);

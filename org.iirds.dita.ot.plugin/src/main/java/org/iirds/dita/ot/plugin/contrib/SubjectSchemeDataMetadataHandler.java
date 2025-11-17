@@ -4,19 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.vocabulary.RDFS;
 import org.dita.dost.util.Constants;
 import org.dita.dost.util.XMLUtils;
-import org.iirds.dita.ot.plugin.model.Ontology;
-import org.iirds.dita.ot.plugin.model.OntologyClass;
-import org.iirds.dita.ot.plugin.model.OntologyCommon;
-import org.iirds.dita.ot.plugin.model.OntologyInstance;
+import org.iirds.dita.ot.plugin.model.RelationType;
+import org.iirds.dita.ot.plugin.model.SubjectDef;
+import org.iirds.dita.ot.plugin.model.SubjectDefinitions;
 import org.iirds.dita.ot.plugin.model.ToCNode;
 import org.iirds.dita.ot.plugin.spi.IirdsMetadataHandler;
 import org.iirds.rdf.IirdsConstants;
+import org.iirds.rdf.RDFConstants;
 import org.iirds.rdf.facade.Factory;
 import org.iirds.rdf.facade.InformationUnits;
 import org.slf4j.Logger;
@@ -42,7 +43,7 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 
 	@Override
 	public void extractMetadata(ToCNode node, Document document) {
-		List<OntologyInstance> list = new ArrayList<>();
+		List<SubjectDef> list = new ArrayList<>();
 		node.setProperty(PROP_SUBJECTSCHEME, list);
 		Optional<Element> metadata = MetadataUtils.getMetadataHolderElement(document.getDocumentElement());
 		if (metadata.isPresent()) {
@@ -50,33 +51,44 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 			for (Element data : dataElements) {
 				String keyref = XMLUtils.getValue(data, Constants.ATTRIBUTE_NAME_KEYREF);
 				if (keyref != null) {
-					Optional<OntologyCommon> member = Ontology.getDefault().getByKey(keyref);
-					if (member.isPresent()) {
-						if (member.get().isInstance()) {
-							OntologyInstance instance = (OntologyInstance) member.get();
-							logger.info("Found " + instance);
-							list.add(instance);
-						}
+					Optional<SubjectDef> subjectdef = SubjectDefinitions.getDefault().getSubjectDefByKey(keyref);
+					if (subjectdef.isPresent()) {
+						logger.info("Found " + subjectdef.get());
+						list.add(subjectdef.get());
 					}
 				}
 			}
 		}
 	}
 
-	boolean isType(OntologyClass clazz, String classUri) {
-		while (clazz != null) {
-			if (classUri.equals(clazz.getIRI())) {
-				return true;
-			}
-			clazz = clazz.getSuperClass();
-		}
-		return false;
+	static boolean isClass(SubjectDef subjectdef) {
+		return subjectdef != null && "class-iri".equals(subjectdef.getAppname());
 	}
 
-	void setLabel(Resource resource, OntologyInstance concept) {
-		if (concept.getLabel() != null) {
-			resource.addLiteral(RDFS.label, concept.getLabel());
+	static SubjectDef findClassOf(SubjectDef subjectdef) {
+		SubjectDef parent = subjectdef.getRelations().get(RelationType.KIND_OF);
+		if (parent != null) {
+			if (isClass(parent))
+				return parent;
+			return findClassOf(parent);
 		}
+		parent = subjectdef.getRelations().get(RelationType.CHILD_OF);
+		if (parent != null) {
+			if (isClass(parent))
+				return parent;
+			return findClassOf(parent);
+		}
+		parent = subjectdef.getRelations().get(RelationType.NARRORER_OF);
+		if (parent != null) {
+			if (isClass(parent))
+				return parent;
+			return findClassOf(parent);
+		}
+		return null;
+	}
+
+	boolean isType(SubjectDef clazz, String classUri) {
+		return clazz != null && classUri.equals(clazz.getAppid());
 	}
 
 	@Override
@@ -84,37 +96,66 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 
 		// TODO: label language
 
-		// TODO: type hierarchy, not jut base types
-
 		Resource infoUnit = root.getInformationUnit();
-
 		@SuppressWarnings("unchecked")
-		List<OntologyInstance> concepts = (List<OntologyInstance>) root.getProperty(PROP_SUBJECTSCHEME);
+		List<SubjectDef> concepts = (List<SubjectDef>) root.getProperty(PROP_SUBJECTSCHEME);
 		if (concepts != null) {
-			for (OntologyInstance concept : concepts) {
-				String iri = concept.getIRI();
-				OntologyClass clazz = concept.getOntologyClass();
-				if (clazz != null) {
-					if (isType(clazz, IirdsConstants.PRODUCTVARIANT_CLASS_URI)) {
-						Resource product = Factory.createProductVariant(infoUnit.getModel(), iri);
-						setLabel(product, concept);
-						InformationUnits.addRelatedProductVariant(infoUnit, product);
-					} else if (isType(clazz, IirdsConstants.DOCUMENTTYPE_CLASS_URI)) {
-						Resource dt = infoUnit.getModel().getResource(iri);
-						setLabel(dt, concept);
-						InformationUnits.addDocumentType(dt, infoUnit);
-					} else if (isType(clazz, IirdsConstants.COMPONENT_CLASS_URI)) {
-						Resource product = Factory.createComponent(infoUnit.getModel(), iri);
-						setLabel(product, concept);
-						InformationUnits.addRelatedComponent(infoUnit, product);
-					} else if (isType(clazz, IirdsConstants.INFORMATIONSUBJECT_CLASS_URI)) {
-						Resource subject = Factory.createInformationSubject(infoUnit.getModel(), iri);
-						setLabel(subject, concept);
-						InformationUnits.addInformationSubject(infoUnit, subject);
-					} else if (isType(clazz, IirdsConstants.PRODUCTLIFECYCLEPHASE_CLASS_URI)) {
-						Resource phase = Factory.createProductLifecyclePhase(infoUnit.getModel(), iri);
-						setLabel(phase, concept);
-						InformationUnits.addProductLifeCyclePhase(infoUnit, phase);
+			for (SubjectDef concept : concepts) {
+				String iri = concept.getAppid();
+				String appname = concept.getAppname();
+				if (iri != null) {
+					if ("instance-iri".equals(appname)) {
+						SubjectDef clazz = findClassOf(concept);
+						Resource res = infoUnit.getModel().createResource(concept.getAppid());
+						// TODO: should we override any existing label?
+						Factory.setLabel(res, concept.getLabel(), null);
+						if (clazz != null) {
+							Factory.setType(res, clazz.getAppid());
+						}
+						while (clazz != null) {
+							SubjectDef superclazz = findClassOf(clazz);
+
+							Resource type = infoUnit.getModel().getResource(clazz.getAppid());
+							if (!RDFConstants.getRDFSModel().containsResource(type)) {
+							
+								//set label of type
+								if (type.getProperty(RDFS.label) == null && !StringUtils.isEmpty(clazz.getLabel())) {
+									// TODO: obey language if possible
+									Factory.setLabel(type, clazz.getLabel(), null);
+								}
+
+								// set super class
+								Statement stmt = type.getProperty(RDFS.subClassOf);
+								if (superclazz != null && superclazz.getAppid() != null && stmt == null) {
+									Factory.setSuperType(type, superclazz.getAppid());
+								}
+							}
+
+							// now try to create relation to metadata
+							if (isType(clazz, IirdsConstants.PRODUCTVARIANT_CLASS_URI)) {
+								logger.info("Seting product variant at " + root.getTitle());
+								InformationUnits.addRelatedProductVariant(infoUnit, res);
+								break;
+							} else if (isType(clazz, IirdsConstants.DOCUMENTTYPE_CLASS_URI)) {
+								InformationUnits.addDocumentType(infoUnit, res);
+								logger.info("Seting document type at " + root.getTitle());
+								break;
+							} else if (isType(clazz, IirdsConstants.COMPONENT_CLASS_URI)) {
+								logger.info("Setting component at " + root.getTitle());
+								InformationUnits.addRelatedComponent(infoUnit, res);
+								break;
+							} else if (isType(clazz, IirdsConstants.INFORMATIONSUBJECT_CLASS_URI)) {
+								logger.info("Setting information subject at " + root.getTitle());
+								InformationUnits.addInformationSubject(infoUnit, res);
+								break;
+							} else if (isType(clazz, IirdsConstants.PRODUCTLIFECYCLEPHASE_CLASS_URI)) {
+								logger.info("Setting product lifecycle phase at " + root.getTitle());
+								InformationUnits.addProductLifeCyclePhase(infoUnit, res);
+								break;
+							}
+							// TODO: handle other classes
+							clazz = superclazz;
+						}
 					}
 				}
 			}
