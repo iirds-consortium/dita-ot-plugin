@@ -120,7 +120,6 @@ public class IirdsDitaReader extends AbstractDomFilter {
 
 		// run metadata extraction
 		Configuration.getDefault().getIirdsMetadataHandler().extractMetadata(this.toc, doc);
-		extractor.processMap(doc);
 
 		for (Element elem : XMLUtils.getChildElements(map)) {
 			if (Constants.MAP_TOPICREF.matches(elem)) {
