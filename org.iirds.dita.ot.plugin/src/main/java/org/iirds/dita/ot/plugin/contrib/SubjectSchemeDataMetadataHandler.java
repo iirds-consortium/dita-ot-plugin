@@ -140,6 +140,14 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 								InformationUnits.addDocumentType(infoUnit, res);
 								logger.info("Seting document type at " + root.getTitle());
 								break;
+							} else if (isType(clazz, IirdsConstants.SUPPLY_CLASS_URI)) {
+								logger.info("Setting supply at " + root.getTitle());
+								InformationUnits.addRelatedSupply(infoUnit, res);
+								break;
+							} else if (isType(clazz, IirdsConstants.QUALIFICATION_CLASS_URI)) {
+								logger.info("Setting qualification at " + root.getTitle());
+								InformationUnits.addRelatedQualification(infoUnit, res);
+								break;
 							} else if (isType(clazz, IirdsConstants.COMPONENT_CLASS_URI)) {
 								logger.info("Setting component at " + root.getTitle());
 								InformationUnits.addRelatedComponent(infoUnit, res);
