@@ -53,6 +53,8 @@ public final class IirdsConstants {
 	public static final String TOPICTYPE_CLASS_URI = iiRDS_URI + "TopicType";
 	/** Document type class URI */
 	public static final String DOCUMENTTYPE_CLASS_URI = iiRDS_URI + "DocumentType";
+	/** Document category class URI */
+	public static final String DOCUMENTCATEGORY_CLASS_URI = iiRDS_Hov_URI + "DocumentCategory";
 	/** Identity class URI */
 	public static final String IDENTITY_CLASS_URI = iiRDS_URI + "Identity";
 	/** IdentityDomain class URI */

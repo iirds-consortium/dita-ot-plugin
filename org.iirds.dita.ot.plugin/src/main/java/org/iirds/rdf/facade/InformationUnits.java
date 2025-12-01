@@ -22,6 +22,7 @@ import static org.iirds.rdf.IirdsConstants.DOCUMENT_CLASS_URI;
 import static org.iirds.rdf.IirdsConstants.HASABSTRACT_PROPERTY_URI;
 import static org.iirds.rdf.IirdsConstants.HASCONTENTLIFECYCLESTATUS_PROPERTY_URI;
 import static org.iirds.rdf.IirdsConstants.HASDOCUMENTTYPE_PROPERTY_URI;
+import static org.iirds.rdf.IirdsConstants.HASDOCUMENTCATEGORY_PROPERTY_URI;
 import static org.iirds.rdf.IirdsConstants.HASIDENTITY_PROPERTY_URI;
 import static org.iirds.rdf.IirdsConstants.HASPLANNINGTIME_PROPERTY_URI;
 import static org.iirds.rdf.IirdsConstants.HASRENDITION_PROPERTY_URI;
@@ -55,6 +56,7 @@ import org.iirds.rdf.IirdsConstants;
 
 /**
  * Facade to iiRDS InformationUnit
+ * 
  * @author Martin Kreutzer, Empolis Information Management GmbH
  *
  */
@@ -108,6 +110,12 @@ public class InformationUnits {
 			document.addProperty(document.getModel().getProperty(
 					isDocument(document) ? HASDOCUMENTTYPE_PROPERTY_URI : ISAPPLICABLEFORDOCUMENTTYPE_PROPERTY_URI),
 					doctype);
+		}
+	}
+
+	public static void addDocumentCategory(Resource document, Resource doccategory) {
+		if (doccategory != null && isDocument(document)) {
+			document.addProperty(document.getModel().getProperty(HASDOCUMENTCATEGORY_PROPERTY_URI), doccategory);
 		}
 	}
 
