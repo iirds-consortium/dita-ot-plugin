@@ -30,8 +30,8 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 	static Logger logger = LoggerFactory.getLogger(SubjectSchemeDataMetadataHandler.class);
 
 	static final String PROP_SUBJECTSCHEME = "metadata/subjectscheme";
-	static final String INSTANCE_IRI="instance-iri";
-	static final String CLASS_IRI="class-iri";
+	static final String INSTANCE_IRI = "instance-iri";
+	static final String CLASS_IRI = "class-iri";
 
 	@Override
 	public String getName() {
@@ -90,14 +90,7 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 	}
 
 	boolean isType(SubjectDef clazz, String classUri) {
-		//look at the class
-		if (clazz != null && classUri.equals(clazz.getAppid()))
-			return true;
-		//look at parent class
-		SubjectDef parent = clazz.getRelations().get(RelationType.CHILD_OF);
-		if (parent == null)
-			return false;
-		return isType(parent, classUri);
+		return clazz != null && classUri.equals(clazz.getAppid());
 	}
 
 	@Override
@@ -145,6 +138,10 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 								logger.info("Seting product variant at " + root.getTitle());
 								InformationUnits.addRelatedProductVariant(infoUnit, res);
 								break;
+							} else if (isType(clazz, IirdsConstants.PRODUCTFEATURE_CLASS_URI)) {
+								logger.info("Seting product feature at " + root.getTitle());
+								InformationUnits.addRelatedProductFeature(infoUnit, res);
+								break;
 							} else if (isType(clazz, IirdsConstants.DOCUMENTTYPE_CLASS_URI)) {
 								InformationUnits.addDocumentType(infoUnit, res);
 								logger.info("Seting document type at " + root.getTitle());
@@ -156,6 +153,10 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 							} else if (isType(clazz, IirdsConstants.SUPPLY_CLASS_URI)) {
 								logger.info("Setting supply at " + root.getTitle());
 								InformationUnits.addRelatedSupply(infoUnit, res);
+								break;
+							} else if (isType(clazz, IirdsConstants.EVENT_CLASS_URI)) {
+								logger.info("Setting event at " + root.getTitle());
+								InformationUnits.addEvent(infoUnit, res);
 								break;
 							} else if (isType(clazz, IirdsConstants.QUALIFICATION_CLASS_URI)) {
 								logger.info("Setting qualification at " + root.getTitle());
@@ -174,7 +175,8 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 								InformationUnits.addProductLifeCyclePhase(infoUnit, res);
 								break;
 							}
-							// TODO: handle other classes
+							// TODO: handle other classes: events?
+							//look at parent class:
 							clazz = superclazz;
 						}
 					}
