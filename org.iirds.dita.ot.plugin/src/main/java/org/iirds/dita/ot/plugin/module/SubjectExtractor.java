@@ -1,10 +1,6 @@
 package org.iirds.dita.ot.plugin.module;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.dita.dost.util.Constants;
@@ -26,8 +22,8 @@ import org.w3c.dom.Element;
  */
 public class SubjectExtractor {
 	static Logger logger = LoggerFactory.getLogger(SubjectExtractor.class);
-
-	protected static boolean isRelationElement(final Element elem) {
+	
+		protected static boolean isRelationElement(final Element elem) {
 		return Constants.SUBJECTSCHEME_HASKIND.matches(elem) || Constants.SUBJECTSCHEME_HASNARROWER.matches(elem)
 				|| Constants.SUBJECTSCHEME_HASRELATED.matches(elem)
 				|| Constants.SUBJECTSCHEME_HASINSTANCE.matches(elem);

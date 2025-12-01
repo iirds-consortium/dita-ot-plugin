@@ -30,6 +30,8 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 	static Logger logger = LoggerFactory.getLogger(SubjectSchemeDataMetadataHandler.class);
 
 	static final String PROP_SUBJECTSCHEME = "metadata/subjectscheme";
+	static final String INSTANCE_IRI="instance-iri";
+	static final String CLASS_IRI="class-iri";
 
 	@Override
 	public String getName() {
@@ -62,7 +64,7 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 	}
 
 	static boolean isClass(SubjectDef subjectdef) {
-		return subjectdef != null && "class-iri".equals(subjectdef.getAppname());
+		return subjectdef != null && CLASS_IRI.equals(subjectdef.getAppname());
 	}
 
 	static SubjectDef findClassOf(SubjectDef subjectdef) {
@@ -88,7 +90,14 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 	}
 
 	boolean isType(SubjectDef clazz, String classUri) {
-		return clazz != null && classUri.equals(clazz.getAppid());
+		//look at the class
+		if (clazz != null && classUri.equals(clazz.getAppid()))
+			return true;
+		//look at parent class
+		SubjectDef parent = clazz.getRelations().get(RelationType.CHILD_OF);
+		if (parent == null)
+			return false;
+		return isType(parent, classUri);
 	}
 
 	@Override
@@ -104,7 +113,7 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 				String iri = concept.getAppid();
 				String appname = concept.getAppname();
 				if (iri != null) {
-					if ("instance-iri".equals(appname)) {
+					if (INSTANCE_IRI.equals(appname)) {
 						SubjectDef clazz = findClassOf(concept);
 						Resource res = infoUnit.getModel().createResource(concept.getAppid());
 						// TODO: should we override any existing label?
@@ -117,8 +126,8 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 
 							Resource type = infoUnit.getModel().getResource(clazz.getAppid());
 							if (!RDFConstants.getRDFSModel().containsResource(type)) {
-							
-								//set label of type
+
+								// set label of type
 								if (type.getProperty(RDFS.label) == null && !StringUtils.isEmpty(clazz.getLabel())) {
 									// TODO: obey language if possible
 									Factory.setLabel(type, clazz.getLabel(), null);
@@ -139,6 +148,10 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 							} else if (isType(clazz, IirdsConstants.DOCUMENTTYPE_CLASS_URI)) {
 								InformationUnits.addDocumentType(infoUnit, res);
 								logger.info("Seting document type at " + root.getTitle());
+								break;
+							} else if (isType(clazz, IirdsConstants.DOCUMENTCATEGORY_CLASS_URI)) {
+								logger.info("Setting document categtory at " + root.getTitle());
+								InformationUnits.addDocumentCategory(infoUnit, res);
 								break;
 							} else if (isType(clazz, IirdsConstants.SUPPLY_CLASS_URI)) {
 								logger.info("Setting supply at " + root.getTitle());
