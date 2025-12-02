@@ -130,6 +130,7 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 								Statement stmt = type.getProperty(RDFS.subClassOf);
 								if (superclazz != null && superclazz.getAppid() != null && stmt == null) {
 									Factory.setSuperType(type, superclazz.getAppid());
+									Factory.setType(type, RDFS.Class.getURI());
 								}
 							}
 
@@ -176,7 +177,7 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 								break;
 							}
 							// TODO: handle other classes: events?
-							//look at parent class:
+							// look at parent class:
 							clazz = superclazz;
 						}
 					}
