@@ -68,7 +68,7 @@ class ConfigurationTest {
 		assertEquals("content", config.getContentPath());
 		assertNotNull(config.getIirdsMetadataHandler());
 		assertInstanceOf(CompositeMetadataHandler.class, config.getIirdsMetadataHandler());
-		assertEquals(8, ((CompositeMetadataHandler) config.getIirdsMetadataHandler()).getMetadataHandlers().size());
+		assertEquals(9, ((CompositeMetadataHandler) config.getIirdsMetadataHandler()).getMetadataHandlers().size());
 
 		assertNotNull(config.getIRIHandler());
 		assertInstanceOf(CompositeIRIHandler.class, config.getIRIHandler());
