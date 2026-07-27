@@ -73,6 +73,13 @@
                                     root element.</dd>
                             </dlentry>
                             <dlentry>
+                                <dt><codeph>subjectscheme</codeph></dt>
+                                <dd>Sets the iiRDS relation that matches the resolved class of each
+                                        <codeph>&lt;subjectdef></codeph> referenced by a
+                                        <codeph>&lt;data></codeph> element with a
+                                        <codeph>@keyref</codeph> attribute. </dd>
+                            </dlentry>
+                            <dlentry>
                                 <dt><codeph>default</codeph></dt>
                                 <dd>Applies all metadata handlers. Allows to combine custom metadata
                                     handlers with the default handlers.</dd>

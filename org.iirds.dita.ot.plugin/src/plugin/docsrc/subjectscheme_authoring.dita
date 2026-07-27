@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="subjectscheme_authoring">
+    <title>Assign metadata using a subject scheme</title>
+    <shortdesc>This procedure describes a best practice for modeling and assigning iiRDS taxonomy
+        metadata in DITA using a project-specific subject scheme map that builds on a base map with
+        default iiRDS classes and instances. </shortdesc>
+    <taskbody>
+        <prereq id="subjectscheme_authoring_prereq">
+            <ul>
+                <li>You have an iiRDS base subject scheme map that defines
+                        <codeph>&lt;subjectdef></codeph> elements with <codeph>@keys</codeph> and
+                    iiRDS <codeph>&lt;resourceid></codeph> metadata, as described in <xref
+                        keyref="subjectscheme_metadata"/>.</li>
+                <li>
+                    <draft-comment author="marion.knebel">point to location of default
+                        map</draft-comment>
+                </li>
+                <li>Your root DITA map is available for editing.</li>
+            </ul>
+        </prereq>
+        <context>
+            <p>A project wants to assign taxonomy-based iiRDS metadata to DITA content, for example,
+                a product structure with components, instead of relying on plain DITA attribute
+                values.</p>
+        </context>
+        <steps>
+            <step>
+                <cmd>Create an empty subject scheme map that will hold your custom subclasses and
+                    instances.</cmd>
+            </step>
+            <step>
+                <cmd>In the subject scheme map, add a reference to the iiRDS base subjet scheme map
+                    using a <codeph>&lt;schemeref></codeph> element.</cmd>
+                <info>By using a schema reference, you can easily extend existing classes in the
+                    base subject scheme.</info>
+                <info>Example:<codeblock><![CDATA[<subjectScheme>
+    <schemeref href="iirds-generated-subjectscheme.ditamap"/>
+</subjectScheme>]]></codeblock>
+                    <note id="note_ojk_nm1_bkc"> Modular subject schemes let you keep the standard
+                        iiRDS taxonomies separate from project-specific values. Create this
+                        project-specific map even if you do not yet need any project-specific
+                        classes or instances. Referencing the project-specific map instead of the
+                        generic one from the root map means you can extend the taxonomy later
+                        without changing that reference.</note>
+                </info>
+            </step>
+            <step>
+                <cmd>Reference the project-specific subject scheme map from the root map using a
+                        <codeph>&lt;mapref></codeph> element with
+                        <codeph>processing-role="resource-only"</codeph>.</cmd>
+                <info>Example:<codeblock><![CDATA[<mapref href="product-subjectscheme.ditamap"
+    processing-role="resource-only" toc="no"/>]]></codeblock>
+                    <note>The plugin only resolves subject schemes that are directly referenced from
+                        the root map, independent of the value of <codeph>@processing-role</codeph>.
+                        Subject schemes provided to DITA-OT via the
+                            <codeph>--args.resources</codeph> parameter are not processed.</note>
+                </info>
+            </step>
+            <step>
+                <cmd>Start adding your own classes or instances in  the project-specific subject
+                    scheme map. For each taxonomy, reopen the relevant iiRDS class by repeating its
+                        <codeph>&lt;topicmeta></codeph> and <codeph>&lt;resourceid></codeph> exactly
+                    as declared in the base subject scheme, and nest your own
+                        <codeph>&lt;subjectdef></codeph> elements underneath it, using a custom
+                    IRI.</cmd>
+                <info>Example:<codeblock><![CDATA[<subjectScheme>
+    <schemeref href="iirds-generated-subjectscheme.ditamap"/>
+    <subjectdef keys="iirds.Component">
+        <topicmeta>
+            <navtitle>component</navtitle>
+            <resourceid appid="http://iirds.tekom.de/iirds#Component" appname="class-iri"/>
+        </topicmeta>
+        <subjectdef keys="myproduct.Rotor">
+            <topicmeta>
+                <navtitle>Rotor</navtitle>
+                <resourceid appid="https://my-company.com/Component#Rotor" appname="instance-iri"/>
+            </topicmeta>
+        </subjectdef>
+    </subjectdef>
+</subjectScheme>]]></codeblock><note type="important">Nesting the custom classes and instances
+                        underneath an existing iiRDS class is very important and required for the
+                        plugin to resolve the new entries with the correct iiRDS relation. In this
+                        example, <codeph>iiRDS.Component</codeph> is a copy from the base subject
+                        scheme, while <codeph>product.Rotor</codeph> is a custom instance. </note>
+                </info>
+            </step>
+            <step>
+                <cmd>Assign the new metadata values to your content: Add a
+                        <codeph>&lt;data></codeph> element with a <codeph>@keyref</codeph> attribute
+                    for every metadata value that you want to assign.</cmd>
+                <info><p>The <codeph>@keyref</codeph> value must match the <codeph>@keys</codeph> value
+                    of a <codeph>&lt;subjectdef></codeph>.</p>
+                    <p>Place the <codeph>&lt;data></codeph> element in one of the following
+                    locations:</p></info>
+                <info>
+                    
+                    <ul>
+                        <li>In the <codeph>&lt;topicmeta></codeph> of the root map, to assign
+                            metadata to the resulting document.</li>
+                        <li>In the <codeph>&lt;topicmeta></codeph> of a
+                                <codeph>&lt;topicref></codeph>, to assign metadata to the referenced
+                            topic.</li>
+                        <li>In the <codeph>&lt;prolog>/&lt;metadata></codeph> element of a topic.
+                        </li>
+                    </ul>
+                    <p>Example, in the root map:</p>
+                    <codeblock><![CDATA[<topicmeta>
+    <data keyref="product.X5-DH2"/>
+    <data keyref="iirds.OperatingInstructions"/>
+</topicmeta>]]></codeblock>
+                </info>
+            </step>
+            <step>
+                <cmd>Run the <codeph>dita</codeph> command to transform your DITA map using the
+                        <codeph>iirds</codeph> transtype.</cmd>
+                <info>The <codeph>subjectscheme</codeph> metadata handler is applied automatically
+                    together with the other default metadata handlers, unless the
+                        <codeph>--iirds.metadatahandler</codeph> parameter is used to restrict the
+                    set of handlers. See <xref keyref="plugin_parameters"/>.</info>
+            </step>
+        </steps>
+        <result id="subjectscheme_authoring_result">The generated iiRDS package contains the
+            metadata resolved from the subject scheme. </result>
+    </taskbody>
+    <related-links>
+        <link keyref="subjectscheme_metadata"/>
+        <link keyref="subjectscheme_mapping"/>
+        <link keyref="subjectscheme_generator"/>
+        <link keyref="metadata_handler_behavior"/>
+    </related-links>
+</task>

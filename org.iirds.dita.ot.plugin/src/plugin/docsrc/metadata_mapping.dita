@@ -244,5 +244,6 @@
     </refbody>
     <related-links>
         <link keyref="unique_identifiers"/>
+        <link keyref="subjectscheme_mapping"/>
     </related-links>
 </reference>

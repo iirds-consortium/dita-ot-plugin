@@ -1,37 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="metadata_handler_behavior">
-    <title>Behavior of the default metadata handler</title>
+    <title>Known limitations</title>
     <conbody>
 
         <p>If an iiRDS package generated from DITA content does not contain the expected metadata,
-            note the following about the behavior of the metadata handler in the iiRDS plugin:</p>
-        <ul>
-            <li>The metadata handler extracts the metadata that is present in the preprocessed XML.
-                The DITA standard defines which metadata is propagated from maps to topics or gets
-                inherited from parent topics. The DITA standard also defines whether multiple values
-                for the same metadata element or attribute are merged into a single value or whether
-                multiple values can be aggregated in a topic. To change this behavior, implement a
-                custom metadata handler.</li>
-            <li>The metadata handler processes attribute values as they come. If you use a
-                subjectscheme map to control attribute values and this subjectscheme map contains
-                navigation titles with verbose labels for the attribute values, then the resulting
-                RDF will only contain the attribute value. Example: A subject scheme defines the
-                value "product-a" for the @product attribute. "product-a" corresponds to the product
-                Name "Awesome Product". The RDF will contain an instance of <codeph>iiRDS:Product =
-                    "product-a"</codeph>. To change this behavior, implement a custom metadata
-                handler.</li>
-            <li>Metadata values are often language-dependent. Which product name are usually the
-                same in any language, metadata such as component names or user roles differ from
-                language to language. The plugin has no way of knowing the component "engine" (EN)
-                is the same as the component "Motor" (DE). Therefore, the metadata entries for this
-                component differ in the English and the German iiRDS package even if they mean the
-                same object in the real world. If you need to have the same iiRDS metadata values
-                across languages, you either need to use controlled metadata values in the same
-                language or implement a custom metadata handler that performs an additional
-                processing step during which the values are mapped and harmonized.</li>
-        </ul>
-        <section>To find out how a custom metadata handler can be used with the iiRDS plugin, see
-                <xref keyref="customization_metadata_extraction"/>.</section>
+            note the following about the behavior of the metadata handlers.</p>
+        <p>To find out how a custom metadata handler can be used with the iiRDS plugin, see <xref
+                keyref="customization_metadata_extraction"/>.</p>
+        <section>
+            <title>Metadata extraction from default DITA elements and attributes</title>
+            <ul>
+                <li>The metadata handler extracts the metadata that is present in the preprocessed
+                    XML. The DITA standard defines which metadata is propagated from maps to topics
+                    or gets inherited from parent topics. The DITA standard also defines whether
+                    multiple values for the same metadata element or attribute are merged into a
+                    single value or whether multiple values can be aggregated in a topic. To change
+                    this behavior, implement a custom metadata handler.</li>
+                <li>The metadata handler processes attribute values as they come. If you use a
+                    subject scheme map to control attribute values (not <codeph>&lt;data></codeph>
+                    elements) and this subject scheme map contains navigation titles with verbose
+                    labels for the attribute values, then the resulting RDF will only contain the
+                    attribute value. Example: A subject scheme defines the value "product-a" for the
+                    @product attribute. "product-a" corresponds to the product Name "Awesome
+                    Product". The RDF will contain an instance of <codeph>iiRDS:Product =
+                        "product-a"</codeph>. To change this behavior, implement a custom metadata
+                    handler.</li>
+                <li>Metadata values are often language-dependent. While product names are usually
+                    the same in any language, metadata such as component names or user roles differ
+                    from language to language. The plugin has no way of knowing the component
+                    "engine" (EN) is the same as the component "Motor" (DE). Therefore, the metadata
+                    entries for this component differ in the English and the German iiRDS package
+                    even if they mean the same object in the real world.  If you need to have the
+                    same iiRDS metadata values across languages, you either need to use controlled
+                    metadata values in the same language or implement a custom metadata handler that
+                    performs an additional processing step during which the values are mapped and
+                    harmonized.</li>
+            </ul>
+        </section>
+        <section>
+            <title>Subject scheme-based metadata extraction</title>
+            <p>The <codeph>subjectscheme</codeph> metadata handler, described in <xref
+                    keyref="subjectscheme_metadata"/>, has the following current
+                limitations:</p>
+            <ul>
+                <li>Complex metadata structures, for example, product life cycle phases with
+                    additional properties or complex identities, are not supported yet.</li>
+                <li>Metadata assigned through a subject scheme is not inherited beyond the
+                    standard DITA propagation of <codeph>&lt;data></codeph> in <codeph
+                        >&lt;topicmeta></codeph> from a <codeph>&lt;topicref></codeph> to its
+                    topic. For example, metadata is not automatically inherited from a parent
+                        <codeph>&lt;topicref></codeph> to its child <codeph>&lt;topicref></codeph>
+                    elements.</li>
+                <li>Subject schemes are only resolved when they are directly referenced from the
+                    root map with <codeph>&lt;mapref></codeph> or <codeph>&lt;schemeref></codeph>,
+                    independent of the value of <codeph>@processing-role</codeph>. Subject schemes
+                    provided to DITA-OT with the <codeph>--args.resources</codeph> parameter are
+                    not processed.</li>
+                <li>Key scopes are not supported. All <codeph>@keys</codeph> values of <codeph
+                        >&lt;subjectdef></codeph> elements are resolved in a single, global
+                    scope.</li>
+                <li>The language of labels taken from a subject scheme, for example, for generated
+                    class labels, is not derived from <codeph>@xml:lang</codeph>.</li>
+                <li>Only the top-level iiRDS classes listed in <xref keyref="subjectscheme_mapping"
+                    /> are built into the plugin as anchors for resolving an iiRDS relation. Adding
+                    a genuinely new top-level class, one that is not a descendant of any of these,
+                    requires a change to the plugin, for example, by implementing a custom metadata
+                    handler. </li>
+                <li>The handler resolves iiRDS relations from the class hierarchy as declared in
+                    your subject scheme map. It does not verify against the iiRDS schemas that a
+                    referenced <codeph>@appid</codeph> is a valid iiRDS or iiRDS extension IRI, or
+                    that the declared hierarchy matches the real iiRDS taxonomy.</li>
+            </ul>
+        </section>
     </conbody>
 </concept>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="subjectscheme_metadata">
+    <title>Subject scheme-based metadata</title>
+    <conbody>
+        <p>In addition to the predefined metadata handler described in <xref
+                keyref="metadata_extraction"/>, the iiRDS plugin provides a
+                <codeph>subjectscheme</codeph> metadata handler. This handler lets authors assign
+            metadata based on an iiRDS taxonomy provided via a subject scheme map. This approach
+            provides a generic way to define taxonomies in a central location and assign the
+            metadata as to all relevant DITA maps and topics. Taxonomy values are referenced from
+            the subject scheme map using <codeph>&lt;data></codeph> elements with a
+                <codeph>@keyref</codeph> attribute. That way, you can build complex taxonomy trees
+            based on the core classes and instances provided by iiRDS, for example, for products,
+            components, qualifications, or information subjects.</p>
+        <draft-comment author="marion.knebel">decide what to do with the following
+            sentence.</draft-comment>
+        <p>For details on the current limitations of subject scheme-based metadata extraction, see
+                <xref keyref="metadata_handler_behavior"/>.</p>
+        <section>
+            <title>Metadata definitions in the subject scheme map</title>
+            <p>A DITA subject scheme map (<codeph>&lt;subjectScheme></codeph>) defines a hierarchy
+                of <codeph>&lt;subjectdef></codeph> elements. Each <codeph>&lt;subjectdef></codeph>
+                that is relevant to iiRDS carries a <codeph>&lt;resourceid></codeph> element in its
+                    <codeph>&lt;topicmeta></codeph> with two attributes:</p>
+            <ul>
+                <li>
+                    <p><codeph>@appid</codeph> contains the IRI that identifies the iiRDS class or
+                        instance.</p>
+                </li>
+                <li>
+                    <p><codeph>@appname</codeph> is set to one of the following:<ul>
+                            <li><codeph>class-iri</codeph> if the <codeph>&lt;subjectdef></codeph>
+                                represents an iiRDS class, for example,
+                                    <codeph>iirds:Component</codeph>
+                            </li>
+                            <li><codeph>instance-iri</codeph> if the
+                                    <codeph>&lt;subjectdef></codeph> represents a concrete instance
+                                of a class, for example, a specific component of a product</li>
+                        </ul></p>
+                </li>
+            </ul>
+            <p>Each <codeph>&lt;subjectdef></codeph> also declares one or more <codeph>@keys</codeph>
+                values so that it can be referenced from DITA content with a <codeph
+                    >@keyref</codeph> attribute. The following example defines the iiRDS class
+                    <codeph>Component</codeph> and one instance of it, a product part called
+                    "Rotor":</p>
+            <codeblock><![CDATA[<subjectdef keys="iirds.Component">
+    <topicmeta>
+        <navtitle>component</navtitle>
+        <resourceid appid="http://iirds.tekom.de/iirds#Component" appname="class-iri"/>
+    </topicmeta>
+    <subjectdef keys="product.Rotor">
+        <topicmeta>
+            <navtitle>Rotor</navtitle>
+            <resourceid appid="https://example.com/product#Rotor" appname="instance-iri"/>
+        </topicmeta>
+    </subjectdef>
+</subjectdef>]]></codeblock>
+        </section>
+        <section>
+            <title>Class hierarchy resolution</title>
+            <p>The <codeph>subjectscheme</codeph> handler maps an instance to an iiRDS relation
+                based on a fixed set of top-level iiRDS classes that are built into the plugin.
+                See <xref keyref="subjectscheme_mapping"/> for the complete list of these classes
+                and the iiRDS relations they are mapped to.</p>
+            <p>To determine the applicable relation for an instance, the handler follows the
+                parent-child structure declared in the subject scheme map, from the instance
+                upwards, until it reaches one of these top-level classes. This means a project is
+                not limited to using the top-level classes directly: any class nested underneath
+                one of them, at any depth, is resolved to the same relation as its top-level
+                ancestor.</p>
+            <p>This mirrors how the iiRDS standard itself allows implementers to extend the
+                taxonomy: new classes and instances can be added anywhere in the hierarchy, as
+                long as they are declared as subclasses, equivalent classes, or instances of an
+                existing iiRDS class. For the full rules on extending iiRDS, see the <xref
+                    href="https://github.com/iirds-consortium/specification" format="html"
+                    scope="external">iiRDS specification</xref>, sections "iiRDS Standard
+                Extensions" and "Proprietary iiRDS Extensions".</p>
+            <p>For example, a project can define a custom class <codeph>Error Code</codeph> as a
+                subclass of the iiRDS class <codeph>iirds:Event</codeph>, and add concrete error
+                code instances underneath it:</p>
+            <codeblock><![CDATA[<subjectdef keys="iirds.Event">
+    <topicmeta>
+        <navtitle>event</navtitle>
+        <resourceid appid="http://iirds.tekom.de/iirds#Event" appname="class-iri"/>
+    </topicmeta>
+    <subjectdef keys="product.Error">
+        <topicmeta>
+            <navtitle>Error Code</navtitle>
+            <resourceid appid="https://example.com/product#Error" appname="class-iri"/>
+        </topicmeta>
+        <subjectdef keys="product.Error.1x111">
+            <topicmeta>
+                <navtitle>1.x111</navtitle>
+                <resourceid appid="https://example.com/product#Error.1x111" appname="instance-iri"/>
+            </topicmeta>
+        </subjectdef>
+    </subjectdef>
+</subjectdef>]]></codeblock>
+            <p>Because <codeph>product.Error</codeph> is not itself one of the top-level classes,
+                an instance such as <codeph>product.Error.1x111</codeph> is resolved to its
+                nearest top-level ancestor, <codeph>iirds:Event</codeph>, and mapped to the iiRDS
+                relation <codeph>iirds:relates-to-event</codeph>.</p>
+            <note type="important">The handler determines the relation from the hierarchy that is
+                declared in your subject scheme map. It does not independently verify against the
+                iiRDS schemas whether a referenced <codeph>@appid</codeph> is a valid iiRDS or iiRDS
+                extension IRI, or that the declared parent-child structure matches the real iiRDS
+                taxonomy. Make sure that the IRIs and hierarchy you use are correct so that the
+                resulting iiRDS package conforms to the standard.</note>
+        </section>
+        <section>
+            <title>Assigning metadata to DITA content</title>
+            <p>To assign subject scheme metadata to a DITA map or topic, add a <codeph
+                    >&lt;data></codeph> element with a <codeph>@keyref</codeph> attribute that
+                references the <codeph>@keys</codeph> value of an instance <codeph
+                    >&lt;subjectdef></codeph>. This <codeph>&lt;data></codeph> element can be
+                placed:</p>
+            <ul>
+                <li>In the <codeph>&lt;topicmeta></codeph> of the root map, to assign metadata to
+                    the resulting <codeph>iirds:Document</codeph>.</li>
+                <li>In the <codeph>&lt;topicmeta></codeph> of a <codeph>&lt;topicref></codeph>, to
+                    assign metadata to the referenced topic. DITA-OT propagates this metadata to
+                    the topic itself, so this is a working alternative to placing the metadata
+                    directly in the topic.</li>
+                <li>In the <codeph>&lt;prolog>/&lt;metadata></codeph> element of a topic, to assign
+                    metadata directly to that topic.</li>
+            </ul>
+            <p>Example, assigning a product variant and one component to a topic:</p>
+            <codeblock><![CDATA[<data keyref="product.X5-DH2"/>
+<data keyref="product.Rotor"/>]]></codeblock>
+            <p>For details on how to reference and extend subject schemes, and on best practices
+                for organizing keys, see <xref keyref="subjectscheme_authoring"/>.</p>
+        </section>
+    </conbody>
+</concept>
