@@ -21,14 +21,14 @@
         </context>
         <steps>
             <step>
-                <cmd>Create an empty subject scheme map that will hold your custom subclasses and
-                    instances.</cmd>
+                <cmd>Create an empty project-specific subject scheme map that will hold your custom
+                    subclasses and instances.</cmd>
             </step>
             <step>
-                <cmd>In the subject scheme map, add a reference to the iiRDS base subject scheme map
-                    using a <codeph>&lt;schemeref></codeph> element.</cmd>
+                <cmd>In the project-specific subject scheme map, add a reference to the iiRDS base
+                    subject scheme map using a <codeph>&lt;schemeref></codeph> element.</cmd>
                 <info>By using a schema reference, you can easily extend existing classes in the
-                    base subject scheme.</info>
+                    base subject scheme map.</info>
                 <info>Example:<codeblock><![CDATA[<subjectScheme>
     <schemeref href="iirds-generated-subjectscheme.ditamap"/>
 </subjectScheme>]]></codeblock>
@@ -56,7 +56,7 @@
                 <cmd>Start adding your own classes or instances in  the project-specific subject
                     scheme map. For each taxonomy, reopen the relevant iiRDS class by repeating its
                         <codeph>&lt;topicmeta></codeph> and <codeph>&lt;resourceid></codeph> exactly
-                    as declared in the base subject scheme, and nest your own
+                    as declared in the base subject scheme map, and nest your own
                         <codeph>&lt;subjectdef></codeph> elements underneath it, using a custom
                     IRI.</cmd>
                 <info>Example:<codeblock><![CDATA[<subjectScheme>
@@ -75,7 +75,7 @@
     </subjectdef>
 </subjectScheme>]]></codeblock><note type="important">Nesting the custom classes and instances
                         underneath an existing iiRDS class is very important and required for the
-                        plugin to resolve the new entries with the correct iiRDS relation. In this
+                        plugin to resolve the new entries with the correct iiRDS property. In this
                         example, <codeph>iirds.Component</codeph> is a copy from the base subject
                         scheme, while <codeph>myproduct.Rotor</codeph> is a custom instance. </note>
                 </info>
@@ -118,7 +118,6 @@
             metadata resolved from the subject scheme. </result>
     </taskbody>
     <related-links>
-        <link keyref="subjectscheme_metadata"/>
         <link keyref="subjectscheme_mapping"/>
         <link keyref="subjectscheme_generator"/>
         <link keyref="metadata_handler_behavior"/>

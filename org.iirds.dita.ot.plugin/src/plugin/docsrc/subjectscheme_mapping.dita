@@ -5,12 +5,12 @@
     <refbody>
         <section>
             <p>The <codeph>subjectscheme</codeph> metadata handler maps instances to iiRDS
-                relations based on the following fixed set of top-level iiRDS classes, which are
+                properties based on the following fixed set of top-level iiRDS classes, which are
                 built into the plugin. Any class nested underneath one of these top-level classes
-                in a subject scheme map, at any depth, is resolved to the same relation. See <xref
+                in a subject scheme map, at any depth, is resolved to the same property. See <xref
                     keyref="subjectscheme_metadata"/> for details about this resolution.</p>
             <table frame="all" rowsep="1" colsep="1" id="table_subjectscheme_mapping">
-                <title>Overview of top-level iiRDS classes and iiRDS relations</title>
+                <title>Overview of top-level iiRDS classes and iiRDS properties</title>
                 <tgroup cols="3">
                     <colspec colname="c1" colnum="1" colwidth="1*"/>
                     <colspec colname="c2" colnum="2" colwidth="1.3*"/>
@@ -18,7 +18,7 @@
                     <thead>
                         <row>
                             <entry>Top-level iiRDS class</entry>
-                            <entry>iiRDS relation</entry>
+                            <entry>iiRDS property</entry>
                             <entry>Comment</entry>
                         </row>
                     </thead>
@@ -70,7 +70,7 @@
                                     <codeph>iirds:Document</codeph>) or <codeph
                                     >iirds:is-applicable-for-document-type</codeph> (on
                                     <codeph>iirds:Topic</codeph>)</entry>
-                            <entry>The relation depends on whether the metadata is assigned to the
+                            <entry>The property depends on whether the metadata is assigned to the
                                 root map (<codeph>iirds:Document</codeph>) or a topic. Example
                                 instance: <codeph>iirds:OperatingInstructions</codeph>.</entry>
                         </row>
@@ -85,7 +85,7 @@
                 </tgroup>
             </table>
             <p>A class that is not one of these top-level classes, and not nested underneath one
-                of them, is not mapped to an iiRDS relation by the <codeph>subjectscheme</codeph>
+                of them, is not mapped to an iiRDS property by the <codeph>subjectscheme</codeph>
                 handler. Adding a genuinely new top-level class, one that is not a descendant of
                 any class in this table, requires a change to the plugin. See <xref
                     keyref="metadata_handler_behavior"/> for this and other current
@@ -109,7 +109,6 @@
         </section>
     </refbody>
     <related-links>
-        <link keyref="subjectscheme_authoring"/>
         <link keyref="subjectscheme_generator"/>
     </related-links>
 </reference>

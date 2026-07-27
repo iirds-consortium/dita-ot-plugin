@@ -74,7 +74,7 @@
                             </dlentry>
                             <dlentry>
                                 <dt><codeph>subjectscheme</codeph></dt>
-                                <dd>Sets the iiRDS relation that matches the resolved class of each
+                                <dd>Sets the iiRDS property that matches the resolved class of each
                                         <codeph>&lt;subjectdef></codeph> referenced by a
                                         <codeph>&lt;data></codeph> element with a
                                         <codeph>@keyref</codeph> attribute. </dd>

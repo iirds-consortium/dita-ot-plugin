@@ -56,15 +56,15 @@
         </section>
         <section>
             <title>Class hierarchy resolution</title>
-            <p>The <codeph>subjectscheme</codeph> handler maps an instance to an iiRDS relation
+            <p>The <codeph>subjectscheme</codeph> handler maps an instance to an iiRDS property
                 based on a fixed set of top-level iiRDS classes that are built into the plugin.
                 See <xref keyref="subjectscheme_mapping"/> for the complete list of these classes
-                and the iiRDS relations they are mapped to.</p>
-            <p>To determine the applicable relation for an instance, the handler follows the
+                and the iiRDS properties they are mapped to.</p>
+            <p>To determine the applicable property for an instance, the handler follows the
                 parent-child structure declared in the subject scheme map, from the instance
                 upwards, until it reaches one of these top-level classes. This means a project is
                 not limited to using the top-level classes directly: any class nested underneath
-                one of them, at any depth, is resolved to the same relation as its top-level
+                one of them, at any depth, is resolved to the same property as its top-level
                 ancestor.</p>
             <p>This mirrors how the iiRDS standard itself allows implementers to extend the
                 taxonomy: new classes and instances can be added anywhere in the hierarchy, as
@@ -97,8 +97,8 @@
             <p>Because <codeph>product.Error</codeph> is not itself one of the top-level classes,
                 an instance such as <codeph>product.Error.1x111</codeph> is resolved to its
                 nearest top-level ancestor, <codeph>iirds:Event</codeph>, and mapped to the iiRDS
-                relation <codeph>iirds:relates-to-event</codeph>.</p>
-            <note type="important">The handler determines the relation from the hierarchy that is
+                property <codeph>iirds:relates-to-event</codeph>.</p>
+            <note type="important">The handler determines the property from the hierarchy that is
                 declared in your subject scheme map. It does not independently verify against the
                 iiRDS schemas whether a referenced <codeph>@appid</codeph> is a valid iiRDS or iiRDS
                 extension IRI, or that the declared parent-child structure matches the real iiRDS

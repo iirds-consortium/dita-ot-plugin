@@ -63,11 +63,11 @@
                 <li>The language of labels taken from a subject scheme, for example, for generated
                     class labels, is not derived from <codeph>@xml:lang</codeph>.</li>
                 <li>Only the top-level iiRDS classes listed in <xref keyref="subjectscheme_mapping"
-                    /> are built into the plugin as anchors for resolving an iiRDS relation. Adding
+                    /> are built into the plugin as anchors for resolving an iiRDS property. Adding
                     a genuinely new top-level class, one that is not a descendant of any of these,
                     requires a change to the plugin, for example, by implementing a custom metadata
                     handler. </li>
-                <li>The handler resolves iiRDS relations from the class hierarchy as declared in
+                <li>The handler resolves iiRDS properties from the class hierarchy as declared in
                     your subject scheme map. It does not verify against the iiRDS schemas that a
                     referenced <codeph>@appid</codeph> is a valid iiRDS or iiRDS extension IRI, or
                     that the declared hierarchy matches the real iiRDS taxonomy.</li>
