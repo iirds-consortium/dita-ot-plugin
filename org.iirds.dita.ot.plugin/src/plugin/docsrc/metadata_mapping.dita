@@ -178,7 +178,7 @@
                                 <p><codeph>iirds:dateOfLastModification</codeph> and
                                         <codeph>iirds:dateOfStatus</codeph></p>
                             </entry>
-                            <entry><codeph>@modified</codeph> attribute of <codeph>created</codeph>
+                            <entry><codeph>@modified</codeph> attribute of <codeph>revised</codeph>
                                 element of root map or topic root is used.</entry>
                         </row>
                         <row>
@@ -187,7 +187,7 @@
                                         <codeph>@golive</codeph></p>
                             </entry>
                             <entry>
-                                <p><codeph>iirds:datefOfEffect</codeph></p>
+                                <p><codeph>iirds:dateOfEffect</codeph></p>
                             </entry>
                             <entry>
                                 <p><codeph>@golive</codeph> attribute of <codeph>created</codeph> or
@@ -205,7 +205,7 @@
                                     with <codeph>@expiry</codeph></p>
                             </entry>
                             <entry>
-                                <p><codeph>iirds:datefOfExpiry</codeph></p>
+                                <p><codeph>iirds:dateOfExpiry</codeph></p>
                             </entry>
                             <entry>
                                 <p><codeph>@expiry</codeph> attribute of <codeph>created</codeph> or

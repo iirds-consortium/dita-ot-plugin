@@ -3,7 +3,7 @@
 <concept id="installation">
     <title>Install the iiRDS plugin</title>
     <shortdesc>The iiRDS plugin can be installed offline from a ZIP archive or online from the
-        DITA-OT registry or the <xref href="https://iirgs.org" format="html" scope="external"
+        DITA-OT registry or the <xref href="https://iirds.org" format="html" scope="external"
             >https://iirds.org</xref> website. </shortdesc>
     <conbody>
         <p>Plugin installation is described in the documentation of DITA-OT. Follow the installation

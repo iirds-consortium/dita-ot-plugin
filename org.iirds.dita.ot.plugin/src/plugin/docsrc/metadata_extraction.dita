@@ -12,7 +12,7 @@
             <li>
                 <p>An <codeph>iirds:Package</codeph> and an <codeph>iirds:Document</codeph> for the
                     root DITA map, if available. The <codeph>iirds:DocumentType</codeph> is set to
-                        <codeph>iirds:OperatingInstruction</codeph>.</p>
+                        <codeph>iirds:OperatingInstructions</codeph>.</p>
             </li>
             <li>
                 <p>An <codeph>iirds:Topic</codeph> for each topic in a DITA map or for a single DITA
@@ -57,7 +57,7 @@
             </li>
         </ul>
         <p>Both approaches to extract metadata for an iiRDS package can be combined to get the best
-            of both worlds. However, there will not be any dedublication. If the resulting iiRDS
+            of both worlds. However, there will not be any deduplication. If the resulting iiRDS
             metadata entry for a topic or map from both handlers is identical, there will only be
             one entry in the RDF file. If the metadata entries are different, for example, in
             spelling or because they have a different IRI, there will be multiple entries following

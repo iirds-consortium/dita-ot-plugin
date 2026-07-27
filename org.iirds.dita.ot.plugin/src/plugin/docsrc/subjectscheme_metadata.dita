@@ -8,7 +8,7 @@
                 <codeph>subjectscheme</codeph> metadata handler. This handler lets authors assign
             metadata based on an iiRDS taxonomy provided via a subject scheme map. This approach
             provides a generic way to define taxonomies in a central location and assign the
-            metadata as to all relevant DITA maps and topics. Taxonomy values are referenced from
+            metadata to all relevant DITA maps and topics. Taxonomy values are referenced from
             the subject scheme map using <codeph>&lt;data></codeph> elements with a
                 <codeph>@keyref</codeph> attribute. That way, you can build complex taxonomy trees
             based on the core classes and instances provided by iiRDS, for example, for products,

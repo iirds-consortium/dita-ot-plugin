@@ -9,8 +9,8 @@
         <prereq id="subjectscheme_authoring_prereq">
             <ul>
                 <li>You have an iiRDS base subject scheme map that contains the standard iiRDS
-                    classes and instaces. The copy that ships with this plugin is stored in
-                        <filepath>org.iirds.dita.ot.plugin\src\plugin\docsrc\iirds-generated-subjectscheme.ditamap</filepath>.</li>
+                    classes and instances. The copy that ships with this plugin is stored in
+                        <filepath>&lt;DITA-OT>/plugins/org.iirds.dita.package/subjectscheme/iirds-generated-subjectscheme.ditamap</filepath>.</li>
                 <li>Your root DITA map is available for editing.</li>
             </ul>
         </prereq>
@@ -25,7 +25,7 @@
                     instances.</cmd>
             </step>
             <step>
-                <cmd>In the subject scheme map, add a reference to the iiRDS base subjet scheme map
+                <cmd>In the subject scheme map, add a reference to the iiRDS base subject scheme map
                     using a <codeph>&lt;schemeref></codeph> element.</cmd>
                 <info>By using a schema reference, you can easily extend existing classes in the
                     base subject scheme.</info>
@@ -76,20 +76,19 @@
 </subjectScheme>]]></codeblock><note type="important">Nesting the custom classes and instances
                         underneath an existing iiRDS class is very important and required for the
                         plugin to resolve the new entries with the correct iiRDS relation. In this
-                        example, <codeph>iiRDS.Component</codeph> is a copy from the base subject
-                        scheme, while <codeph>product.Rotor</codeph> is a custom instance. </note>
+                        example, <codeph>iirds.Component</codeph> is a copy from the base subject
+                        scheme, while <codeph>myproduct.Rotor</codeph> is a custom instance. </note>
                 </info>
             </step>
             <step>
                 <cmd>Assign the new metadata values to your content: Add a
                         <codeph>&lt;data></codeph> element with a <codeph>@keyref</codeph> attribute
                     for every metadata value that you want to assign.</cmd>
-                <info><p>The <codeph>@keyref</codeph> value must match the <codeph>@keys</codeph> value
-                    of a <codeph>&lt;subjectdef></codeph>.</p>
-                    <p>Place the <codeph>&lt;data></codeph> element in one of the following
-                    locations:</p></info>
                 <info>
-                    
+                    <p>The <codeph>@keyref</codeph> value must match the <codeph>@keys</codeph>
+                        value of a <codeph>&lt;subjectdef></codeph>.</p>
+                    <p>Place the <codeph>&lt;data></codeph> element in one of the following
+                        locations:</p>
                     <ul>
                         <li>In the <codeph>&lt;topicmeta></codeph> of the root map, to assign
                             metadata to the resulting document.</li>

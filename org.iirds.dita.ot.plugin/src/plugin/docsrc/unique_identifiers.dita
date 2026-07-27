@@ -18,7 +18,7 @@
         <p>The following mechanisms apply:</p>
         <ul>
             <li>
-                <p>The IRI of each <codeph>iirds:Topic</codeph> is consists of the
+                <p>The IRI of each <codeph>iirds:Topic</codeph> consists of the
                         <codeph>@id</codeph> value of the topic and a hash of the content. The hash
                     is generated after preprocessing and before rendering. The hash is stable so
                     that the same value is generated with each call of the iiRDS transformation,
@@ -28,7 +28,7 @@
                 <p>The IRI of the <codeph>iirds:Document</codeph> consists of the
                         <codeph>@id</codeph> value of the DITA map and a hash of the content. The
                     hash is generated after preprocessing and before rendering. The hash is stable
-                    so that the same value is generated any with each call of the iiRDS
+                    so that the same value is generated with each call of the iiRDS
                     transformation, provided that the map content has not changed.</p>
                 <p>If a DITA map has no <codeph>@id</codeph> value, then a UUID is generated and
                     used as the IRI of the <codeph>iirds:Document</codeph>. This UUID is not
