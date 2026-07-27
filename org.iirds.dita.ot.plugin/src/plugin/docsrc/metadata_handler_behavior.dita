@@ -9,7 +9,7 @@
         <p>To find out how a custom metadata handler can be used with the iiRDS plugin, see <xref
                 keyref="customization_metadata_extraction"/>.</p>
         <section>
-            <title>Metadata extraction from default DITA elements and attributes</title>
+            <title>Mapping of standard DITA elements and attributes</title>
             <ul>
                 <li>The metadata handler extracts the metadata that is present in the preprocessed
                     XML. The DITA standard defines which metadata is propagated from maps to topics
@@ -39,7 +39,7 @@
             </ul>
         </section>
         <section>
-            <title>Subject scheme-based metadata extraction</title>
+            <title>Controlled iiRDS taxonomies using subject scheme maps</title>
             <p>The <codeph>subjectscheme</codeph> metadata handler, described in <xref
                     keyref="subjectscheme_metadata"/>, has the following current
                 limitations:</p>

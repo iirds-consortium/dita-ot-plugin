@@ -17,18 +17,19 @@
     <topicref href="introduction.dita" keys="plugin_introduction"/>
     <topicref href="requirements.dita" keys="requirements"/>
     <topicref href="installation.dita" keys="installation"/>
+    <topicref href="plugin_architecture_introduction.dita" keys="plugin_architecture"/>
     <topicref href="generate_iirds_package.dita" keys="generate_iirds_package"/>
-    <topicref href="plugin_architecture_introduction.dita" keys="plugin_architecture">
-        <topicref href="metadata_extraction.dita" keys="metadata_extraction"/>
+    <topicref href="metadata_extraction.dita" keys="metadata_extraction">
         <topicref href="metadata_mapping.dita" keys="metadata_mapping"/>
-        <topicref href="subjectscheme_metadata.dita" keys="subjectscheme_metadata"/>
-        <topicref href="subjectscheme_mapping.dita" keys="subjectscheme_mapping"/>
-        <topicref href="subjectscheme_authoring.dita" keys="subjectscheme_authoring"/>
-        <topicref href="subjectscheme_generator.dita" keys="subjectscheme_generator"/>
+        <topicref href="subjectscheme_metadata.dita" keys="subjectscheme_metadata">
+            <topicref href="subjectscheme_mapping.dita" keys="subjectscheme_mapping"/>
+            <topicref href="subjectscheme_authoring.dita" keys="subjectscheme_authoring"/>
+            <topicref href="subjectscheme_generator.dita" keys="subjectscheme_generator"/>
+        </topicref>
         <topicref href="metadata_handler_behavior.dita" keys="metadata_handler_behavior"/>
-        <topicref href="plugin_parameters.dita" keys="plugin_parameters"/>
-        <topicref href="unique_identifiers.dita" keys="unique_identifiers"/>
     </topicref>
+    <topicref href="plugin_parameters.dita" keys="plugin_parameters"/>
+    <topicref href="unique_identifiers.dita" keys="unique_identifiers"/>
     <topicref href="customization.dita" keys="customization">
         <topicref href="customization_handlers.dita" keys="customization_handlers"></topicref>
         <topicref href="customization_metadata_extraction.dita" keys="customization_metadata_extraction"></topicref>
@@ -36,5 +37,5 @@
         <topicref href="customization_html5_properties.dita" keys="customization_html5_properties"/>
     </topicref>
     <topicref href="license.dita" keys="license"></topicref>
-    
+
 </map>

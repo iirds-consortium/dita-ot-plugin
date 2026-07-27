@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
 <reference id="metadata_reference">
-    <title>Metadata mapping</title>
+    <title>Mapping of standard DITA elements and attributes</title>
     <refbody>
         <section>
             <p>The following table describes how DITA elements and attributes are mapped to iiRDS
