@@ -8,7 +8,12 @@
             <created date="2024-02-15"/>
             <revised modified="2026-07-27"/>
         </critdates>
+        <!-- Subject scheme-based metadata, for basic testing of the subjectscheme metadata handler: -->
+        <data keyref="iirds.AdministratorGuide"/>
+        <data keyref="iirds.GenericFunctionality"/>
+        <data keyref="iirds.Operation"/>
     </topicmeta>
+    <mapref href="iirds_plugin_subjectscheme.ditamap" processing-role="resource-only" toc="no"/>
     <topicref href="introduction.dita" keys="plugin_introduction"/>
     <topicref href="requirements.dita" keys="requirements"/>
     <topicref href="installation.dita" keys="installation"/>

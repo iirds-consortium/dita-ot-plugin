@@ -106,8 +106,6 @@
                 same way as the predefined entries.</p>
             <p>See <xref keyref="subjectscheme_authoring"/> for best practices on extending and
                 using the subject scheme map.</p>
-            <draft-comment author="marion.knebel">need to define where to store the subjectscheme
-                map and list the location</draft-comment>
         </section>
     </refbody>
     <related-links>

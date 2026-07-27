@@ -8,14 +8,9 @@
     <taskbody>
         <prereq id="subjectscheme_authoring_prereq">
             <ul>
-                <li>You have an iiRDS base subject scheme map that defines
-                        <codeph>&lt;subjectdef></codeph> elements with <codeph>@keys</codeph> and
-                    iiRDS <codeph>&lt;resourceid></codeph> metadata, as described in <xref
-                        keyref="subjectscheme_metadata"/>.</li>
-                <li>
-                    <draft-comment author="marion.knebel">point to location of default
-                        map</draft-comment>
-                </li>
+                <li>You have an iiRDS base subject scheme map that contains the standard iiRDS
+                    classes and instaces. The copy that ships with this plugin is stored in
+                        <filepath>org.iirds.dita.ot.plugin\src\plugin\docsrc\iirds-generated-subjectscheme.ditamap</filepath>.</li>
                 <li>Your root DITA map is available for editing.</li>
             </ul>
         </prereq>

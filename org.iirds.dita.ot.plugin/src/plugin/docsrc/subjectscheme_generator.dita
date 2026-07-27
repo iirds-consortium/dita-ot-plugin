@@ -4,8 +4,10 @@
     <title>iiRDS base subject scheme map</title>
     <conbody>
         <p>Instead of authoring a subject scheme for the standard iiRDS classes and instances by
-            hand, a base subject scheme is shipped with this plugin. It reflects all available
-            classes and instances in the iiRDS standard at the publication time of this plugin.</p>
+            hand, a base subject scheme is shipped with this plugin, stored in
+                <filepath>org.iirds.dita.ot.plugin\src\plugin\docsrc\iirds-generated-subjectscheme.ditamap</filepath>.
+            It reflects all available classes and instances in the iiRDS standard at the publication
+            time of this plugin.</p>
         <p>The plugin also comes with the generator that was used to produce this base subject
             scheme map. It reads the iiRDS RDF schemas that are bundled with the plugin, that is,
             the core iiRDS schema and the machinery, software, and handover domain schemas, and
