@@ -6,8 +6,8 @@
         <section>
             <p>The following table describes how DITA elements and attributes are mapped to iiRDS
                 resources in the RDF file of the iiRDS package. If nothing else is stated, available
-                metadata is mapped to <codeph>iiRDS:Document</codeph> and
-                    <codeph>iiRDS:Topic</codeph> in the RDF file.  The mapping also applies to any
+                metadata is mapped to <codeph>iirds:Document</codeph> and
+                    <codeph>iirds:Topic</codeph> in the RDF file.  The mapping also applies to any
                 specializations of the listed elements and attributes, unless a specific mapping is
                 provided for the specialized type.</p>
             <table frame="all" rowsep="1" colsep="1" id="table_dfw_cxd_b1c">
@@ -40,19 +40,33 @@
                         <row>
                             <entry>
                                 <p><codeph>&lt;topic></codeph>, <codeph>&lt;task></codeph>, <codeph>
-                                        &lt;concept></codeph>, <codeph>&lt;reference></codeph></p>
+                                        &lt;concept></codeph>, <codeph>&lt;reference></codeph>,
+                                        <codeph>&lt;troubleshooting></codeph></p>
                             </entry>
                             <entry>
-                                <p><codeph>iirds:Topic</codeph> with topic type set to
-                                        <codeph>iirds:GenericConcept</codeph>,
-                                        <codeph>iirds:GenericTask</codeph>,
-                                        <codeph>iirds:GenericConcept</codeph>,
-                                        <codeph>iirds:GenericReference</codeph></p>
+                                <p><codeph>iirds:Topic</codeph> with the topic type set as
+                                    follows:</p>
+                                <ul>
+                                    <li><codeph>iirds:GenericTask</codeph> for
+                                            <codeph>&lt;task></codeph></li>
+                                    <li><codeph>iirds:GenericTroubleshooting</codeph> for
+                                            <codeph>&lt;troubleshooting></codeph></li>
+                                    <li><codeph>iirds:GenericReference</codeph> for
+                                            <codeph>&lt;reference></codeph></li>
+                                    <li><codeph>iirds:GenericConcept</codeph> for
+                                            <codeph>&lt;topic></codeph>,
+                                            <codeph>&lt;concept></codeph>, and all other topic
+                                        types</li>
+                                </ul>
                             </entry>
                             <entry>
                                 <p>Topic types are derived from the <codeph>@class</codeph>
-                                    attribute of the corresponding topic. Specialized topics fall
-                                    back to the most basic class.</p>
+                                    attribute of the corresponding topic. Specialized topics are
+                                    mapped according to the topic type that they specialize, for
+                                    example, a specialization of <codeph>&lt;task></codeph> is
+                                    mapped to <codeph>iirds:GenericTask</codeph>.</p>
+                                <p>Any topic type without a specific mapping is mapped to
+                                        <codeph>iirds:GenericConcept</codeph>.</p>
                             </entry>
                         </row>
                         <row>
@@ -70,11 +84,10 @@
                                         <codeph>&lt;shortdesc></codeph> elements are present, only
                                     the first short description is evaluated.</p>
                                 <note id="note_grz_cfn_21c">
-                                    <p>Short descriptions on map level are not evaluated. The DITA
-                                        standard defines that short descriptions should be copied
-                                        from topic references to the corresponding topics during
-                                        preprocessing, but currently this is not the case with
-                                        DITA-OT 3.7.4. </p>
+                                    <p>Short descriptions on map level are not evaluated. Only the
+                                            <codeph>&lt;shortdesc></codeph> of the topic itself is
+                                        used as the <codeph>iirds:has-abstract</codeph>
+                                        property.</p>
                                 </note>
                             </entry>
                         </row>
@@ -129,12 +142,12 @@
                             </entry>
                             <entry>
                                 <p><codeph>@audience</codeph> attribute of root map or topic root is
-                                    mapped to <codeph>iiRDS:Role</codeph>. For
+                                    mapped to <codeph>iirds:Role</codeph>. For
                                         <codeph>&lt;audience></codeph>, the content of
                                         <codeph>@type</codeph> is mapped to
-                                        <codeph>iiRDS:Role</codeph> and
+                                        <codeph>iirds:Role</codeph> and
                                         <codeph>@experiencelevel</codeph> is mapped to
-                                        <codeph>iiRDS:SkillLevel</codeph>. </p>
+                                        <codeph>iirds:SkillLevel</codeph>. </p>
                             </entry>
                         </row>
                         <row>

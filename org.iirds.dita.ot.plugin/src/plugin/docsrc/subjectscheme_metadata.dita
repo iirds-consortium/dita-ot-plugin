@@ -13,10 +13,6 @@
                 <codeph>@keyref</codeph> attribute. That way, you can build complex taxonomy trees
             based on the core classes and instances provided by iiRDS, for example, for products,
             components, qualifications, or information subjects.</p>
-        <draft-comment author="marion.knebel">decide what to do with the following
-            sentence.</draft-comment>
-        <p>For details on the current limitations of subject scheme-based metadata extraction, see
-                <xref keyref="metadata_handler_behavior"/>.</p>
         <section>
             <title>Metadata definitions in the subject scheme map</title>
             <p>A DITA subject scheme map (<codeph>&lt;subjectScheme></codeph>) defines a hierarchy

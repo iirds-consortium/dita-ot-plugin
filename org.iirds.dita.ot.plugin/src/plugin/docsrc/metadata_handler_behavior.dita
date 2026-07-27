@@ -23,7 +23,7 @@
                     labels for the attribute values, then the resulting RDF will only contain the
                     attribute value. Example: A subject scheme defines the value "product-a" for the
                     @product attribute. "product-a" corresponds to the product Name "Awesome
-                    Product". The RDF will contain an instance of <codeph>iiRDS:Product =
+                    Product". The RDF will contain an instance of <codeph>iirds:Product =
                         "product-a"</codeph>. To change this behavior, implement a custom metadata
                     handler.</li>
                 <li>Metadata values are often language-dependent. While product names are usually

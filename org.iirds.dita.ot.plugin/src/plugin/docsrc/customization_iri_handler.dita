@@ -14,8 +14,8 @@
                         href="https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jar.html#Service_Provider"
                         format="html" scope="external"/>.</li>
                 <li>Your Java library is integrated into the DITA Open Toolkit by extending the
-                    <codeph>dita.conductor.lib.import</codeph> extension point. See <xref
-                        href="https://www.dita-ot.org/3.7/topics/plugin-javalib" format="html"
+                        <codeph>dita.conductor.lib.import</codeph> extension point. See <xref
+                        href="https://www.dita-ot.org/4.3/topics/plugin-javalib" format="html"
                         scope="external"/>.</li>
                 <li>You provide IRI mappings if required by your IRI handler.</li>
             </ul>

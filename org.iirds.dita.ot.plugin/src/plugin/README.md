@@ -77,6 +77,7 @@ The plugin comes with a number of predefined metadata handlers to extract additi
 * ``audience``: Use the ``audience`` element to set ``iirds:relates-to-qualification`` properties
 * ``audience-p``: Use the content of the ``audience`` root attribute as ``iirds:relates-to-qualification`` properties
 * ``subjectscheme``: Use ``subjectdef`` elements referenced by ``data``  elements by ``keyref`` from within ``topicmeta``. 
+* ``default``: Apply all metadata handlers. Allows to combine custom metadata handlers with the default handlers.
 
 When not explicitly specified on the command line via ``--iirds.metadatahandle`` parameter, all available metadata handlers are applied
 to extract iiRDS metadata from DITA. Additional DITA-OT plugin might register further metadata handlers, they are also taken into account. 
