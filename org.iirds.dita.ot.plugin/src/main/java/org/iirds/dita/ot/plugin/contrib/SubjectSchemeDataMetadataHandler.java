@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2024 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 package org.iirds.dita.ot.plugin.contrib;
 
 import java.util.ArrayList;
@@ -25,6 +40,64 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+/**
+ * Metadata handler code implementation that extracts metadata from {@code data}
+ * elements in the {@code prolog} or {@code topicmeta} area.
+ * <p>
+ * The data elements must reference a subject definition via {@code keyref}
+ * attribute. From the target subject definition metadata information gets
+ * pulled.
+ * <p>
+ * E.g., snippet from topic :
+ * 
+ * <pre>
+ *      &lt;prolog>
+ *        &lt;metadata>
+ *          &lt;data keyref="iirds.Disposal"/>
+ *        &lt;/metadata>
+ *      &lt;/prolog>
+ * </pre>
+ * <p>
+ * Snippet from subject scheme map:
+ * 
+ * <pre>
+ *    &lt;subjectdef keys="iirds.ProductMetadata">
+ *      &lt;topicmeta>
+ *        &lt;navtitle>productMetadata&lt;/navtitle>
+ *        &lt;shortdesc>information about a product or component&lt;/shortdesc>
+ *        &lt;resourceid appid="http://iirds.tekom.de/iirds#ProductMetadata" appname="class-iri"/>
+ *      &lt;/topicmeta>
+ *     &lt;subjectdef keys="iirds.ProductLifeCyclePhase">
+ *        &lt;topicmeta>
+ *           &lt;navtitle>phase of product lifecycle</navtitle>
+ *           &lt;shortdesc>defined period in the evolution of a product from the conceptual idea to its ultimate disposal&lt;/shortdesc>
+ *           &lt;resourceid appid="http://iirds.tekom.de/iirds#ProductLifeCyclePhase"
+ *           appname="class-iri"/>
+ *        &lt;/topicmeta>
+ *        &lt;subjectdef keys="iirds.AfterUse">
+ *           &lt;topicmeta>
+ *        &lt;navtitle>after use</navtitle>
+ *        &lt;shortdesc>product life cycle phase that follows the active use of the product&lt;/shortdesc>
+ *        &lt;resourceid appid="http://iirds.tekom.de/iirds#AfterUse" appname="class-iri"/>
+ *           &lt;/topicmeta>
+ *       &lt;subjectdef keys="iirds.Disposal">
+ *        &lt;topicmeta>
+ *           &lt;navtitle>disposal</navtitle>
+ *           &lt;shortdesc>product life cycle phase spanning the process of elimination of a product or component&lt;/shortdesc>
+ *           &lt;resourceid appid="http://iirds.tekom.de/iirds#Disposal" appname="instance-iri"/>
+ *        &lt;/topicmeta>
+ *           &lt;/subjectdef>
+ *      &lt;/subjectdef>
+ * </pre>
+ * <p>
+ * In this example, the {@code data} element references the {@code subjectdef}
+ * element via its key {@code iirds.Disposal}. The {@code subjectdef} elements
+ * surrounding this element provide the class hierarchy from the iiRDS scheme .
+ * 
+ * @author Martin Kreutzer, Empolis Information Management GmbH
+ * @see SubjectDef
+ *
+ */
 public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 
 	static Logger logger = LoggerFactory.getLogger(SubjectSchemeDataMetadataHandler.class);

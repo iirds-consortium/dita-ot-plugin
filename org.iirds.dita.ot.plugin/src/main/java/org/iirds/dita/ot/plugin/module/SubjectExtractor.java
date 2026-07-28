@@ -17,13 +17,13 @@ import org.w3c.dom.Element;
 /**
  * Extracts subject definitions from a map.
  * 
- * @author kreu09
+ * @author Martin Kreutzer, Empolis Information Management GmbH
  *
  */
 public class SubjectExtractor {
 	static Logger logger = LoggerFactory.getLogger(SubjectExtractor.class);
-	
-		protected static boolean isRelationElement(final Element elem) {
+
+	protected static boolean isRelationElement(final Element elem) {
 		return Constants.SUBJECTSCHEME_HASKIND.matches(elem) || Constants.SUBJECTSCHEME_HASNARROWER.matches(elem)
 				|| Constants.SUBJECTSCHEME_HASRELATED.matches(elem)
 				|| Constants.SUBJECTSCHEME_HASINSTANCE.matches(elem);
@@ -67,13 +67,10 @@ public class SubjectExtractor {
 			parentSubject = subject;
 			subject.ifPresent(SubjectDefinitions.getDefault()::register);
 		}
-		try {
-			for (Element elem : XMLUtils.getChildElements(topicref)) {
-				if (Constants.MAP_TOPICREF.matches(elem)) {
-					handleTopicref(elem, parentSubject, relationType.isEmpty() ? parentRelation : relationType);
-				}
+		for (Element elem : XMLUtils.getChildElements(topicref)) {
+			if (Constants.MAP_TOPICREF.matches(elem)) {
+				handleTopicref(elem, parentSubject, relationType.isEmpty() ? parentRelation : relationType);
 			}
-		} finally {
 		}
 	}
 

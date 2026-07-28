@@ -27,7 +27,6 @@ import org.apache.jena.rdf.model.InfModel;
 import org.apache.jena.rdf.model.Model;
 import org.dita.dost.pipeline.AbstractPipelineInput;
 import org.dita.dost.util.Job;
-import org.iirds.dita.ot.plugin.contrib.DefaultIRIHandler;
 import org.iirds.dita.ot.plugin.module.ContentHashBuilder;
 import org.iirds.dita.ot.plugin.module.IirdsModelBuilderImpl;
 import org.iirds.dita.ot.plugin.module.IirdsModelSerializerImpl;
@@ -93,7 +92,7 @@ public class Configuration {
 		this.contentHashBuilder = new ContentHashBuilder();
 	}
 
-	void configureByInput(@SuppressWarnings("deprecation") AbstractPipelineInput input) {
+	void configureByInput(AbstractPipelineInput input) {
 		if (input != null) {
 			String ext = input.getAttribute(PARAM_OUTEXT);
 			if (!StringUtils.isBlank(ext)) {

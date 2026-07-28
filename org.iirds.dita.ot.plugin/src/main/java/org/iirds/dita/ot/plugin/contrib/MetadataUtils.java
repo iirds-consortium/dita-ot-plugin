@@ -28,7 +28,7 @@ import org.w3c.dom.Element;
 /**
  * Utilities for metadata extraction and conversion to iiRDS.
  * 
- * @author Martin Kreutzer, Empolis Informaion Management GmbH
+ * @author Martin Kreutzer, Empolis Information Management GmbH
  *
  */
 public class MetadataUtils {

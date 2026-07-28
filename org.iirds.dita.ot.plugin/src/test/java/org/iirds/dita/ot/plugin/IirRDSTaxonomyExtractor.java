@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2024 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 package org.iirds.dita.ot.plugin;
 
 import java.io.StringWriter;
@@ -29,6 +44,16 @@ import org.iirds.rdf.facade.Factory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+/**
+ * Creates subject scheme maps form iiRDS RDF schema.
+ * <p>
+ * Call it as standalone Java program. It prints the generated subject scheme
+ * and a generated concept topic on the the console. The generated topic could
+ * be used for referencing via {@code conkeyref}.
+ * 
+ * @author Martin Kreutzer, Empolis Information Management GmbH
+ *
+ */
 public class IirRDSTaxonomyExtractor {
 
 	Set<String> ignoreIRIs = Set.of(IirdsConstants.RENDITION_CLASS_URI, IirdsConstants.DIRECTORYNODE_CLASS_URI,
@@ -109,7 +134,7 @@ public class IirRDSTaxonomyExtractor {
 
 			String fragment = StringUtils.substringAfter(r.getURI(), "#");
 			if (fragment != null) {
-				String ns = StringUtils.substring(r.getURI(), 0, r.getURI().indexOf('#')+1);
+				String ns = StringUtils.substring(r.getURI(), 0, r.getURI().indexOf('#') + 1);
 
 				String prefix = "iirds.";
 				if (IirdsConstants.iiRDS_Mch_URI.equals(ns)) {
@@ -126,7 +151,7 @@ public class IirRDSTaxonomyExtractor {
 				if (!isClass) {
 					Element data = libProlog.getOwnerDocument().createElement("data");
 					libProlog.appendChild(data);
-					data.setAttribute("id", prefix+fragment);
+					data.setAttribute("id", prefix + fragment);
 					data.setAttribute("keyref", prefix + fragment);
 				}
 
