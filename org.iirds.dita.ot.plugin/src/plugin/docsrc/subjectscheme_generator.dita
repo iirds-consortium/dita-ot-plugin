@@ -50,6 +50,10 @@
                 you only need to run it again after the plugin's bundled iiRDS RDF schemas have
                 changed, for example, after upgrading to a plugin version that supports a newer
                 version of the iiRDS standard.</p>
+            <p>The source files for the generator in the plugin's test sources are available on
+                GitHub, see <xref
+                    href="https://github.com/iirds-consortium/dita-ot-plugin/tree/main/org.iirds.dita.ot.plugin/src/test/java/org/iirds/dita/ot/plugin"
+                    format="html" scope="external"/>. </p>
         </section>
       
     </conbody>

@@ -6,8 +6,16 @@
         <author>tekom Deutschland e.V.</author>
         <critdates>
             <created date="2024-02-15"/>
-            <revised modified="2026-07-27"/>
+            <revised modified="2026-07-28"/>
         </critdates>
+        <prodinfo>
+            <prodname>iiRDS Plugin for the DITA Open Toolkit </prodname>
+            <vrmlist>
+                <vrm version="1.0.0" release="2024-03"/>
+                <vrm version="1.0.1" release="2025-10"/>
+                <vrm version="1.1.0" release="2026-08"/>
+            </vrmlist>
+        </prodinfo>
         <!-- Subject scheme-based metadata, for basic testing of the subjectscheme metadata handler: -->
         <data keyref="iirds.AdministratorGuide"/>
         <data keyref="iirds.GenericFunctionality"/>
@@ -15,6 +23,7 @@
     </topicmeta>
     <mapref href="iirds_plugin_subjectscheme.ditamap" processing-role="resource-only" toc="no"/>
     <topicref href="introduction.dita" keys="plugin_introduction"/>
+    <topicref href="version_history.dita" keys="version_history"/>
     <topicref href="requirements.dita" keys="requirements"/>
     <topicref href="installation.dita" keys="installation"/>
     <topicref href="plugin_architecture_introduction.dita" keys="plugin_architecture"/>
@@ -28,8 +37,8 @@
         </topicref>
         <topicref href="metadata_handler_behavior.dita" keys="metadata_handler_behavior"/>
     </topicref>
-    <topicref href="plugin_parameters.dita" keys="plugin_parameters"/>
     <topicref href="unique_identifiers.dita" keys="unique_identifiers"/>
+    <topicref href="plugin_parameters.dita" keys="plugin_parameters"/>
     <topicref href="customization.dita" keys="customization">
         <topicref href="customization_handlers.dita" keys="customization_handlers"></topicref>
         <topicref href="customization_metadata_extraction.dita" keys="customization_metadata_extraction"></topicref>
