@@ -3,7 +3,7 @@
 Version 1.1.0, August 2026
 
 * Generates an iiRDS 1.3 package from a map or a single topic
-* The resulting file is named ``<map or topic filename>.iirds``
+* The resulting file is ``<file name of map or topic>.iirds``
 * DITA-OT transtype: ``iirds``
 * Content is rendered as HTML5
 * Parameters of the ``html5`` transtype can be used to customize HTML output
@@ -28,94 +28,113 @@ There are several options for installing the plugin:
 
 ## Creating iiRDS Packages
 
-Use the transtype ``iirds`` when calling the ``dita`` command. Either a map or a single topic can be provided as input for the transformation.
+Use the transtype ``iirds`` in the call of the ``dita`` command. 
+Either a map or single topic can be provided as input to the transformation.
 
 ## Parameters
 
-The following optional ``dita`` command-line parameters can be used to configure the iiRDS transformation:
+Use the following dita command line optional parameters to influence the iiRDS transformation:
 
 * ``--args.outext`` defines the filename extension of HTML files in the iiRDS package (see also the HTML5 plugin). Example: ``--args.outext=htm``
-* ``--iirds.contentpath`` defines the name of the folder within the iiRDS package that contains all content files. Defaults to ``content`` if not set. Example: ``--iirds.contentpath=files``
-* ``--iirds.metadatahandler`` defines which iiRDS metadata handlers to use for extracting metadata from DITA. When not set, all known iiRDS metadata handlers are applied. The value is a ``+``-separated list of metadata handler names. Example: ``--iirds.metadatahandler=shortdesc+prodname``
-* ``--iirds.irihandler`` defines which IRI handlers to use for assigning IRIs to metadata, information units, and information objects. The value is a ``+``-separated list of IRI handler names. Example: ``--iirds.irihandler=default``
+* ``--iirds.contentpath`` defines the name of the folder in the iiRDS package containing all content files. Defaults to ``content`` if not set. Example: ``--iirds.contentpath=files``
+* ``--iirds.metadatahandler`` defines which iiRDS metadata handlers to be used for extracting metadata from DITA. When not set, all known iiRDS metadata handlers are applied. The value is a ``+``-separated list of metadata handler names. Example: ``--iirds.metadatahandler=shortdesc+prodname``
+* ``--iirds.irihandler`` defines which IRI handlers to be used for assigning IRIs to metadata, information units, and information objects. The parameter value is a ``+``-separated list of IRI handler names.
+  Example: ``--iirds.irihandler=default``
+
 
 ## Details
 
-* iiRDS DirectoryNodes are created for the map and all topics
-* A Document is created for the input map (when a map is provided as input)
-* When a single topic is transformed, no iiRDS DirectoryNodes are created
-* iiRDS Topics are created and reference InformationObjects
-* The default IRI handler behaves as follows:
+* iiRDS DirectoryNodes get created for the map and all topics
+* A Document gets created for the input map (if map is provided as input)
+* When a single topic gets transformed, no iiRDS DirectoryNodes get created
+* iiRDS Topics get created and reference InformationObjects
+* The default IRI handler works as follows:
   * Topic IRIs are URNs consisting of the topic ID and a hash of the content after preprocessing and before rendering
   * Document IRIs are URNs containing the map ID
   * Package IRIs are URNs containing a UUID
   * Metadata IRIs are URNs containing a hash of the metadata class name and the label extracted from DITA
-* The output directory will contain the generated iiRDS file (with the ``.iirds`` extension)
+* The output directory will contain the generated iiRDS file (filename extension ``.iirds``)
 
 ### Metadata
 
-The following metadata are set in iiRDS:
+In iiRDS the following metadata are set:
 
 * The document type is set to "Operation Instructions"
-* Title and language are always extracted from the DITA files and assigned as iiRDS metadata
-* Topic types are derived from the ``class`` attribute value of the respective topic
+* title and language get always extracted from the DITA files and assigned as iiRDS metadata
+* The topic types of topics are derived from the ``class`` attribute value of the respective topic
+
 
 #### iiRDS Metadata Handlers
 
-The plugin includes a set of predefined metadata handlers for extracting additional metadata from DITA:
+The plugin comes with a number of predefined metadata handlers for extracting additional metadata from DITA:
 
-* ``shortdesc``: Uses the content of ``shortdesc`` elements as ``iirds:has-abstract`` properties
-* ``prodname``: Uses the content of ``prodname`` elements as ``iirds:relates-to-product-variant`` properties
-* ``component``: Uses the content of ``component`` elements as ``iirds:relates-to-component`` properties
-* ``product-p``: Uses the content of the ``product`` root attribute as ``iirds:relates-to-product-variant`` properties
-* ``critdates``: Uses the child elements of the ``critdates`` element to set ``iirds:dateOfLastModification``, ``iirds:dateOfCreation``, ``iirds:dateOfEffect``, and ``iirds:dateOfExpiry`` properties
-* ``copyright``: Uses the ``copyright`` element to set ``iirds:rights`` properties
-* ``audience``: Uses the ``audience`` element to set ``iirds:relates-to-qualification`` properties
-* ``audience-p``: Uses the content of the ``audience`` root attribute as ``iirds:relates-to-qualification`` properties
-* **NEW in version 1.1.0:** ``subjectscheme``: Uses ``subjectdef`` elements referenced via ``keyref`` by ``data`` elements within ``topicmeta``
+* ``shortdesc``: Use the content of ``shortdesc`` elements as ``iirds:has-abstract`` properties
+* ``prodname``: Use the contents of ``prodname`` elements as ``iirds:relates-to-product-variant`` properties
+* ``component``: Use the contents of ``component`` elements as ``iirds:relates-to-component`` properties
+* ``product-p``: Use the content of the ``product`` root attribute as ``iirds:relates-to-product-variant`` properties
+* ``critdates``: Use the child elements of ``critdates`` element to set ``iirds:dateOfLastModification``, ``iirds:dateOfCreation``, ``iirds:dateOfEffect``, and ``iirds:dateOfExpiry`` properties
+* ``copyright``: Use the ``copyright`` element to set ``iirds:rights`` properties
+* ``audience``: Use the ``audience`` element to set ``iirds:relates-to-qualification`` properties
+* ``audience-p``: Use the content of the ``audience`` root attribute as ``iirds:relates-to-qualification`` properties
+* ``subjectscheme``: Use ``subjectdef`` elements referenced by ``data``  elements by ``keyref`` from within ``topicmeta``. 
+* ``default``: Apply all metadata handlers. Allows to combine custom metadata handlers with the default handlers.
 
-When not explicitly specified on the command line via the ``--iirds.metadatahandler`` parameter, all available metadata handlers are applied to extract iiRDS metadata from DITA. Additional DITA-OT plugins may register further metadata handlers, which are also taken into account.
-
-For more details, refer to the documentation included with the plugin.
+When not explicitly specified on the command line via the ``--iirds.metadatahandler`` parameter, all available metadata handlers are applied 
+to extract iiRDS metadata from DITA. Additional DITA-OT plugins may register further metadata handlers, which are also taken into account.
 
 ### IRI Handlers
 
-The plugin includes one default IRI handler named ``default``. For details on its behavior, see the _Details_ section.
+The plugin comes with one default IRI handler called 'default'.  Behavior, see section *Details*.
+With parameter ``--iirds.irihandler`` the IRI handlers to be applied can be specified. When the parameter is not set, 'default' is used.
+Several IRI handlers can be given in parameters build a sequence of IRI handlers. To obtain an IRI the plugins will call the handlers in the
+given sequence. When a handler does not provide an IRI the next handler in the sequence is called.
+In the case non of the handlers provided an IRI, a fallback mechanism provides an IRI anyway. The fallback generates unique UUID URNs for topics, 
+documents, metadata, and information objects.
 
-The ``--iirds.irihandler`` parameter can be used to specify which IRI handlers to apply. When the parameter is not set, the ``default`` handler is used.
-
-Multiple IRI handlers can be specified as a sequence. When resolving an IRI, the plugin calls each handler in the specified order. If a handler does not provide an IRI, the next handler in the sequence is called.
-
-If none of the handlers provides an IRI, a fallback mechanism generates unique UUID URNs for topics, documents, metadata, and information objects.
 
 ### Extension Points
-
 The plugin defines three extension points:
 
-* ``iirds.extractMetadata.pre``: An ant target called immediately before metadata extraction begins
-* ``iirds.extractMetadata.post``: An ant target called immediately after metadata extraction is complete. Implementations can access the generated ``metadata.rdf`` file.
-* ``iirds.package.pre``: An ant target called after transformation, immediately before the transformed files and metadata are packaged into an iiRDS package
+* ``iirds.extractMetadata.pre``: ant target called to do some processing immediately before the metadata get extracted
+* ``iirds.extractMetadata.post``: ant target called to do some post processing immediately after the metadata have been extracted.
+  Implementations can access the generated ``metadata.rdf`` file.
+* ``iirds.package.pre``: ant target called after transformation, immediately before packaging the transformed files and metadata to an
+  iiRDS package.
+ 
 
 ## Implementing iiRDS Metadata and IRI Handlers
 
-To extend the plugin with custom metadata or IRI handlers, follow these steps:
+In order to extend the plugin by your own metadata or IRI handlers, follow these steps:
 
-1. Create a new DITA-OT plugin to hold all your extensions.
-2. Write the code for your handlers, create a JAR file, and place it in the plugin — for example, in the ``lib`` folder. See the **Writing the Code** section for details.
-3. Add a feature entry for your code in the plugin descriptor, for example:
+1. Create a new DITA-OT plugin. 
+   It can hold all your extensions. 
+
+2. Write the code for your handlers. Create a jar and put it into the plugin, e.g. in the
+   folder ``lib``. See section **Writing the Code**.
+   
+4. Add a feature for your code into your plugin descriptor, e.g.,
    ``<feature extension="dita.conductor.lib.import" file="lib/myext.jar"/>``
-4. Install your plugin into DITA-OT.
-
+   
+5. Install your plugin into DITA-OT.   
+   
+   
 ### Writing the Code
+It is recommended to have a look into the API docs provided and/or the sources of this plugin to understand the relevant interfaces.
+For each handler write a Java class implementing either the interface ``org.iirds.dita.ot.plugin.spi.IRIHandler`` 
+or ``org.iirds.dita.ot.plugin.spi.IirdsMetadataHandler``. The interfaces are delivered in file ``org.iirds.dita.package.jar`` 
+of the plugin. 
 
-It is recommended to review the provided API documentation and the source code of this plugin to understand the relevant interfaces.
+In addition, service provider interfaces must be implemented:
+``org.iirds.dita.ot.plugin.spi.IirdsMetadataHandlerProvider`` and 
+``org.iirds.dita.ot.plugin.spi.IirdsMetadataHandlerProvider`` are used to register and provide all your handlers of your plugin.
 
-For each handler, write a Java class implementing either the ``org.iirds.dita.ot.plugin.spi.IRIHandler`` or the ``org.iirds.dita.ot.plugin.spi.IirdsMetadataHandler`` interface. These interfaces are provided in the ``org.iirds.dita.package.jar`` file included with the plugin.
-
-In addition, the following service provider interfaces must be implemented: ``org.iirds.dita.ot.plugin.spi.IirdsMetadataHandlerProvider`` and ``org.iirds.dita.ot.plugin.spi.IRIHandlerProvider`` are used to register and expose all handlers defined in your plugin.
-
-Finally, the provider classes must be published using the Java Service Provider Interface (SPI) mechanism. Create a text file at ``META-INF/services/org.iirds.dita.ot.plugin.spi.IRIHandlerProvider`` or ``META-INF/services/org.iirds.dita.ot.plugin.spi.IirdsMetadataHandlerProvider`` within your JAR file. Each file must contain the fully qualified name of the corresponding provider class, with one class name per line. For more information on Java SPI, see [Introduction to the Service Provider Interfaces](https://docs.oracle.com/javase/tutorial/sound/SPI-intro.html).
+Finally, the provider classes need to be published to the Java Service Provider Interface architecture. 
+Create a text file ``META-INF/services/org.iirds.dita.ot.plugin.spi.IRIHandlerProvider`` or
+ ``META-INF/services/org.iirds.dita.ot.plugin.spi.org.iirds.dita.ot.plugin.spi.IirdsMetadataHandlerProvider`` in your JAR file.
+The files must just contain the names of the respective provider classes (one per line). For more information on Java SPI, 
+see [Introduction to the Service Provider Interfaces](https://docs.oracle.com/javase/tutorial/sound/SPI-intro.html).
 
 ### Source Code
 
-The plugin source code is available at [https://github.com/iirds-consortium/dita-ot-plugin](https://github.com/iirds-consortium/dita-ot-plugin).
+The plugin source code is available at
+[https://github.com/iirds-consortium/dita-ot-plugin](https://github.com/iirds-consortium/dita-ot-plugin).

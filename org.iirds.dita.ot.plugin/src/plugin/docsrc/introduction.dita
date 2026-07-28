@@ -36,8 +36,11 @@
                     formatting.</li>
                 <li>Resulting iiRDS packages conform to version 1.3, unrestricted, of the iiRDS
                     standard.</li>
-                <li>iiRDS metadata is generated based on default metadata elements and attributes in
-                    DITA.</li>
+                <li>iiRDS metadata is generated based on the following:<ul>
+                        <li>Existing metadata elements and attributes in DITA</li>
+                        <li>Data elements that are mapped to an iiRDS taxonomy using a subject
+                            scheme map. </li>
+                    </ul></li>
             </ul>
         </p>
         <p>The plugin uses extension points provided by the DITA-OT to implement its functionality.

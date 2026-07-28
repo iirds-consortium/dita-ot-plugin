@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="subjectscheme_generator">
+    <title>iiRDS base subject scheme map and generator</title>
+    <conbody>
+        <p>Instead of authoring a subject scheme for the standard iiRDS classes and instances by
+            hand, a base subject scheme map is shipped with this plugin, stored in
+                <filepath>&lt;DITA-OT>/plugins/org.iirds.dita.package/subjectscheme/iirds-generated-subjectscheme.ditamap</filepath>.
+            It reflects all available classes and instances in the iiRDS standard at the publication
+            time of this plugin.</p>
+        <p>The plugin also comes with the generator that was used to produce this base subject
+            scheme map. It reads the iiRDS RDF schemas that are bundled with the plugin, that is,
+            the core iiRDS schema and the machinery, software, and handover domain schemas, and
+            produces a DITA subject scheme map that contains one <codeph>&lt;subjectdef></codeph>
+            per relevant iiRDS class and instance, keeping the class hierarchy expressed in the RDF
+            schemas as nested <codeph>&lt;subjectdef></codeph> elements. Classes that are not
+            relevant for metadata assignment, for example, internal iiRDS classes such as
+                <codeph>iirds:InformationUnit</codeph> or <codeph>iirds:DirectoryNode</codeph>, are
+            skipped.</p>
+        <note type="important">This generator is provided as an internal, developer-facing tool and
+            is not a supported, standalone command-line tool of the iiRDS plugin. It is included in
+            the plugin source code as a convenience, and can be used at your own risk. Its API and
+            output format may change in future plugin versions without prior notice.</note>
+        <note type="important">The generator only reads the four RDF schema files that are bundled
+            with the plugin, at a fixed location in the plugin source code. It cannot be pointed at
+            a custom or project-specific RDF file: there is no command-line parameter or other
+            configuration option for this. To add project-specific classes and instances to a
+            subject scheme, use a project-specific subject scheme map instead, as described in <xref
+                keyref="subjectscheme_authoring"/>.</note>
+        <section>
+            <title>Running the generator</title>
+            <p>The generator is the Java class
+                    <codeph>org.iirds.dita.ot.plugin.IirRDSTaxonomyExtractor</codeph>, located in
+                the plugin's test sources. It has a <codeph>main</codeph> method but is not built or
+                packaged as a runnable tool, so it must be run manually, for example, from an IDE,
+                with the plugin's test sources compiled and the plugin's runtime and test
+                dependencies, such as Apache Jena, on the classpath.</p>
+            <p>Running the class writes two DITA XML fragments to standard output, separated by a
+                line of equals signs (<codeph>===============</codeph>):</p>
+            <ol>
+                <li>The generated subject scheme map, with the DOCTYPE for a DITA subject scheme
+                    map.</li>
+                <li>A DITA concept topic that lists a <codeph>&lt;data></codeph> element for every
+                    generated instance, with matching <codeph>@id</codeph> and
+                        <codeph>@keyref</codeph> values.</li>
+            </ol>
+            <p>Copy each of the two fragments into its own file, for example, <filepath
+                    >iirds-generated-subjectscheme.ditamap</filepath> for the first fragment. Since
+                the generator always produces the same output for a given version of the plugin,
+                you only need to run it again after the plugin's bundled iiRDS RDF schemas have
+                changed, for example, after upgrading to a plugin version that supports a newer
+                version of the iiRDS standard.</p>
+        </section>
+      
+    </conbody>
+</concept>

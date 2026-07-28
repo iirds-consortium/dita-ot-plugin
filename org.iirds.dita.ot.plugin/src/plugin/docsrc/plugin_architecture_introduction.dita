@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="plugin-architecture-introduction">
-    <title>Architecture</title>
+    <title>How the plugin works</title>
     <conbody>
         <p>Once the iiRDS plugin has been installed in the DITA-OT, you can use the plugin to
             generate iiRDS packages from your DITA map. The processing steps are described in the
