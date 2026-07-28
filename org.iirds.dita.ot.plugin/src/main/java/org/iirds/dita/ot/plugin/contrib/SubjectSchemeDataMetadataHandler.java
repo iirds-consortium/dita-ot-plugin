@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2024 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
+ * Copyright 2024-2026 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,20 +69,20 @@ import org.w3c.dom.Element;
  *      &lt;/topicmeta>
  *     &lt;subjectdef keys="iirds.ProductLifeCyclePhase">
  *        &lt;topicmeta>
- *           &lt;navtitle>phase of product lifecycle</navtitle>
+ *           &lt;navtitle>phase of product lifecycle&lt;/navtitle>
  *           &lt;shortdesc>defined period in the evolution of a product from the conceptual idea to its ultimate disposal&lt;/shortdesc>
  *           &lt;resourceid appid="http://iirds.tekom.de/iirds#ProductLifeCyclePhase"
  *           appname="class-iri"/>
  *        &lt;/topicmeta>
  *        &lt;subjectdef keys="iirds.AfterUse">
  *           &lt;topicmeta>
- *        &lt;navtitle>after use</navtitle>
+ *        &lt;navtitle>after use&lt;/navtitle>
  *        &lt;shortdesc>product life cycle phase that follows the active use of the product&lt;/shortdesc>
  *        &lt;resourceid appid="http://iirds.tekom.de/iirds#AfterUse" appname="class-iri"/>
  *           &lt;/topicmeta>
  *       &lt;subjectdef keys="iirds.Disposal">
  *        &lt;topicmeta>
- *           &lt;navtitle>disposal</navtitle>
+ *           &lt;navtitle>disposal&lt;/navtitle>
  *           &lt;shortdesc>product life cycle phase spanning the process of elimination of a product or component&lt;/shortdesc>
  *           &lt;resourceid appid="http://iirds.tekom.de/iirds#Disposal" appname="instance-iri"/>
  *        &lt;/topicmeta>
