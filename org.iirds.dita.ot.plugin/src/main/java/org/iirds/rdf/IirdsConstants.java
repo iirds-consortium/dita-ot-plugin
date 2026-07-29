@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2024 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
+ * Copyright 2024-2026 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ public final class IirdsConstants {
 	public static final String iiRDS_URI = "http://iirds.tekom.de/iirds#";
 	public static final String iiRDS_Mch_URI = "http://iirds.tekom.de/iirds/domain/machinery#";
 	public static final String iiRDS_Sft_URI = "http://iirds.tekom.de/iirds/domain/software#";
+	public static final String iiRDS_Hov_URI = "http://iirds.tekom.de/iirds/domain/handover#";
 
 	/** The namespace prefix to use for iiRDS */
 	public static final String iiRDS_PREFIX = "iirds";
@@ -52,6 +53,8 @@ public final class IirdsConstants {
 	public static final String TOPICTYPE_CLASS_URI = iiRDS_URI + "TopicType";
 	/** Document type class URI */
 	public static final String DOCUMENTTYPE_CLASS_URI = iiRDS_URI + "DocumentType";
+	/** Document category class URI */
+	public static final String DOCUMENTCATEGORY_CLASS_URI = iiRDS_Hov_URI + "DocumentCategory";
 	/** Identity class URI */
 	public static final String IDENTITY_CLASS_URI = iiRDS_URI + "Identity";
 	/** IdentityDomain class URI */
@@ -173,8 +176,11 @@ public final class IirdsConstants {
 	public static final String FORMALITY_CLASS_URI = iiRDS_URI + "Formality";
 	public static final String PROCESS_CLASS_URI = iiRDS_URI + "Process";
 
+	// new since iiRDS 1.3:
+	public static final String HASDOCUMENTCATEGORY_PROPERTY_URI = iiRDS_Hov_URI+"has-document-category";	
+
 	/** The iiRDS version */
-	public static final String IIRDS_VERSION = "1.2";
+	public static final String IIRDS_VERSION = "1.3";
 
 	/**
 	 * Table of Contents DirectoryNode type URI

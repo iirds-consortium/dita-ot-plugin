@@ -57,6 +57,9 @@
                 editor of choice. </note>
             <note type="tip" id="note_mwv_jf2_b1c">Use the <xref href="https://www.iirds.org/tools/validation-tool" format="html" scope="external">iiRDS Validation Tool</xref> to check the integrity of the
                 generated iiRDS package. </note>
+            <note id="note_fvz_5f1_bkc" type="tip">All DITA content contains some form of metadata.
+                If you want to test the plugin, go ahead and run it with your DITA content without
+                making any changes. </note>
         </result>
     </taskbody>
     <related-links>

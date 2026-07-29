@@ -1135,6 +1135,18 @@ a description of the potential hazard, and hints how to avoid the hazard.</iirds
 		<schema:rangeIncludes rdf:resource="http://iirds.tekom.de/iirds#iirdsDomainEntity"/>
 		<iirds:description xml:lang="en">Cardinality: http://iirds.tekom.de/iirds#iirdsDomainEntity [0..*]</iirds:description>
 	</rdf:Property>
+	<rdf:Property rdf:about="http://iirds.tekom.de/iirds#is-based-on">
+		<rdfs:label xml:lang="de">basiert auf</rdfs:label>
+		<rdfs:label xml:lang="en">is based on</rdfs:label>
+		<rdfs:subPropertyOf rdf:resource="http://iirds.tekom.de/iirds#iirdsRelationConcept"/>
+		<rdfs:domain rdf:resource="http://iirds.tekom.de/iirds#InformationUnit"/>
+		<rdfs:range rdf:resource="http://iirds.tekom.de/iirds#InformationUnit"/>
+		<iirds:description xml:lang="en"/>
+		<rdfs:comment xml:lang="en">information unit's property that references an information unit which served as information source</rdfs:comment>
+		<schema:domainIncludes rdf:resource="http://iirds.tekom.de/iirds#InformationUnit"/>
+		<schema:rangeIncludes rdf:resource="http://iirds.tekom.de/iirds#InformationUnit"/>
+		<iirds:description xml:lang="en">Cardinality: http://iirds.tekom.de/iirds#InformationUnit [0..*]</iirds:description>
+	</rdf:Property>
 	<rdf:Property rdf:about="http://iirds.tekom.de/iirds#is-part-of-package">
 		<rdfs:label xml:lang="de">ist Teil von Paket</rdfs:label>
 		<rdfs:label xml:lang="en">is part of package</rdfs:label>
@@ -1159,6 +1171,18 @@ a description of the potential hazard, and hints how to avoid the hazard.</iirds
 		<schema:domainIncludes rdf:resource="http://iirds.tekom.de/iirds#InformationUnit"/>
 		<schema:rangeIncludes rdf:resource="http://iirds.tekom.de/iirds#InformationUnit"/>
 		<iirds:description xml:lang="en">Cardinality: http://iirds.tekom.de/iirds#InformationUnit [0..1]</iirds:description>
+	</rdf:Property>
+	<rdf:Property rdf:about="http://iirds.tekom.de/iirds#is-translation-of">
+		<rdfs:label xml:lang="de">ist Übersetzung von </rdfs:label>
+		<rdfs:label xml:lang="en">is translation of</rdfs:label>
+		<rdfs:subPropertyOf rdf:resource="http://iirds.tekom.de/iirds#iirdsRelationConcept"/>
+		<rdfs:domain rdf:resource="http://iirds.tekom.de/iirds#InformationUnit"/>
+		<rdfs:range rdf:resource="http://iirds.tekom.de/iirds#InformationUnit"/>
+		<iirds:description xml:lang="en"/>
+		<rdfs:comment xml:lang="en">information unit's property that references an information unit which served as translation source</rdfs:comment>
+		<schema:domainIncludes rdf:resource="http://iirds.tekom.de/iirds#InformationUnit"/>
+		<schema:rangeIncludes rdf:resource="http://iirds.tekom.de/iirds#InformationUnit"/>
+		<iirds:description xml:lang="en">Cardinality: http://iirds.tekom.de/iirds#InformationUnit [0..*]</iirds:description>
 	</rdf:Property>
 	<rdf:Property rdf:about="http://iirds.tekom.de/iirds#is-version-of">
 		<rdfs:label xml:lang="de">ist Version von</rdfs:label>
@@ -2051,10 +2075,16 @@ a description of the potential hazard, and hints how to avoid the hazard.</iirds
 		<iirds:description xml:lang="en">European Article Number (EAN; also International Article Number, IAN) identifier for trade items.</iirds:description>
 		<rdfs:comment xml:lang="en">identity type of the European article number according to ISO/IEC 15420</rdfs:comment>
 	</iirds:IdentityType>
+	<iirds:IdentityType rdf:about="http://iirds.tekom.de/iirds#ObjectTypeURI">
+		<rdfs:label xml:lang="de">Objekt-URI eines Produkttyps</rdfs:label>
+		<rdfs:label xml:lang="en">object URI  product type</rdfs:label>
+		<iirds:description xml:lang="en">A globally biunique identifier of a product type, for example, according to the stipulations made in IEC 61406-2.</iirds:description>
+		<rdfs:comment xml:lang="en">identity type of the globally unique URI of a product product type</rdfs:comment>
+	</iirds:IdentityType>
 	<iirds:IdentityType rdf:about="http://iirds.tekom.de/iirds#ObjectInstanceURI">
 		<rdfs:label xml:lang="de">Instanz einer Objekt-URI</rdfs:label>
 		<rdfs:label xml:lang="en">instance of object URI</rdfs:label>
-		<iirds:description xml:lang="en">A globally biunique serial number, for example, according to the stipulations made in DIN SPEC 91406.</iirds:description>
+		<iirds:description xml:lang="en">A globally biunique serial number, for example, according to the stipulations made in IEC 61406-1 or IEC 61406-2.</iirds:description>
 		<rdfs:comment xml:lang="en">identity type of the globally unique URI for the product instance</rdfs:comment>
 	</iirds:IdentityType>
 	<iirds:IdentityType rdf:about="http://iirds.tekom.de/iirds#SerialNumber">
@@ -2078,5 +2108,15 @@ a description of the potential hazard, and hints how to avoid the hazard.</iirds
 		<rdfs:label xml:lang="de">CDD Identifikator</rdfs:label>
 		<rdfs:label xml:lang="en">CDD identifier</rdfs:label>
 		<rdfs:comment xml:lang="en">classification type that references a product classification in the Common Data Dictionary (CDD, IEC 61360)</rdfs:comment>
+	</iirds:ClassificationType>
+	<iirds:ClassificationType rdf:about="http://iirds.tekom.de/iirds#DCC">
+		<rdfs:label xml:lang="de">DCC Identifikator</rdfs:label>
+		<rdfs:label xml:lang="en">DCC identifier</rdfs:label>
+		<rdfs:comment xml:lang="en">classification type that references a document classification in the document kind classification code (DCC, IEC 61355)</rdfs:comment>
+	</iirds:ClassificationType>
+	<iirds:ClassificationType rdf:about="http://iirds.tekom.de/iirds#VDI2770">
+		<rdfs:label xml:lang="de">VDI2770:2018 Identifikator</rdfs:label>
+		<rdfs:label xml:lang="en">VDI2770:2018 identifier</rdfs:label>
+		<rdfs:comment xml:lang="en">classification type that references a document classification according to VDI2770:2018</rdfs:comment>
 	</iirds:ClassificationType>
 </rdf:RDF>

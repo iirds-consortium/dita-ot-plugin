@@ -1,4 +1,4 @@
-<plugin id="org.iirds.dita.package">
+<plugin id="org.iirds.dita.package" version="1.1.0">
   <require plugin="org.dita.html5"/>
   <feature extension="dita.conductor.lib.import" file="lib/collection.jar"/>
   <feature extension="dita.conductor.lib.import" file="lib/commons-cli.jar"/>

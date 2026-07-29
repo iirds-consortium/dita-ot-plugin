@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2024 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
+ * Copyright 2024-2026 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -115,6 +115,9 @@ public class IirdsDitaReader extends AbstractDomFilter {
 
 		Configuration.getDefault().getLanguageExtractor().extractLanguage(toc, map);
 
+		SubjectExtractor extractor = new SubjectExtractor();
+		extractor.processMap(doc);
+
 		// run metadata extraction
 		Configuration.getDefault().getIirdsMetadataHandler().extractMetadata(this.toc, doc);
 
@@ -135,7 +138,7 @@ public class IirdsDitaReader extends AbstractDomFilter {
 		final Attr typeAttr = topicref.getAttributeNode(Constants.ATTRIBUTE_NAME_TYPE);
 
 		ToCNode toCNode = null;
-		// ignore resource only refs and topic groups (topic groups must nov
+		// ignore resource only refs and topic groups (topic groups must not
 		// have titles)
 		URI topicPath = null;
 		logger.info("Handling topicref " + DitaClass.getInstance(topicref));

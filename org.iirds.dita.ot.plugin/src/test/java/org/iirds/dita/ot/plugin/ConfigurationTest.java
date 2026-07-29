@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2024 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
+ * Copyright 2024-2026 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +68,7 @@ class ConfigurationTest {
 		assertEquals("content", config.getContentPath());
 		assertNotNull(config.getIirdsMetadataHandler());
 		assertInstanceOf(CompositeMetadataHandler.class, config.getIirdsMetadataHandler());
-		assertEquals(8, ((CompositeMetadataHandler) config.getIirdsMetadataHandler()).getMetadataHandlers().size());
+		assertEquals(9, ((CompositeMetadataHandler) config.getIirdsMetadataHandler()).getMetadataHandlers().size());
 
 		assertNotNull(config.getIRIHandler());
 		assertInstanceOf(CompositeIRIHandler.class, config.getIRIHandler());

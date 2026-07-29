@@ -15,7 +15,7 @@
                         format="html" scope="external"/>.</li>
                 <li>Your Java library is integrated into the DITA Open Toolkit by extending the
                         <codeph>dita.conductor.lib.import</codeph> extension point. See <xref
-                        href="https://www.dita-ot.org/3.7/topics/plugin-javalib" format="html"
+                        href="https://www.dita-ot.org/4.3/topics/plugin-javalib" format="html"
                         scope="external"/>.</li>
                 <li>Your content contains metadata for your metadata handler to process. </li>
             </ul>

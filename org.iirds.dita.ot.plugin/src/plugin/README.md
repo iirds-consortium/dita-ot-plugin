@@ -1,29 +1,30 @@
 # iiRDS Plugin for DITA Open Toolkit
 
-* Generates an iiRDS package from a map or a single topic
+Version 1.1.0, August 2026
+
+* Generates an iiRDS 1.3 package from a map or a single topic
 * The resulting file is ``<file name of map or topic>.iirds``
 * DITA-OT transtype: ``iirds``
 * Content is rendered as HTML5
 * Parameters of the ``html5`` transtype can be used to customize HTML output
-* Requires DITA-OT version >= 3.7.3, not tested with DITA-OT 4.x
+* Requires DITA-OT version >= 3.7.3; tested with versions 3.7.1 and 4.1.1
 
-For more information, see [https://www.iirds.org/tools/dita-plugin/](https://www.iirds.org/tools/dita-plugin/)
+For more information, visit [https://www.iirds.org/tools/dita-plugin/](https://www.iirds.org/tools/dita-plugin/)
 
 ## Copyright
 
-Copyright 2024 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org
+Copyright 2024–2026 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org
 
-This plugin is licensed under the Apache 2.0 license, see LICENSE file in the plugin distribution.
-
+This plugin is licensed under the Apache 2.0 license. See the LICENSE file included in the plugin distribution.
 
 ## Installation
 
-There are several option how install the plugin:
-* To install from download page, run ``dita install https://www.iirds.org/fileadmin/downloads/DITA/org.iirds.dita.package-1.0.0.zip`` 
-* To install from DITA-OT plugin registry, run ``dita install org.iirds.dita.package``
-* To install from downloaded plugin zip, run ``dita install org.iirds.dita.package-1.0.0.zip``. 
-  if the zip file is not located in the current working directory, add the path to the zip file name, 
+There are several options for installing the plugin:
 
+* To install from the download page, run ``dita install https://www.iirds.org/fileadmin/downloads/DITA/org.iirds.dita.package-1.1.0.zip``
+* To install from the DITA-OT plugin registry, run ``dita install org.iirds.dita.package``
+* To install from a downloaded plugin ZIP file, run ``dita install org.iirds.dita.package-1.1.0.zip``.
+  If the ZIP file is not located in the current working directory, include the path to the file.
 
 ## Creating iiRDS Packages
 
@@ -34,11 +35,11 @@ Either a map or single topic can be provided as input to the transformation.
 
 Use the following dita command line optional parameters to influence the iiRDS transformation:
 
-* ``--args.outext`` defines the filename extension of HTML files in the iiRDS package (see also HTML5 plugin). Example: ``--args.outext=htm``
-* ``--iirds.contentpath`` defines the name of the folder in the iiRDS package containing all content files. When not set, ``content`` is used. Example: ``--iirds.contentpath=files``
-*  ``--iirds.metadatahandler`` defines which iiRDS metadata handlers to be used for metadata extraction from DITA. When not set, all known iiRDS metadata handlers are applied. The parameter value is a + separated list of iiRDS metadata handler names. Example: ``--iirds.metadatahandler=shortdesc+prodname``. 
-* ``--iirds.irihandler`` defines which IRI handlers to be used for assigning IRIs to metadata, information units and information objects. The parameter value is a + separated list of IRI handler names.
-Example: ``--iirds.irihandler=default``.
+* ``--args.outext`` defines the filename extension of HTML files in the iiRDS package (see also the HTML5 plugin). Example: ``--args.outext=htm``
+* ``--iirds.contentpath`` defines the name of the folder in the iiRDS package containing all content files. Defaults to ``content`` if not set. Example: ``--iirds.contentpath=files``
+* ``--iirds.metadatahandler`` defines which iiRDS metadata handlers to be used for extracting metadata from DITA. When not set, all known iiRDS metadata handlers are applied. The value is a ``+``-separated list of metadata handler names. Example: ``--iirds.metadatahandler=shortdesc+prodname``
+* ``--iirds.irihandler`` defines which IRI handlers to be used for assigning IRIs to metadata, information units, and information objects. The parameter value is a ``+``-separated list of IRI handler names.
+  Example: ``--iirds.irihandler=default``
 
 
 ## Details
@@ -48,12 +49,11 @@ Example: ``--iirds.irihandler=default``.
 * When a single topic gets transformed, no iiRDS DirectoryNodes get created
 * iiRDS Topics get created and reference InformationObjects
 * The default IRI handler works as follows:
-  * Topic IRIs are URNs consisting of of the topic ID and a hash of the content after preprocessing and before  rendering 
+  * Topic IRIs are URNs consisting of the topic ID and a hash of the content after preprocessing and before rendering
   * Document IRIs are URNs containing the map ID
   * Package IRIs are URNs containing a UUID
-  * Metadata IRIs are URNs containing a hash of the metadata class name and the extracted label from DITA
+  * Metadata IRIs are URNs containing a hash of the metadata class name and the label extracted from DITA
 * The output directory will contain the generated iiRDS file (filename extension ``.iirds``)
-
 
 ### Metadata
 
@@ -66,19 +66,21 @@ In iiRDS the following metadata are set:
 
 #### iiRDS Metadata Handlers
 
-The plugin comes with a number of predefined metadata handlers to extract additional metadata from DITA.
+The plugin comes with a number of predefined metadata handlers for extracting additional metadata from DITA:
 
-* ``shortdesc``: Use the content of ``shortdesc`` elements as ``iirds:has-abstract`` properties 
+* ``shortdesc``: Use the content of ``shortdesc`` elements as ``iirds:has-abstract`` properties
 * ``prodname``: Use the contents of ``prodname`` elements as ``iirds:relates-to-product-variant`` properties
-* ``component``:  Use the contents of ``component`` elements as ``iirds:relates-to-component`` properties
-* ``product-p``: Use the content of the ``product`` root attribute  as ``iirds:relates-to-product-variant`` properties
-* ``critdates``: Use the child elements of ``critdates`` element to set ``iirds:dateOfLastModification``, ``iirds:dateOfCreation``, ``iirds:dateOfEffect``, ``iirds:dateOfExpiry`` properties
-*  ``copyright``: Use the ``copyright`` element to set ``iirds:rights`` properties
+* ``component``: Use the contents of ``component`` elements as ``iirds:relates-to-component`` properties
+* ``product-p``: Use the content of the ``product`` root attribute as ``iirds:relates-to-product-variant`` properties
+* ``critdates``: Use the child elements of ``critdates`` element to set ``iirds:dateOfLastModification``, ``iirds:dateOfCreation``, ``iirds:dateOfEffect``, and ``iirds:dateOfExpiry`` properties
+* ``copyright``: Use the ``copyright`` element to set ``iirds:rights`` properties
 * ``audience``: Use the ``audience`` element to set ``iirds:relates-to-qualification`` properties
 * ``audience-p``: Use the content of the ``audience`` root attribute as ``iirds:relates-to-qualification`` properties
+* ``subjectscheme``: Use ``subjectdef`` elements referenced by ``data``  elements by ``keyref`` from within ``topicmeta``. 
+* ``default``: Apply all metadata handlers. Allows to combine custom metadata handlers with the default handlers.
 
-When not explicitly specified on the command line via ``--iirds.metadatahandle`` parameter, all available metadata handlers are applied
-to extract iiRDS metadata from DITA. Additional DITA-OT plugin might register further metadata handlers, they are also taken into account. 
+When not explicitly specified on the command line via the ``--iirds.metadatahandler`` parameter, all available metadata handlers are applied 
+to extract iiRDS metadata from DITA. Additional DITA-OT plugins may register further metadata handlers, which are also taken into account.
 
 ### IRI Handlers
 
@@ -132,4 +134,7 @@ Create a text file ``META-INF/services/org.iirds.dita.ot.plugin.spi.IRIHandlerPr
 The files must just contain the names of the respective provider classes (one per line). For more information on Java SPI, 
 see [Introduction to the Service Provider Interfaces](https://docs.oracle.com/javase/tutorial/sound/SPI-intro.html).
 
+### Source Code
 
+The plugin source code is available at
+[https://github.com/iirds-consortium/dita-ot-plugin](https://github.com/iirds-consortium/dita-ot-plugin).

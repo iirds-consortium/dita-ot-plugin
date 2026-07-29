@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
+<reference id="version-history">
+    <title>Version history</title>
+    <refbody>
+        <section>
+            <p>The following table lists the released versions of the plugin and the most important
+                changes in each version.</p>
+            <table frame="all" rowsep="1" colsep="1" id="table_version_history">
+                <tgroup cols="3">
+                    <colspec colname="version" colnum="1" colwidth="1*"/>
+                    <colspec colname="release" colnum="2" colwidth="1*"/>
+                    <colspec colname="changes" colnum="3" colwidth="4*"/>
+                    <thead>
+                        <row>
+                            <entry>Version</entry>
+                            <entry>Release</entry>
+                            <entry>Changes</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>1.1.0</entry>
+                            <entry>2026-08</entry>
+                            <entry>
+                                <ul>
+                                    <li>New: iiRDS metadata can be assigned with subject scheme maps
+                                        that map DITA <codeph>&lt;data></codeph> elements to iiRDS
+                                        classes and instances.</li>
+                                    <li>Generated iiRDS packages now conform to version 1.3,
+                                        unrestricted, of the iiRDS standard. Previous versions
+                                        generated iiRDS 1.2 packages.</li>
+                                    <li>New: support for the iiRDS handover domain, including the
+                                        document category.</li>
+                                    <li>New: generation of qualifications and supply relations.</li>
+                                    <li>New: support for events and features.</li>
+                                    <li>Various bug fixes and documentation improvements.</li>
+                                </ul>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>1.0.1</entry>
+                            <entry>2025-10</entry>
+                            <entry>
+                                <p>Minor bug fixes.</p>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry>1.0.0</entry>
+                            <entry>2024-03</entry>
+                            <entry>
+                                <p>Initial release. Generates iiRDS 1.2 packages, unrestricted, from
+                                    a DITA map or a single topic.</p>
+                            </entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </section>
+    </refbody>
+</reference>

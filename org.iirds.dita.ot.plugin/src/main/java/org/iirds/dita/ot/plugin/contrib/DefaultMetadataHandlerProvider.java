@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2024 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
+ * Copyright 2024-2026 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,6 +44,7 @@ public class DefaultMetadataHandlerProvider implements IirdsMetadataHandlerProvi
 		result.add(new CritdatesMetadataHandler());
 		result.add(new ProductPropertyHandler());
 		result.add(new AudiencePropertyHandler());
+		result.add(new SubjectSchemeDataMetadataHandler());
 		return result;
 	}
 

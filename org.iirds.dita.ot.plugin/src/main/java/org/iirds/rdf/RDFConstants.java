@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2024 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
+ * Copyright 2024-2026 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,7 @@ public final class RDFConstants {
 	private static final String RDFS_PATH_CORE = "/iirds-core.rdf";
 	private static final String RDFS_PATH_SOFTWARE = "/iirds-software.rdf";
 	private static final String RDFS_PATH_MACHINERY = "/iirds-machinery.rdf";
+	private static final String RDFS_PATH_HANDOVER = "/iirds-handover.rdf";
 
 	private static final Model iiRDS_MODEL = createDefaultModel();
 
@@ -106,6 +107,7 @@ public final class RDFConstants {
 		model.setNsPrefix("vcard", IirdsConstants.VCARD_URI);
 		model.setNsPrefix("iirdsSft", IirdsConstants.iiRDS_Sft_URI);
 		model.setNsPrefix("iirdsMch", IirdsConstants.iiRDS_Mch_URI);
+		model.setNsPrefix("iirdsHov", IirdsConstants.iiRDS_Hov_URI);
 		return model;
 	}
 
@@ -124,10 +126,11 @@ public final class RDFConstants {
 			URL url_core = IirdsConstants.class.getResource(RDFS_PATH_CORE);
 			URL url_sw = IirdsConstants.class.getResource(RDFS_PATH_SOFTWARE);
 			URL url_mc = IirdsConstants.class.getResource(RDFS_PATH_MACHINERY);
-			if (url_core == null || url_sw == null || url_mc == null) {
+			URL url_ho = IirdsConstants.class.getResource(RDFS_PATH_HANDOVER);
+			if (url_core == null || url_sw == null || url_mc == null || url_ho == null) {
 				throw new IllegalStateException("RDF schemes not found in class path");
 			}
-			Model model = readModels(url_core, url_sw, url_mc);
+			Model model = readModels(url_core, url_sw, url_mc, url_ho);
 			rdfsModel = model;
 		}
 		return rdfsModel;

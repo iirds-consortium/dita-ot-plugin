@@ -9,7 +9,6 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 		<rdfs:subClassOf rdf:resource="http://iirds.tekom.de/iirds#iirdsDomainEntity"/>
 		<iirds:description xml:lang="en"></iirds:description>
 		<rdfs:comment xml:lang="en">entity of the software domain.</rdfs:comment>
-		<rdfs:comment xml:lang="de">Entität der Software-Domäne.</rdfs:comment>
 	</rdfs:Class>																																											
 	
 	<iirds:Use rdf:about="http://iirds.tekom.de/iirds/domain/software#Administration">
@@ -17,7 +16,7 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 		<rdfs:label xml:lang="en">administration</rdfs:label>
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/software#iirdsSoftwareDomainEntity"/>
 		<iirds:description xml:lang="en"></iirds:description>
-		<rdfs:comment xml:lang="en">Lifecycle phase of a product containing activities related to managing, updating, and configuring software products and IT systems.</rdfs:comment>
+		<rdfs:comment xml:lang="en">lifecycle phase of a product containing activities related to managing, updating, and configuring software products and IT systems.</rdfs:comment>
 	</iirds:Use>	
 	
 	<iirds:TechnicalOverview rdf:about="http://iirds.tekom.de/iirds/domain/software#Architecture">
@@ -26,7 +25,7 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/software#iirdsSoftwareDomainEntity"/>
 		<iirds:description xml:lang="en"></iirds:description>
 		<rdfs:comment xml:lang="en">technical structure of a software product or component.</rdfs:comment>
-		<rdfs:comment xml:lang="de">Technischer Aufbaus eines Software-Produkts oder -Komponente.</rdfs:comment>
+		
 	</iirds:TechnicalOverview>	
 	
 	<iirds:Use rdf:about="http://iirds.tekom.de/iirds/domain/software#Customization">
@@ -34,12 +33,12 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 		<rdfs:label xml:lang="en">customization</rdfs:label>
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/software#iirdsSoftwareDomainEntity"/>
 		<iirds:description xml:lang="en"></iirds:description>
-		<rdfs:comment xml:lang="en">Lifecycle phase of a product containing activities relating to reworking a standard product to the special requirements of individual customers.</rdfs:comment>
+		<rdfs:comment xml:lang="en">lifecycle phase of a product containing activities relating to reworking a standard product to the special requirements of individual customers.</rdfs:comment>
 	</iirds:Use>	
 	
 	<iirds:AfterUse rdf:about="http://iirds.tekom.de/iirds/domain/software#Deinstallation">
 		<rdfs:label xml:lang="de">Deinstallation</rdfs:label>
-		<rdfs:label xml:lang="en">Deinstallation</rdfs:label>
+		<rdfs:label xml:lang="en">deinstallation</rdfs:label>
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/software#iirdsSoftwareDomainEntity"/>
 		<iirds:description xml:lang="en"></iirds:description>
 		<rdfs:comment xml:lang="en">lifecycle phase of a product containing procedures for deinstalling an IT system or removing a software from a system.</rdfs:comment>
@@ -50,7 +49,7 @@ This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 Int
 		<rdfs:label xml:lang="en">deployment</rdfs:label>
 		<rdf:type rdf:resource="http://iirds.tekom.de/iirds/domain/software#iirdsSoftwareDomainEntity"/>
 		<iirds:description xml:lang="en"></iirds:description>
-		<rdfs:comment xml:lang="en">lfecycle phase of a product describing activities related to making a software system available for use.</rdfs:comment>
+		<rdfs:comment xml:lang="en">lifecycle phase of a product describing activities related to making a software system available for use.</rdfs:comment>
 	</iirds:PuttingToUse>	
 	
 	<iirds:PuttingToUse rdf:about="http://iirds.tekom.de/iirds/domain/software#Integration">

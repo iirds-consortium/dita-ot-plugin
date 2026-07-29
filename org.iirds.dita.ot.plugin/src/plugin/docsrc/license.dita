@@ -10,7 +10,10 @@
         <p>The plugin was developed for the iiRDS consortium by <xref href="https://empolis.com"
                 scope="external" format="html">Empolis Information Management GmbH</xref>, testing
             and documentation was done by<xref href="https://parson-europe.com" scope="external"
-                format="html"> parson AG</xref>.</p>
+                format="html"> parson AG</xref>. A special thanks to Robert Johnson for his proposal
+            to use subject scheme maps with keys and @appid attributes to model iiRDS taxonomies. </p>
+        <p>The sources are available on GitHub together with an example that demonstrates the
+            extensibility of the plugin.</p>
         <p>In case of questions, contact the iiRDS consortium, see <xref
                 href="https://www.iirds.org/contact" format="html" scope="external"/>. </p>
     </conbody>

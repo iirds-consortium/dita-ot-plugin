@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
+<reference id="subjectscheme_mapping">
+    <title>Subject scheme class mapping</title>
+    <refbody>
+        <section>
+            <p>The <codeph>subjectscheme</codeph> metadata handler maps instances to iiRDS
+                properties based on the following fixed set of top-level iiRDS classes, which are
+                built into the plugin. Any class nested underneath one of these top-level classes
+                in a subject scheme map, at any depth, is resolved to the same property. See <xref
+                    keyref="subjectscheme_metadata"/> for details about this resolution.</p>
+            <table frame="all" rowsep="1" colsep="1" id="table_subjectscheme_mapping">
+                <title>Overview of top-level iiRDS classes and iiRDS properties</title>
+                <tgroup cols="3">
+                    <colspec colname="c1" colnum="1" colwidth="1*"/>
+                    <colspec colname="c2" colnum="2" colwidth="1.3*"/>
+                    <colspec colname="c3" colnum="3" colwidth="1.3*"/>
+                    <thead>
+                        <row>
+                            <entry>Top-level iiRDS class</entry>
+                            <entry>iiRDS property</entry>
+                            <entry>Comment</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><codeph>iirds:ProductVariant</codeph></entry>
+                            <entry><codeph>iirds:relates-to-product-variant</codeph></entry>
+                            <entry/>
+                        </row>
+                        <row>
+                            <entry><codeph>iirds:ProductFeature</codeph></entry>
+                            <entry><codeph>iirds:relates-to-product-feature</codeph></entry>
+                            <entry/>
+                        </row>
+                        <row>
+                            <entry><codeph>iirds:Component</codeph></entry>
+                            <entry><codeph>iirds:relates-to-component</codeph></entry>
+                            <entry/>
+                        </row>
+                        <row>
+                            <entry><codeph>iirds:Supply</codeph></entry>
+                            <entry><codeph>iirds:relates-to-supply</codeph></entry>
+                            <entry/>
+                        </row>
+                        <row>
+                            <entry><codeph>iirds:Event</codeph></entry>
+                            <entry><codeph>iirds:relates-to-event</codeph></entry>
+                            <entry/>
+                        </row>
+                        <row>
+                            <entry><codeph>iirds:Qualification</codeph></entry>
+                            <entry><codeph>iirds:relates-to-qualification</codeph></entry>
+                            <entry>Includes the predefined classes <codeph>iirds:Role</codeph> and
+                                    <codeph>iirds:SkillLevel</codeph>.</entry>
+                        </row>
+                        <row>
+                            <entry><codeph>iirds:InformationSubject</codeph></entry>
+                            <entry><codeph>iirds:has-subject</codeph></entry>
+                            <entry/>
+                        </row>
+                        <row>
+                            <entry><codeph>iirds:ProductLifeCyclePhase</codeph></entry>
+                            <entry><codeph>iirds:relates-to-product-lifecycle-phase</codeph></entry>
+                            <entry>Example instance: <codeph>iirds:Repair</codeph>.</entry>
+                        </row>
+                        <row>
+                            <entry><codeph>iirds:DocumentType</codeph></entry>
+                            <entry><codeph>iirds:has-document-type</codeph> (on
+                                    <codeph>iirds:Document</codeph>) or <codeph
+                                    >iirds:is-applicable-for-document-type</codeph> (on
+                                    <codeph>iirds:Topic</codeph>)</entry>
+                            <entry>The property depends on whether the metadata is assigned to the
+                                root map (<codeph>iirds:Document</codeph>) or a topic. Example
+                                instance: <codeph>iirds:OperatingInstructions</codeph>.</entry>
+                        </row>
+                        <row>
+                            <entry><codeph>iirds:DocumentCategory</codeph> (iiRDS handover
+                                domain)</entry>
+                            <entry><codeph>iirds:has-document-category</codeph></entry>
+                            <entry>Only applied when the metadata is assigned to the root map
+                                    (<codeph>iirds:Document</codeph>).</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <p>A class that is not one of these top-level classes, and not nested underneath one
+                of them, is not mapped to an iiRDS property by the <codeph>subjectscheme</codeph>
+                handler. Adding a genuinely new top-level class, one that is not a descendant of
+                any class in this table, requires a change to the plugin. See <xref
+                    keyref="metadata_handler_behavior"/> for this and other current
+                limitations.</p>
+        </section>
+        <section>
+            <title>Predefined iiRDS subclasses and instances</title>
+            <p>The iiRDS standard already defines many classes and instances underneath the
+                top-level classes above, for common cases such as document types, product life cycle
+                phases, and information subjects. For easy application of these predefined entries,
+                this plugin ships with a subject scheme map that was generated from the iiRDS RDF
+                schemas. After integrating this subject scheme map into your DITA content, the
+                corresponding <codeph>&lt;subjectdef></codeph> entries can be referenced using
+                    <codeph>&lt;data keyref="..."></codeph>. Custom subclasses and instances are
+                typically needed for project- or domain-specific concepts, such as product variants
+                and components, that are not already part of the iiRDS standard. These can be
+                integrated into the subject scheme map using custom IRIs and then referenced the
+                same way as the predefined entries.</p>
+            <p>See <xref keyref="subjectscheme_authoring"/> for best practices on extending and
+                using the subject scheme map.</p>
+        </section>
+    </refbody>
+    <related-links>
+        <link keyref="subjectscheme_generator"/>
+    </related-links>
+</reference>

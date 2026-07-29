@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2024 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
+ * Copyright 2024-2026 Gesellschaft für Technische Kommunikation – tekom Deutschland e.V., https://iirds.org 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@ import org.iirds.rdf.RDFUtils;
 /**
  *
  * Factory for iiRDS RDF model objects
+ * 
  * @author Martin Kreutzer, Empolis Information Management GmbH
  *
  */
@@ -49,6 +50,12 @@ public class Factory {
 	public static void setType(Resource resource, String classURI) {
 		if (resource.getPropertyResourceValue(RDF.type) == null) {
 			resource.addProperty(RDF.type, resource.getModel().getResource(classURI));
+		}
+	}
+
+	public static void setSuperType(Resource resource, String classURI) {
+		if (resource.getPropertyResourceValue(RDFS.subClassOf) == null) {
+			resource.addProperty(RDFS.subClassOf, resource.getModel().getResource(classURI));
 		}
 	}
 

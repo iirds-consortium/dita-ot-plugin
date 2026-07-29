@@ -37,7 +37,7 @@
                 </dlentry>
             </dl>
             <p>For details on adding ANT targets to extension points, see <xref
-                    href="https://www.dita-ot.org/3.7/topics/plugin-antpreprocess" format="html"
+                    href="https://www.dita-ot.org/4.3/topics/plugin-antpreprocess" format="html"
                     scope="external"/>.</p>
         </section>
         <section id="section_tjf_5b5_21c">

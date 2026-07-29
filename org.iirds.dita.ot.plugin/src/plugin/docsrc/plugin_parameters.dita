@@ -63,14 +63,21 @@
                             </dlentry>
                             <dlentry>
                                 <dt><codeph>audience</codeph></dt>
-                                <dd>Sets <codeph>iirds:iirds:relates-to-qualification</codeph>  to
+                                <dd>Sets <codeph>iirds:relates-to-qualification</codeph>  to
                                     the value of the DITA <codeph>audience</codeph> element.</dd>
                             </dlentry>
                             <dlentry>
                                 <dt><codeph>audience-p</codeph></dt>
-                                <dd>Sets <codeph>iirds:iirds:relates-to-qualification</codeph>  to
+                                <dd>Sets <codeph>iirds:relates-to-qualification</codeph>  to
                                     the value of the DITA <codeph>audience</codeph> attribute on the
                                     root element.</dd>
+                            </dlentry>
+                            <dlentry>
+                                <dt><codeph>subjectscheme</codeph></dt>
+                                <dd>Sets the iiRDS property that matches the resolved class of each
+                                        <codeph>&lt;subjectdef></codeph> referenced by a
+                                        <codeph>&lt;data></codeph> element with a
+                                        <codeph>@keyref</codeph> attribute. </dd>
                             </dlentry>
                             <dlentry>
                                 <dt><codeph>default</codeph></dt>
