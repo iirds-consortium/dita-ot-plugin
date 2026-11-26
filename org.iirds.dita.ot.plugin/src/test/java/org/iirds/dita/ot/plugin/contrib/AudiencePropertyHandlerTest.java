@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -34,8 +35,14 @@ import org.dita.dost.store.Store;
 import org.dita.dost.store.StreamStore;
 import org.dita.dost.util.Job;
 import org.dita.dost.util.XMLUtils;
+import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.vocabulary.RDFS;
+import org.iirds.dita.ot.plugin.model.RelationType;
+import org.iirds.dita.ot.plugin.model.SubjectDef;
+import org.iirds.dita.ot.plugin.model.SubjectDefinitions;
 import org.iirds.dita.ot.plugin.model.ToCNode;
 import org.iirds.dita.ot.plugin.test.TestLogger;
+import org.iirds.rdf.IirdsConstants;
 import org.iirds.rdf.RDFConstants;
 import org.iirds.rdf.facade.Factory;
 import org.iirds.rdf.facade.InformationUnits;
@@ -100,6 +107,62 @@ class AudiencePropertyHandlerTest {
 		handler.addToModel(node, model);
 		List<RDFNode> qualis = InformationUnits.getRelatedQualifications(topic);
 		assertEquals(1, qualis.size());
+	}
+
+	/** Registers a subject scheme with qualification > role > the given role instance. */
+	static void registerRole(String key, String label, String iri) {
+		SubjectDef qualification = subjectDef("iirds.Qualification", "qualification",
+				IirdsConstants.QUALIFICATION_CLASS_URI, "class-iri", null);
+		SubjectDef role = subjectDef("iirds.Role", "role", IirdsConstants.ROLE_CLASS_URI, "class-iri", qualification);
+		SubjectDefinitions.getDefault().register(subjectDef(key, label, iri, "instance-iri", role));
+	}
+
+	static SubjectDef subjectDef(String key, String label, String appid, String appname, SubjectDef parent) {
+		SubjectDef def = new SubjectDef();
+		def.setKeys(key);
+		def.setLabel(label);
+		def.setAppid(appid);
+		def.setAppname(appname);
+		if (parent != null) {
+			def.addRelatedSubjectDef(RelationType.CHILD_OF, parent);
+		}
+		return def;
+	}
+
+	List<String> qualificationsAfterAdding(String rolename) throws Exception {
+		ToCNode node = new ToCNode();
+		node.setURI(new URI("topic_1.dita"));
+		Resource topic = Factory.createTopic(model, "urn:topic1");
+		node.setInformationUnit(topic);
+		node.setProperty(AudiencePropertyHandler.PROP_AUDIENCE, Collections.singleton(rolename));
+		handler.addToModel(node, model);
+		List<String> uris = new ArrayList<>();
+		InformationUnits.getRelatedQualifications(topic).forEach(q -> uris.add(q.asResource().getURI()));
+		return uris;
+	}
+
+	@Test
+	void testRoleFromSubjectSchemeByLabel() throws Exception {
+		registerRole("ed.role.proofreader", "Proofreader", "https://example.org/role#Proofreader");
+		assertEquals(List.of("https://example.org/role#Proofreader"), qualificationsAfterAdding("proofreader"),
+				"An audience value matching the navtitle of a role in the subject scheme takes its IRI");
+		Resource role = model.getResource("https://example.org/role#Proofreader");
+		assertEquals("Proofreader", role.getProperty(RDFS.label).getString());
+		assertTrue(role.hasProperty(RDF.type, model.getResource(IirdsConstants.ROLE_CLASS_URI)));
+	}
+
+	@Test
+	void testRoleFromSubjectSchemeByKey() throws Exception {
+		registerRole("translator", "Language Expert", "https://example.org/role#Translator");
+		assertEquals(List.of("https://example.org/role#Translator"), qualificationsAfterAdding("translator"),
+				"An audience value matching the key of a role in the subject scheme takes its IRI");
+	}
+
+	@Test
+	void testRoleOutsideTheSubjectSchemeKeepsItsGeneratedIRI() throws Exception {
+		List<String> uris = qualificationsAfterAdding("Unscheduled Visitor");
+		assertEquals(1, uris.size());
+		assertTrue(uris.get(0).startsWith("urn:md5:"), "Fallback stays the label based IRI: " + uris);
 	}
 
 }

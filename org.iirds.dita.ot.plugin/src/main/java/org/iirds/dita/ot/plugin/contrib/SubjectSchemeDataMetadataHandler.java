@@ -136,6 +136,36 @@ public class SubjectSchemeDataMetadataHandler implements IirdsMetadataHandler {
 		}
 	}
 
+	/**
+	 * Finds the instance of an iiRDS class in the subject scheme that a plain
+	 * value such as an {@code @audience} token stands for: first the subject
+	 * definition whose key is the value (DITA binds attribute values to subject
+	 * keys), else the one whose navtitle equals it, ignoring case. Only instances
+	 * ({@code appname="instance-iri"}) below the given class count.
+	 */
+	static Optional<SubjectDef> findInstance(String classUri, String value) {
+		if (StringUtils.isBlank(value)) {
+			return Optional.empty();
+		}
+		List<SubjectDef> instances = SubjectDefinitions.getDefault().getSubjectDefs().stream()
+				.filter(def -> INSTANCE_IRI.equals(def.getAppname()) && def.getAppid() != null)
+				.filter(def -> isInstanceOf(def, classUri)).toList();
+		Optional<SubjectDef> byKey = instances.stream().filter(def -> def.getKeys().contains(value)).findFirst();
+		if (byKey.isPresent()) {
+			return byKey;
+		}
+		return instances.stream().filter(def -> StringUtils.equalsIgnoreCase(def.getLabel(), value)).findFirst();
+	}
+
+	static boolean isInstanceOf(SubjectDef subjectdef, String classUri) {
+		for (SubjectDef clazz = findClassOf(subjectdef); clazz != null; clazz = findClassOf(clazz)) {
+			if (classUri.equals(clazz.getAppid())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	static boolean isClass(SubjectDef subjectdef) {
 		return subjectdef != null && CLASS_IRI.equals(subjectdef.getAppname());
 	}
