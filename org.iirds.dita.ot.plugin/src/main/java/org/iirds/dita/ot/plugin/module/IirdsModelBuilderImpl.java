@@ -82,6 +82,7 @@ public class IirdsModelBuilderImpl implements IirdsModelBuilder {
 		} else {
 			this.document = Factory.createDocument(getInfModel(), getIRIHandler().getDocumentOrTopicIRI(root));
 			root.setInformationUnit(this.document);
+			InformationUnits.setPartOfPackage(this.document, iirdsPackage);
 			if (!StringUtils.isBlank(root.getLanguage())) {
 				InformationUnits.addLanguage(this.document, root.getLanguage());
 			}
