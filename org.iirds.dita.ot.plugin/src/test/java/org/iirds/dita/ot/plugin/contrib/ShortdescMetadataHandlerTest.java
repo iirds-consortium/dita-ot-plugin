@@ -17,10 +17,14 @@
 package org.iirds.dita.ot.plugin.contrib;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URI;
+
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
@@ -38,6 +42,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
 /**
  * 
@@ -92,4 +97,56 @@ class ShortdescMetadataHandlerTest {
 		assertEquals("Topic 1 has a short description", shortdesc);
 	}
 
+
+	static final String TOPIC = "class=\"- topic/topic \"";
+	static final String SHORTDESC = "class=\"- topic/shortdesc \"";
+	static final String MAP_SHORTDESC = "class=\"- topic/shortdesc map/shortdesc \"";
+	static final String TOPICMETA = "class=\"- map/topicmeta \"";
+	static final String TOPICREF = "class=\"- map/topicref \"";
+
+	Document parse(String xml) throws Exception {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		return factory.newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
+	}
+
+	String extract(String xml) throws Exception {
+		ToCNode node = new ToCNode(new URI("test.dita"));
+		handler.extractMetadata(node, parse(xml));
+		return node.getPropertyAsString(ShortdescMetadataHandler.META_SHORTDESC);
+	}
+
+	@Test
+	void testShortdescInsideAbstract() throws Exception {
+		String xml = "<topic " + TOPIC + " id=\"t\"><title>T</title>"
+				+ "<abstract class=\"- topic/abstract \"><shortdesc " + SHORTDESC + ">In the abstract</shortdesc>"
+				+ "</abstract></topic>";
+		assertEquals("In the abstract", extract(xml));
+	}
+
+	@Test
+	void testNestedTopicShortdescIsNotTaken() throws Exception {
+		String xml = "<topic " + TOPIC + " id=\"parent\"><title>Parent</title>"
+				+ "<topic " + TOPIC + " id=\"child\"><title>Child</title>"
+				+ "<shortdesc " + SHORTDESC + ">Describes the child</shortdesc></topic></topic>";
+		assertNull(extract(xml), "A topic without its own shortdesc must not take the one of a nested topic");
+	}
+
+	@Test
+	void testMapShortdescInTopicmeta() throws Exception {
+		String xml = "<map class=\"- map/map \"><title>Map</title>"
+				+ "<topicmeta " + TOPICMETA + "><shortdesc " + MAP_SHORTDESC + ">Describes the map</shortdesc>"
+				+ "</topicmeta>"
+				+ "<topicref " + TOPICREF + " href=\"a.dita\"><topicmeta " + TOPICMETA + "><shortdesc "
+				+ MAP_SHORTDESC + ">Describes a topicref</shortdesc></topicmeta></topicref></map>";
+		assertEquals("Describes the map", extract(xml));
+	}
+
+	@Test
+	void testTopicrefShortdescIsNotTakenForTheMap() throws Exception {
+		String xml = "<map class=\"- map/map \"><title>Map</title>"
+				+ "<topicref " + TOPICREF + " href=\"a.dita\"><topicmeta " + TOPICMETA + "><shortdesc "
+				+ MAP_SHORTDESC + ">Describes a topicref</shortdesc></topicmeta></topicref></map>";
+		assertNull(extract(xml), "A map without its own shortdesc must not take the one of a topicref");
+	}
 }
