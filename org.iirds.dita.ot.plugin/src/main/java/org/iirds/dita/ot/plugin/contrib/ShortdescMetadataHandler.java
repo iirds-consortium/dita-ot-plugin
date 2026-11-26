@@ -17,6 +17,7 @@
 package org.iirds.dita.ot.plugin.contrib;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.Model;
@@ -53,12 +54,37 @@ public class ShortdescMetadataHandler implements IirdsMetadataHandler {
 	@Override
 	public void extractMetadata(ToCNode node, Document document) {
 
-		List<Element> shortdesc = XMLUtils.getChildElements(document.getDocumentElement(), Constants.TOPIC_SHORTDESC,
-				true);
-
-		if (!shortdesc.isEmpty()) {
-			node.setProperty(META_SHORTDESC, XMLUtils.getText(shortdesc.get(0)));
+		Optional<Element> shortdesc = getOwnShortdesc(document.getDocumentElement());
+		if (shortdesc.isPresent()) {
+			node.setProperty(META_SHORTDESC, XMLUtils.getText(shortdesc.get()));
 		}
+	}
+
+	/**
+	 * The short description of the element itself, not one of a nested topic or
+	 * topicref: for a topic its {@code <shortdesc>}, also inside
+	 * {@code <abstract>}; for a map or topicref the {@code <shortdesc>} in its
+	 * {@code <topicmeta>}, whose class is {@code map/shortdesc}.
+	 */
+	static Optional<Element> getOwnShortdesc(Element root) {
+		if (Constants.TOPIC_TOPIC.matches(root)) {
+			Optional<Element> shortdesc = XMLUtils.getChildElement(root, Constants.TOPIC_SHORTDESC);
+			if (shortdesc.isPresent()) {
+				return shortdesc;
+			}
+			Optional<Element> abstractElem = XMLUtils.getChildElement(root, Constants.TOPIC_ABSTRACT);
+			if (abstractElem.isPresent()) {
+				List<Element> inAbstract = XMLUtils.getChildElements(abstractElem.get(), Constants.TOPIC_SHORTDESC,
+						true);
+				return inAbstract.stream().findFirst();
+			}
+			return Optional.empty();
+		}
+		Optional<Element> topicmeta = XMLUtils.getChildElement(root, Constants.MAP_TOPICMETA);
+		if (topicmeta.isPresent()) {
+			return XMLUtils.getChildElement(topicmeta.get(), Constants.MAP_SHORTDESC);
+		}
+		return Optional.empty();
 	}
 
 	@Override
