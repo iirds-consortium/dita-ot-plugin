@@ -85,6 +85,9 @@ public class IirdsModelBuilderImpl implements IirdsModelBuilder {
 			if (!StringUtils.isBlank(root.getLanguage())) {
 				InformationUnits.addLanguage(this.document, root.getLanguage());
 			}
+			if (!StringUtils.isBlank(root.getTitle())) {
+				InformationUnits.setTitle(this.document, root.getTitle());
+			}
 			root.getChildren().forEach(this::addTopicNodes);
 		}
 		return this;

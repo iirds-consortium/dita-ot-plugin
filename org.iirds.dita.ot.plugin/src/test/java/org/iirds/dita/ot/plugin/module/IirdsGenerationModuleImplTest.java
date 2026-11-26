@@ -94,6 +94,8 @@ class IirdsGenerationModuleImplTest {
 			assertEquals(1, InformationUnits.getPackages(model).size());
 			assertEquals(5, DirectoryNodes.getDirecotryNodes(model).size(), "Number of directory nodes is unexpected");
 			assertEquals(1, InformationUnits.getDocuments(model).size());
+			assertEquals("Document title", InformationUnits.getTitle(InformationUnits.getDocuments(model).get(0)),
+					"The document takes the title of the map");
 			assertEquals(2, InformationUnits.getTopics(model).size());
 
 		} finally {
