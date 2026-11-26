@@ -128,4 +128,24 @@ class IirdsGenerationModuleImplTest {
 			FileUtils.deleteDirectory(outDir);
 		}
 	}
+
+	@Test
+	void testTocRootIsLinkedToDocument() throws Exception {
+		File outDir = Files.createTempDir();
+		try {
+			Model model = generate(outDir);
+			Resource document = InformationUnits.getDocuments(model).get(0);
+			Resource root = null;
+			for (Resource node : DirectoryNodes.getDirecotryNodes(model)) {
+				if (node.hasProperty(model.createProperty(IirdsConstants.HASDIRCTORYSTRUCTURETYPE_PROPERTY_URI))) {
+					root = node;
+				}
+			}
+			assertTrue(root != null, "No table of contents root node found");
+			assertTrue(model.contains(root, model.createProperty(IirdsConstants.RELATESTOINFORMATIONUNIT_PROPERTY_URI),
+					document), "TOC root node is not linked to the document");
+		} finally {
+			FileUtils.deleteDirectory(outDir);
+		}
+	}
 }
