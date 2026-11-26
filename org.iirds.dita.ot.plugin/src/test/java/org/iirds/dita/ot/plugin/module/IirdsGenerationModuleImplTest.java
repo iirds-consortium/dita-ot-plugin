@@ -24,6 +24,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.Resource;
 import org.dita.dost.log.DITAOTLogger;
 import org.dita.dost.pipeline.AbstractPipelineInput;
 import org.dita.dost.pipeline.PipelineHashIO;
@@ -33,6 +34,7 @@ import org.dita.dost.util.Job;
 import org.dita.dost.util.XMLUtils;
 import org.iirds.dita.ot.plugin.Configuration;
 import org.iirds.dita.ot.plugin.test.TestLogger;
+import org.iirds.rdf.IirdsConstants;
 import org.iirds.rdf.RDFConstants;
 import org.iirds.rdf.facade.DirectoryNodes;
 import org.iirds.rdf.facade.InformationUnits;
@@ -96,6 +98,52 @@ class IirdsGenerationModuleImplTest {
 			assertEquals(1, InformationUnits.getDocuments(model).size());
 			assertEquals(2, InformationUnits.getTopics(model).size());
 
+		} finally {
+			FileUtils.deleteDirectory(outDir);
+		}
+	}
+
+	Model generate(File outDir) throws Exception {
+		AbstractPipelineInput input = new PipelineHashIO();
+		File tmpDir = new File(getClass().getResource("/dita.temp/extractor").toURI());
+		Job job = createJob(tmpDir);
+		job.setOutputDir(outDir);
+		IirdsGenerationModuleImpl module = new IirdsGenerationModuleImpl();
+		module.setLogger(logger);
+		module.setJob(job);
+		module.execute(input);
+		return getModel(new File(new File(outDir, Constants.METAINF_DIRNAME), Constants.RDF_FILENAME));
+	}
+
+	@Test
+	void testDocumentIsPartOfPackage() throws Exception {
+		File outDir = Files.createTempDir();
+		try {
+			Model model = generate(outDir);
+			Resource document = InformationUnits.getDocuments(model).get(0);
+			Resource pack = InformationUnits.getPackages(model).get(0);
+			assertTrue(model.contains(document, model.createProperty(IirdsConstants.ISPARTOFPACKAGE_PROPERTY_URI), pack),
+					"Document is not linked to the package");
+		} finally {
+			FileUtils.deleteDirectory(outDir);
+		}
+	}
+
+	@Test
+	void testTocRootIsLinkedToDocument() throws Exception {
+		File outDir = Files.createTempDir();
+		try {
+			Model model = generate(outDir);
+			Resource document = InformationUnits.getDocuments(model).get(0);
+			Resource root = null;
+			for (Resource node : DirectoryNodes.getDirecotryNodes(model)) {
+				if (node.hasProperty(model.createProperty(IirdsConstants.HASDIRCTORYSTRUCTURETYPE_PROPERTY_URI))) {
+					root = node;
+				}
+			}
+			assertTrue(root != null, "No table of contents root node found");
+			assertTrue(model.contains(root, model.createProperty(IirdsConstants.RELATESTOINFORMATIONUNIT_PROPERTY_URI),
+					document), "TOC root node is not linked to the document");
 		} finally {
 			FileUtils.deleteDirectory(outDir);
 		}
