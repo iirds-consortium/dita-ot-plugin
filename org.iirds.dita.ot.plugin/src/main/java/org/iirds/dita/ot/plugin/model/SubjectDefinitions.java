@@ -16,6 +16,7 @@
 package org.iirds.dita.ot.plugin.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +61,15 @@ public class SubjectDefinitions {
 	 */
 	public Optional<SubjectDef> getSubjectDefByKey(String key) {
 		return Optional.ofNullable(keysToSubjectsdefs.get(key));
+	}
+
+	/**
+	 * All registered subject definitions, in the order of registration.
+	 *
+	 * @return an unmodifiable view
+	 */
+	public List<SubjectDef> getSubjectDefs() {
+		return Collections.unmodifiableList(subjectdefs);
 	}
 
 }

@@ -19,6 +19,7 @@ package org.iirds.dita.ot.plugin.contrib;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
@@ -29,6 +30,7 @@ import org.apache.jena.rdf.model.Resource;
 import org.dita.dost.util.Constants;
 import org.dita.dost.util.FilterUtilsProxy;
 import org.iirds.dita.ot.plugin.Configuration;
+import org.iirds.dita.ot.plugin.model.SubjectDef;
 import org.iirds.dita.ot.plugin.model.ToCNode;
 import org.iirds.dita.ot.plugin.spi.IirdsMetadataHandler;
 import org.iirds.rdf.IirdsConstants;
@@ -90,10 +92,17 @@ public class AudiencePropertyHandler implements IirdsMetadataHandler {
 		Set<String> rolenames = (Set<String>) root.getProperty(PROP_AUDIENCE);
 		if (infoUnit != null && rolenames != null && !rolenames.isEmpty()) {
 			for (String rolename : rolenames) {
-				String iri = config.getIRIHandler().getMetadataIRI(root, IirdsConstants.ROLE_CLASS_URI, rolename,
-						PROP_AUDIENCE);
+				// a role defined in the subject scheme keeps its IRI and label there
+				Optional<SubjectDef> defined = SubjectSchemeDataMetadataHandler
+						.findInstance(IirdsConstants.ROLE_CLASS_URI, rolename);
+				String iri = defined.isPresent() ? defined.get().getAppid()
+						: config.getIRIHandler().getMetadataIRI(root, IirdsConstants.ROLE_CLASS_URI, rolename,
+								PROP_AUDIENCE);
+				String label = defined.isPresent() && !StringUtils.isBlank(defined.get().getLabel())
+						? defined.get().getLabel()
+						: rolename;
 				Resource role = Factory.createRole(infoUnit.getModel(), iri);
-				Factory.setLabel(role, rolename, root.getLanguage());
+				Factory.setLabel(role, label, root.getLanguage());
 				InformationUnits.addRelatedQualification(infoUnit, role);
 			}
 		}
