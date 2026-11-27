@@ -65,10 +65,13 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.7.1</version>
 				<configuration>
 					<appendAssemblyId>false</appendAssemblyId>
 					<finalName>org.iirds.dita.package-${project.version}</finalName>
-					<descriptor>src/assemble/assembly.xml</descriptor>
+					<descriptors>
+						<descriptor>src/assemble/assembly.xml</descriptor>
+					</descriptors>
 				</configuration>
 				<executions>
 					<execution>
